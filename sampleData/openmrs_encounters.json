@@ -1,0 +1,48 @@
+{
+    "results": [
+        {
+            "uuid": "a051cd5e-7ddc-4f3d-ac08-b58f418efc11",
+            "display": "Consultation 05/18/2023",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/encounter/a051cd5e-7ddc-4f3d-ac08-b58f418efc11",
+                    "resourceAlias": "encounter"
+                }
+            ]
+        },
+        {
+            "uuid": "391dc922-ea39-42b7-af5c-0416d8e316d2",
+            "display": "Consultation 05/18/2023",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/encounter/391dc922-ea39-42b7-af5c-0416d8e316d2",
+                    "resourceAlias": "encounter"
+                }
+            ]
+        },
+        {
+            "uuid": "f9ac9e59-30fb-4cf4-a42e-f18a297bd6ef",
+            "display": "Consultation 05/18/2023",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/encounter/f9ac9e59-30fb-4cf4-a42e-f18a297bd6ef",
+                    "resourceAlias": "encounter"
+                }
+            ]
+        },
+        {
+            "uuid": "33b0b342-d797-4fe2-ba9c-b488a51d3b49",
+            "display": "Consultation 05/23/2023",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/encounter/33b0b342-d797-4fe2-ba9c-b488a51d3b49",
+                    "resourceAlias": "encounter"
+                }
+            ]
+        }
+    ]
+}

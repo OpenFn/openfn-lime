@@ -1,0 +1,101 @@
+{
+    "uuid": "33b0b342-d797-4fe2-ba9c-b488a51d3b49",
+    "display": "Consultation 05/23/2023",
+    "encounterDatetime": "2023-05-23T12:58:36.000+0000",
+    "patient": {
+        "uuid": "681f8785-c9ca-4dc8-a091-7b869316ff93",
+        "display": "100000Y - Patient Zero",
+        "links": [
+            {
+                "rel": "self",
+                "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/patient/681f8785-c9ca-4dc8-a091-7b869316ff93",
+                "resourceAlias": "patient"
+            }
+        ]
+    },
+    "location": {
+        "uuid": "ba685651-ed3b-4e63-9b35-78893060758a",
+        "display": "Inpatient Ward",
+        "links": [
+            {
+                "rel": "self",
+                "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/location/ba685651-ed3b-4e63-9b35-78893060758a",
+                "resourceAlias": "location"
+            }
+        ]
+    },
+    "form": {
+        "uuid": "c27098e9-6a88-4159-a3c8-44b437150e0f",
+        "display": "Initial Consultation",
+        "links": [
+            {
+                "rel": "self",
+                "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/form/c27098e9-6a88-4159-a3c8-44b437150e0f",
+                "resourceAlias": "form"
+            }
+        ]
+    },
+    "encounterType": {
+        "uuid": "dd528487-82a5-4082-9c72-ed246bd49591",
+        "display": "Consultation",
+        "links": [
+            {
+                "rel": "self",
+                "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/encountertype/dd528487-82a5-4082-9c72-ed246bd49591",
+                "resourceAlias": "encountertype"
+            }
+        ]
+    },
+    "obs": [
+        {
+            "uuid": "c1bd2ddf-688f-4928-9334-5adb26293460",
+            "display": "Entry triage color code: Green",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/obs/c1bd2ddf-688f-4928-9334-5adb26293460",
+                    "resourceAlias": "obs"
+                }
+            ]
+        },
+        {
+            "uuid": "a089e95e-c449-4302-b486-da4c7c9e16f9",
+            "display": "Final Diagnosis: Acute diarrhea (non-bloody)",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/obs/a089e95e-c449-4302-b486-da4c7c9e16f9",
+                    "resourceAlias": "obs"
+                }
+            ]
+        }
+    ],
+    "orders": [],
+    "voided": false,
+    "visit": {
+        "uuid": "6d593253-6ed4-4359-996b-cce987877a9c",
+        "display": "Facility Visit @ Inpatient Ward - 05/19/2023 10:21 AM",
+        "links": [
+            {
+                "rel": "self",
+                "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/visit/6d593253-6ed4-4359-996b-cce987877a9c",
+                "resourceAlias": "visit"
+            }
+        ]
+    },
+    "encounterProviders": [],
+    "diagnoses": [],
+    "links": [
+        {
+            "rel": "self",
+            "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/encounter/33b0b342-d797-4fe2-ba9c-b488a51d3b49",
+            "resourceAlias": "encounter"
+        },
+        {
+            "rel": "full",
+            "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/encounter/33b0b342-d797-4fe2-ba9c-b488a51d3b49?v=full",
+            "resourceAlias": "encounter"
+        }
+    ],
+    "resourceVersion": "2.2"
+}
