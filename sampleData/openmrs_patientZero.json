@@ -1,0 +1,81 @@
+{
+  "uuid": "681f8785-c9ca-4dc8-a091-7b869316ff93",
+  "display": "100000Y - Patient Zero",
+  "identifiers": [
+    {
+      "uuid": "9c6190ff-1fd5-485f-bec6-ef85b68e792d",
+      "display": "OpenMRS ID = 100000Y",
+      "links": [
+        {
+          "rel": "self",
+          "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/patient/681f8785-c9ca-4dc8-a091-7b869316ff93/identifier/9c6190ff-1fd5-485f-bec6-ef85b68e792d",
+          "resourceAlias": "identifier"
+        }
+      ]
+    }
+  ],
+  "person": {
+    "uuid": "681f8785-c9ca-4dc8-a091-7b869316ff93",
+    "display": "Patient Zero",
+    "gender": "F",
+    "age": 41,
+    "birthdate": "1982-05-18T00:00:00.000+0000",
+    "birthdateEstimated": true,
+    "dead": false,
+    "deathDate": null,
+    "causeOfDeath": null,
+    "preferredName": {
+      "uuid": "adcee332-7f9e-4cca-ae53-2cdcb1e6a5c8",
+      "display": "Patient Zero",
+      "links": [
+        {
+          "rel": "self",
+          "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/person/681f8785-c9ca-4dc8-a091-7b869316ff93/name/adcee332-7f9e-4cca-ae53-2cdcb1e6a5c8",
+          "resourceAlias": "name"
+        }
+      ]
+    },
+    "preferredAddress": {
+      "uuid": "ecad38a6-dcec-433d-85d2-60fba7b0ad7c",
+      "display": null,
+      "links": [
+        {
+          "rel": "self",
+          "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/person/681f8785-c9ca-4dc8-a091-7b869316ff93/address/ecad38a6-dcec-433d-85d2-60fba7b0ad7c",
+          "resourceAlias": "address"
+        }
+      ]
+    },
+    "attributes": [],
+    "voided": false,
+    "birthtime": null,
+    "deathdateEstimated": false,
+    "links": [
+      {
+        "rel": "self",
+        "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/person/681f8785-c9ca-4dc8-a091-7b869316ff93",
+        "resourceAlias": "person"
+      },
+      {
+        "rel": "full",
+        "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/person/681f8785-c9ca-4dc8-a091-7b869316ff93?v=full",
+        "resourceAlias": "person"
+      }
+    ],
+    "resourceVersion": "1.11"
+  },
+  "voided": false,
+  "links": [
+    {
+      "rel": "self",
+      "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/patient/681f8785-c9ca-4dc8-a091-7b869316ff93",
+      "resourceAlias": "patient"
+    },
+    {
+      "rel": "full",
+      "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/patient/681f8785-c9ca-4dc8-a091-7b869316ff93?v=full",
+      "resourceAlias": "patient"
+    }
+  ],
+  "resourceVersion": "1.8"
+}
