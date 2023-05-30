@@ -1,0 +1,70 @@
+{
+    "results": [
+        {
+            "uuid": "05a29f94-c0ed-11e2-94be-8c13b969e334",
+            "display": "OpenMRS ID",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/patientidentifiertype/05a29f94-c0ed-11e2-94be-8c13b969e334",
+                    "resourceAlias": "patientidentifiertype"
+                }
+            ]
+        },
+        {
+            "uuid": "b4143563-16cd-4439-b288-f83d61670fc8",
+            "display": "ID Card",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/patientidentifiertype/b4143563-16cd-4439-b288-f83d61670fc8",
+                    "resourceAlias": "patientidentifiertype"
+                }
+            ]
+        },
+        {
+            "uuid": "22348099-3873-459e-a32e-d93b17eda533",
+            "display": "Legacy ID",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/patientidentifiertype/22348099-3873-459e-a32e-d93b17eda533",
+                    "resourceAlias": "patientidentifiertype"
+                }
+            ]
+        },
+        {
+            "uuid": "8d79403a-c2cc-11de-8d13-0010c6dffd0f",
+            "display": "Old Identification Number",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/patientidentifiertype/8d79403a-c2cc-11de-8d13-0010c6dffd0f",
+                    "resourceAlias": "patientidentifiertype"
+                }
+            ]
+        },
+        {
+            "uuid": "8d793bee-c2cc-11de-8d13-0010c6dffd0f",
+            "display": "OpenMRS Identification Number",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/patientidentifiertype/8d793bee-c2cc-11de-8d13-0010c6dffd0f",
+                    "resourceAlias": "patientidentifiertype"
+                }
+            ]
+        },
+        {
+            "uuid": "a71403f3-8584-4289-ab41-2b4e5570bd45",
+            "display": "SSN",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/rest/v1/patientidentifiertype/a71403f3-8584-4289-ab41-2b4e5570bd45",
+                    "resourceAlias": "patientidentifiertype"
+                }
+            ]
+        }
+    ]
+}
