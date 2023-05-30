@@ -8,7 +8,8 @@ get(
     program: 'uGHvY5HFoLG',
   },
   state => {
+    const { trackedEntityInstances } = state;
     // console.log('TEI data ::', JSON.stringify(state.data));
-    return state;
+    return { ...state, trackedEntityInstances };
   }
 );
