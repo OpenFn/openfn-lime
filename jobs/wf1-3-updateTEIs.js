@@ -1,3 +1,4 @@
+// Update TEI on DHIS2
 each('newPatientUuid[*]', state => {
   console.log(JSON.stringify(state.data, null, 2));
 

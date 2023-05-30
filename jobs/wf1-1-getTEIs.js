@@ -1,6 +1,5 @@
-// query: 'inactive:eq:true',
-// filter: ['inactive:eq:true'], //option 2 - TBD which option works
-// inactive: true, //option 1 to filter by inactive
+// Get trackedEntityInstances from DHIS2
+// TODO: How to filter based on inactive?
 get(
   'trackedEntityInstances',
   {
@@ -9,7 +8,6 @@ get(
   },
   state => {
     const { trackedEntityInstances } = state;
-    // console.log('TEI data ::', JSON.stringify(state.data));
     return { ...state, trackedEntityInstances };
   }
 );
