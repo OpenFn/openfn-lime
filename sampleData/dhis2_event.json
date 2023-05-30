@@ -1,0 +1,17 @@
+{
+    "program": "uGHvY5HFoLG",
+    "orgUnit": "l22DQq4iV3G",
+    "programStage": "hfKSeo6nZK0",
+    "trackedEntityInstance": "cPQDZSzEuiu",
+    "eventDate": "2023-05-30T00:00:00.000",
+    "dataValues": [
+        {
+            "dataElement": "ZTSBtZKc8Ff",
+            "value": "risk_of_sepsis"
+        },
+        {
+            "dataElement": "vqGFXhDM1XG",
+            "value": "yellow"
+        }
+    ]
+}
