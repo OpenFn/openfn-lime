@@ -1,17 +1,5 @@
 {
-    "trackedEntityInstances": [
-        {
-            "created": "2023-05-24T17:10:03.753",
-            "createdAtClient": "2023-05-24T17:10:03.753",
-            "deleted": false,
-            "enrollments": [],
-            "featureType": "NONE",
-            "inactive": false,
-            "lastUpdated": "2023-05-29T07:30:10.097",
-            "lastUpdatedAtClient": "2023-05-24T17:10:03.753",
             "orgUnit": "l22DQq4iV3G",
-            "programOwners": [],
-            "relationships": [],
             "trackedEntityInstance": "qBNmd7yfKtW",
             "trackedEntityType": "cHlzCA2MuEF",
             "attributes": [
@@ -46,6 +34,4 @@
                     "valueType": "TEXT"
                 }
             ]
-        }
-    ]
 }
