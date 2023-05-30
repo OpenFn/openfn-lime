@@ -1,37 +1,20 @@
 {
+            "program": "uGHvY5HFoLG",
             "orgUnit": "l22DQq4iV3G",
             "trackedEntityInstance": "qBNmd7yfKtW",
             "trackedEntityType": "cHlzCA2MuEF",
             "attributes": [
                 {
                     "attribute": "P4wdYGkldeG",
-                    "code": "patient_number",
-                    "created": "2023-05-24T17:10:03.755",
-                    "displayName": "Patient number",
-                    "lastUpdated": "2023-05-29T07:28:42.252",
-                    "storedBy": "openmrs_test_user1@geneva.msf.org",
-                    "value": "Patient DHIS2 Test 004 - Completed",
-                    "valueType": "TEXT"
+                    "value": "Patient DHIS2 Test 101"
                 },
                 {
                     "attribute": "T1iX2NuPyqS",
-                    "code": "age",
-                    "created": "2023-05-24T17:10:03.756",
-                    "displayName": "Age in years",
-                    "lastUpdated": "2023-05-24T17:10:03.756",
-                    "storedBy": "ludovic.rossel@geneva.msf.org",
-                    "value": "5",
-                    "valueType": "INTEGER"
+                    "value": "10"
                 },
                 {
                     "attribute": "qptKDiv9uPl",
-                    "code": "sex",
-                    "created": "2023-05-24T17:10:03.757",
-                    "displayName": "Sex",
-                    "lastUpdated": "2023-05-24T17:10:03.757",
-                    "storedBy": "ludovic.rossel@geneva.msf.org",
-                    "value": "female",
-                    "valueType": "TEXT"
+                    "value": "female"
                 }
             ]
 }
