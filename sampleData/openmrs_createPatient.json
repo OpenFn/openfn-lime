@@ -1,9 +1,16 @@
 {
     "identifiers": [
         {
-            "identifier": "4023287",
-            "identifierType": "8d79403a-c2cc-11de-8d13-0010c6dffd0f",
-            "preferred": true
+            "identifier":"100006J",
+            "identifierType":"05a29f94-c0ed-11e2-94be-8c13b969e334",
+            "location":"44c3efb0-2583-4c80-a79e-1f756a03c0a1",
+            "preferred":true
+        },
+        {
+            "identifier":"006",
+            "identifierType":"8d79403a-c2cc-11de-8d13-0010c6dffd0f",
+            "location":"44c3efb0-2583-4c80-a79e-1f756a03c0a1",
+            "preferred":false
         }
     ],
     "person": {
