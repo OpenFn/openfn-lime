@@ -13,10 +13,11 @@ fn(state => {
 
   const identifiers = [];
   const newPatientUuid = [];
-  console.log('tei1: ', state.trackedEntityInstances);
-  console.log('tei2: ', state.data.trackedEntityInstances);
+  
+  const { trackedEntityInstances } = state.data; 
+  console.log('# of TEIs: ', trackedEntityInstances.length)
 
-  return { ...state, genderOptions, newPatientUuid, identifiers };
+  return { ...state, genderOptions, newPatientUuid, identifiers, trackedEntityInstances };
 });
 
 //First we generate a unique OpenMRS ID for each patient
