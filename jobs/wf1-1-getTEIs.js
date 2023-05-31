@@ -7,7 +7,7 @@ get(
     programStatus: 'ACTIVE'
   },
   state => {
-    const { trackedEntityInstances } = state;
+    const { trackedEntityInstances } = state.data;
     console.log('# of TEIs extracted ::', trackedEntityInstances.length)
     return { ...state, trackedEntityInstances };
   }
