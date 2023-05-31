@@ -51,7 +51,7 @@ fn(state => {
   };
   
 
-  const patients = trackedEntityInstances[0].map((d, i) => {
+  const patients = trackedEntityInstances.map((d, i) => {
     const patientNumber = pluckAttributeValue(
       d.attributes,
       'patient_number'
@@ -95,7 +95,7 @@ fn(state => {
 
 // Creating patients in openMRS
 each('patients[*]', state => {
-  const patient = state.data;
+  const patient = state.data[0];
   const pn = patient.identifiers.filter(i => !i.preferred)[0];
 
   console.log('Creating patient record\n', JSON.stringify(patient, null, 2));
