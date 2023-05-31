@@ -95,7 +95,7 @@ fn(state => {
 
 // Creating patients in openMRS
 each('patients[*]', state => {
-  const patient = state.data[0];
+  const patient = state.data;
   const pn = patient.identifiers.filter(i => !i.preferred)[0];
 
   console.log('Creating patient record\n', JSON.stringify(patient, null, 2));
