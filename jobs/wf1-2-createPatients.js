@@ -17,7 +17,7 @@ fn(state => {
   return { ...state, genderOptions, newPatientUuid, identifiers };
 });
 
-// Creating identifiers for each patient
+//First we generate a unique OpenMRS ID for each patient
 each('trackedEntityInstances[*]', state => {
   return post(
     'idgen/identifiersource/8549f706-7e85-4c1d-9424-217d50a2988b/identifier',
@@ -28,7 +28,7 @@ each('trackedEntityInstances[*]', state => {
   });
 });
 
-// Map trackedEntityInstances to openMRS data model
+// Then we map trackedEntityInstances to openMRS data model
 fn(state => {
   const { trackedEntityInstances, identifiers, genderOptions } = state;
 
@@ -46,23 +46,27 @@ fn(state => {
 
     return birthday;
   };
+  
 
   const patients = trackedEntityInstances.map((d, i) => {
-    const patientNumber = pluckAttributeValue(
-      d.attributes,
-      'patient_number'
-    ).match(/\b\d+\b/g)[0];
+    const patientNumber = d.patient_number;
+    
+    //If we want to clean text from DHIS2 patient_number
+    // const patientNumber = pluckAttributeValue(
+    //   d.attributes,
+    //   'patient_number'
+    // ).match(/\b\d+\b/g)[0];
 
     return {
       identifiers: [
         {
-          identifier: identifiers[i], // Add random number for testing + Math.random()
+          identifier: identifiers[i], // FOR TESTING: Add random number for testing + Math.random()
           identifierType: '05a29f94-c0ed-11e2-94be-8c13b969e334',
           location: '44c3efb0-2583-4c80-a79e-1f756a03c0a1', //default location
           preferred: true,
         },
         {
-          identifier: patientNumber, //map ID value from DHIS2 attribute
+          identifier: patientNumber, /// FOR TESTING: map ID value from DHIS2 attribute
           identifierType: '8d79403a-c2cc-11de-8d13-0010c6dffd0f', //Old Identification number
           location: '44c3efb0-2583-4c80-a79e-1f756a03c0a1', //default location
           preferred: false, //default value for this identifiertype
@@ -86,7 +90,7 @@ fn(state => {
   return { ...state, patients };
 });
 
-// Creating patients record to openMRS
+// Creating patients in openMRS
 each('patients[*]', state => {
   const patient = state.data;
   const pn = patient.identifiers.filter(i => !i.preferred)[0];
