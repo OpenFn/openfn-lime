@@ -8,6 +8,7 @@ get(
   },
   state => {
     const { trackedEntityInstances } = state;
+    console.log('# of TEIs extracted ::', trackedEntityInstances.length)
     return { ...state, trackedEntityInstances };
   }
 );
