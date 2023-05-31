@@ -13,7 +13,7 @@ fn(state => {
 
   const identifiers = [];
   const newPatientUuid = [];
-  console.log('tei1: ', trackedEntityInstances);
+  console.log('tei1: ', state.trackedEntityInstances);
   console.log('tei2: ', state.data.trackedEntityInstances);
 
   return { ...state, genderOptions, newPatientUuid, identifiers };
