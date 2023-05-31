@@ -11,12 +11,16 @@ fn(state => {
 });
 
 // Fetch encounters from the date of cursor
-getEncounters({ q: 'Patient', v: 'full', fromdate: state => state.cursor });
+getEncounters({ q: 'Patient', v: 'full' });
 
 // Update cursor and return encounters
 fn(state => {
-  const { body } = state.data;
-  const encounters = body.results;
+  const { cursor, data } = state;
+
+  const encounters = data.body.results.filter(
+    encounter => encounter.encounterDatetime >= cursor
+  );
+
   const lastRunDateTime = new Date().toISOString();
 
   console.log('Next sync start date:', lastRunDateTime);
