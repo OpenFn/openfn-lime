@@ -13,6 +13,8 @@ fn(state => {
 
   const identifiers = [];
   const newPatientUuid = [];
+  console.log('tei1: ', trackedEntityInstances);
+  console.log('tei2: ', state.data.trackedEntityInstances);
 
   return { ...state, genderOptions, newPatientUuid, identifiers };
 });
@@ -31,7 +33,7 @@ each('trackedEntityInstances[*]', state => {
 // Then we map trackedEntityInstances to openMRS data model
 fn(state => {
   const { trackedEntityInstances, identifiers, genderOptions } = state;
-  console.log('tei: ', trackedEntityInstances);
+  console.log('tei3: ', trackedEntityInstances);
 
   const pluckAttributeValue = (arr, keyVal) => {
     const result = arr.filter(a => a.code === keyVal);
