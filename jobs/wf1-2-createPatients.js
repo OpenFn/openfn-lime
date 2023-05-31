@@ -51,7 +51,7 @@ fn(state => {
   };
   
 
-  const patients = trackedEntityInstances.map((d, i) => {
+  const patients = trackedEntityInstances[0].map((d, i) => {
     const patientNumber = pluckAttributeValue(
       d.attributes,
       'patient_number'
