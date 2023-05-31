@@ -31,6 +31,7 @@ each('trackedEntityInstances[*]', state => {
 // Then we map trackedEntityInstances to openMRS data model
 fn(state => {
   const { trackedEntityInstances, identifiers, genderOptions } = state;
+  console.log('tei: ', trackedEntityInstances);
 
   const pluckAttributeValue = (arr, keyVal) => {
     const result = arr.filter(a => a.code === keyVal);
