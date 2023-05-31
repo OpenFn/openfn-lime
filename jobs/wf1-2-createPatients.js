@@ -15,7 +15,7 @@ fn(state => {
   const newPatientUuid = [];
   
   const { trackedEntityInstances } = state.data; 
-  console.log('# of TEIs: ', trackedEntityInstances.length)
+  console.log('# of TEIs to send to OpenMRS: ', trackedEntityInstances.length)
 
   return { ...state, genderOptions, newPatientUuid, identifiers, trackedEntityInstances };
 });
@@ -34,7 +34,6 @@ each('trackedEntityInstances[*]', state => {
 // Then we map trackedEntityInstances to openMRS data model
 fn(state => {
   const { trackedEntityInstances, identifiers, genderOptions } = state;
-  console.log('tei3: ', trackedEntityInstances);
 
   const pluckAttributeValue = (arr, keyVal) => {
     const result = arr.filter(a => a.code === keyVal);
@@ -53,13 +52,13 @@ fn(state => {
   
 
   const patients = trackedEntityInstances.map((d, i) => {
-    //const patientNumber = d.patient_number;
+    const patientNumber = d.patient_number;
     
     //If we want to clean text from DHIS2 patient_number
-    const patientNumber = pluckAttributeValue(
-      d.attributes,
-      'patient_number'
-    ).match(/\b\d+\b/g)[0];
+    // const patientNumber = pluckAttributeValue(
+    //   d.attributes,
+    //   'patient_number'
+    // ).match(/\b\d+\b/g)[0];
 
     return {
       identifiers: [
