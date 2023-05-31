@@ -49,13 +49,13 @@ fn(state => {
   
 
   const patients = trackedEntityInstances.map((d, i) => {
-    const patientNumber = d.patient_number;
+    //const patientNumber = d.patient_number;
     
     //If we want to clean text from DHIS2 patient_number
-    // const patientNumber = pluckAttributeValue(
-    //   d.attributes,
-    //   'patient_number'
-    // ).match(/\b\d+\b/g)[0];
+    const patientNumber = pluckAttributeValue(
+      d.attributes,
+      'patient_number'
+    ).match(/\b\d+\b/g)[0];
 
     return {
       identifiers: [
