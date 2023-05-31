@@ -78,7 +78,8 @@ fn(state => {
       person: {
         gender: genderOptions[pluckAttributeValue(d.attributes, 'sex')],
         age: pluckAttributeValue(d.attributes, 'age'),
-        birthdate: calculateDOB(pluckAttributeValue(d.attributes, 'age')),
+        birthdate: '2003-04-01', //TODO: fix birthday calculation which is returned invalid dates like 2022-04-31
+        //birthdate: calculateDOB(pluckAttributeValue(d.attributes, 'age')),
         birthdateEstimated: true,
         names: [
           {
