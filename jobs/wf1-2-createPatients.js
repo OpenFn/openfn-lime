@@ -5,10 +5,10 @@ fn(state => {
     female: 'F',
     unknown: 'U',
     //TODO: Ask MSF for updated category option values
-    'Transgender female': 'O',
-    'Transgender male': 'O',
-    'Prefer not to answer': 'O',
-    'Gender variant - Non conforming': 'O',
+    'transgender_female': 'O',
+    'transgender_male': 'O',
+    'Prefer_not_to_answer': 'O',
+    'gender_variant_non_conforming': 'O',
   };
 
   const identifiers = [];
