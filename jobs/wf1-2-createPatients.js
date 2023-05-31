@@ -5,19 +5,25 @@ fn(state => {
     female: 'F',
     unknown: 'U',
     //TODO: Ask MSF for updated category option values
-    'transgender_female': 'O',
-    'transgender_male': 'O',
-    'Prefer_not_to_answer': 'O',
-    'gender_variant_non_conforming': 'O',
+    transgender_female: 'O',
+    transgender_male: 'O',
+    Prefer_not_to_answer: 'O',
+    gender_variant_non_conforming: 'O',
   };
 
   const identifiers = [];
   const newPatientUuid = [];
-  
-  const { trackedEntityInstances } = state.data; 
-  console.log('# of TEIs to send to OpenMRS: ', trackedEntityInstances.length)
 
-  return { ...state, genderOptions, newPatientUuid, identifiers, trackedEntityInstances };
+  const { trackedEntityInstances } = state.data;
+  console.log('# of TEIs to send to OpenMRS: ', trackedEntityInstances.length);
+
+  return {
+    ...state,
+    genderOptions,
+    newPatientUuid,
+    identifiers,
+    trackedEntityInstances,
+  };
 });
 
 //First we generate a unique OpenMRS ID for each patient
@@ -35,50 +41,46 @@ each('trackedEntityInstances[*]', state => {
 fn(state => {
   const { trackedEntityInstances, identifiers, genderOptions } = state;
 
-  const pluckAttributeValue = (arr, keyVal) => {
-    const result = arr.filter(a => a.code === keyVal);
-    return result.length > 0 ? result[0].value : undefined;
+  const getValueForCode = (attributes, code) => {
+    const result = attributes.find(attribute => attribute.code === code);
+    return result ? result.value : undefined;
   };
 
   const calculateDOB = age => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const birthYear = currentYear - age;
+    // Using end of month date for each birthday
+    const birthday = new Date(birthYear, currentDate.getMonth(), 0);
 
-    const birthday = `${birthYear}-${currentDate.getMonth()}-${currentDate.getDate()}`;
-
-    return birthday;
+    return birthday.toISOString().replace(/\.\d+Z$/, '+0000');
   };
-  
 
   const patients = trackedEntityInstances.map((d, i) => {
-    const patientNumber = pluckAttributeValue(
-      d.attributes,
-      'patient_number'
-    )
-    //.match(/\b\d+\b/g)[0]; //Add back if we want to clean text from DHIS2 patient_number
-
+    const patientNumber = getValueForCode(d.attributes, 'patient_number').match(
+      /\b\d+\b/g
+    )[0]; // Add random number for testing + Math.random()
 
     return {
+      patientNumber: patientNumber,
       identifiers: [
         {
-          identifier: identifiers[i], // FOR TESTING: Add random number for testing + Math.random()
+          identifier: identifiers[i], //map ID value from DHIS2 attribute
           identifierType: '05a29f94-c0ed-11e2-94be-8c13b969e334',
           location: '44c3efb0-2583-4c80-a79e-1f756a03c0a1', //default location
           preferred: true,
         },
         {
-          identifier: patientNumber, /// FOR TESTING: map ID value from DHIS2 attribute
+          identifier: patientNumber,
           identifierType: '8d79403a-c2cc-11de-8d13-0010c6dffd0f', //Old Identification number
           location: '44c3efb0-2583-4c80-a79e-1f756a03c0a1', //default location
           preferred: false, //default value for this identifiertype
         },
       ],
       person: {
-        gender: genderOptions[pluckAttributeValue(d.attributes, 'sex')],
-        age: pluckAttributeValue(d.attributes, 'age'),
-        birthdate: '2003-04-01', //TODO: fix birthday calculation which is returned invalid dates like 2022-04-31
-        //birthdate: calculateDOB(pluckAttributeValue(d.attributes, 'age')),
+        gender: genderOptions[getValueForCode(d.attributes, 'sex')],
+        age: getValueForCode(d.attributes, 'age'),
+        birthdate: calculateDOB(getValueForCode(d.attributes, 'age')),
         birthdateEstimated: true,
         names: [
           {
@@ -95,14 +97,13 @@ fn(state => {
 
 // Creating patients in openMRS
 each('patients[*]', state => {
-  const patient = state.data;
-  const pn = patient.identifiers.filter(i => !i.preferred)[0];
+  const { patientNumber, ...patient } = state.data;
 
   console.log('Creating patient record\n', JSON.stringify(patient, null, 2));
 
   return createPatient(patient)(state).then(state => {
     state.newPatientUuid.push({
-      patient_number: pn.identifier,
+      patient_number: patientNumber,
       uuid: state.data.body.uuid,
     });
     return state;
