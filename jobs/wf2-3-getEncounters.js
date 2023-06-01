@@ -1,4 +1,4 @@
-// Define the cursor
+// here we define the date cursor
 fn(state => {
   const manualCursor = '2023-05-23T00:00:00.000';
 
