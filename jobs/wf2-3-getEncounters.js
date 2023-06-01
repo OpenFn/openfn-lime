@@ -15,7 +15,7 @@ fn(state => {
 // Fetch encounters from the date of cursor
 //getEncounters({ q: 'Patient', v: 'full' }); //Query patients with name like 'Patient'
 // OpenMRS demo instance does not support querying ALL records (q=all)
-getEncounters({ q: '1000EJC', v: 'full' });
+getEncounters({ q: '1000FAU', v: 'full' });
 
 // Update cursor and return encounters
 fn(state => {
