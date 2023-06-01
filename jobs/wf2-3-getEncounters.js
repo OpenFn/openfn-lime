@@ -1,11 +1,13 @@
 // here we define the date cursor
 fn(state => {
-  const manualCursor = '2023-05-23T00:00:00.000';
+  const manualCursor = '2023-06-01T07:00:00.000';
 
   const cursor =
     state.lastRunDateTime != null && state.lastRunDateTime != ''
       ? state.lastRunDateTime
       : manualCursor;
+      
+  console.log('Date cursor to filter & get only new encounters ::', cursor); 
 
   return { ...state, cursor };
 });
