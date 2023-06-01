@@ -64,7 +64,6 @@ each('patients[*]', state => {
         {
             orgUnit: 'l22DQq4iV3G',
             program: 'uGHvY5HFoLG',
-            orgUnit: 'l22DQq4iV3G',
             programStage: 'hfKSeo6nZK0',
             enrollmentDate: dateCreated
         }
