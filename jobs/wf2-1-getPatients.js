@@ -22,7 +22,7 @@ fn(state => {
   const patients = body.results.filter(
     patient => patient.auditInfo.dateCreated > state.cursor
   );
-  console.log('# patients to sync to dhis2 ::', patients.length); 
+  console.log('# of new patients to sync to dhis2 ::', patients.length); 
 
   const lastRunDateTime = new Date().toISOString();
   console.log('Updating cursor; next sync start date:', lastRunDateTime);
