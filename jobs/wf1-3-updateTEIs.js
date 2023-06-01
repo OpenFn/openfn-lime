@@ -1,3 +1,9 @@
+fn(state => {
+  if (state.newPatientUuid.length === 0)
+    console.log('No data fetched in step prior to sync.');
+  return state;
+});
+
 // Update TEI on DHIS2
 each('newPatientUuid[*]', state => {
   console.log(JSON.stringify(state.data, null, 2));
