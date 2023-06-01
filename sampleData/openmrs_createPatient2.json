@@ -1,0 +1,39 @@
+{
+    "identifiers": [
+        {
+            "identifier":"1000EHE",
+            "identifierType":"05a29f94-c0ed-11e2-94be-8c13b969e334",
+            "location":"44c3efb0-2583-4c80-a79e-1f756a03c0a1",
+            "preferred":true
+        },
+        {
+            "identifier":"TestUpsert001",
+            "identifierType":"8d79403a-c2cc-11de-8d13-0010c6dffd0f",
+            "location":"44c3efb0-2583-4c80-a79e-1f756a03c0a1",
+            "preferred":false
+        }
+    ],
+    "person": {
+        "gender": "M",
+        "age": 42,
+        "birthdate": "1970-01-01T00:00:00.000+0100",
+        "birthdateEstimated": false,
+        "dead": false,
+        "deathDate": null,
+        "causeOfDeath": null,
+        "names": [
+            {
+                "givenName": "Doe",
+                "familyName": "John"
+            }
+        ],
+        "addresses": [
+            {
+                "address1": "30, Vivekananda Layout, Munnekolal,Marathahalli",
+                "cityVillage": "Bengaluru",
+                "country": "India",
+                "postalCode": "560037"
+            }
+        ]
+    }
+}
