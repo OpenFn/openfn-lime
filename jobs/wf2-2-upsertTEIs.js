@@ -3,7 +3,7 @@ fn(state => {
     M: 'male',
     F: 'female',
     U: 'unknown',
-    O: 'Prefered not to answer',
+    O: 'prefer_not_to_answer',
   };
 
   return {
