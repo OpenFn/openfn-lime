@@ -20,10 +20,11 @@ getEncounters({ q: '1000EJC', v: 'full' });
 // Update cursor and return encounters
 fn(state => {
   const { cursor, data } = state;
-
+  console.log('Filtering encounters to only get recent records...');
   const encounters = data.body.results.filter(
     encounter => encounter.encounterDatetime >= cursor
   );
+  console.log('# encounters to sync to dhis2 ::', encounters.length);
 
   const lastRunDateTime = new Date().toISOString();
 
