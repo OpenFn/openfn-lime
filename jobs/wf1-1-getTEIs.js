@@ -31,6 +31,7 @@ get(
     const lastRunDateTime = currentDateTime.toISOString().replace('Z', '');
 
     console.log('# of TEIs extracted ::', trackedEntityInstances.length);
+    console.log('trackedEntityInstance IDs ::', trackedEntityInstances.map(tei => tei.trackedEntityInstance));
 
     console.log('Next sync start date:', lastRunDateTime);
     return {
