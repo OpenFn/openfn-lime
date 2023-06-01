@@ -65,7 +65,7 @@ each('encounters[*]', async state => {
       },
     ],
   }, {}, state => {
-    console.log('trackedEntityInstance ID', TEIs[data.patient.uuid]);
+    console.log('trackedEntityInstance ID for event listed above', TEIs[data.patient.uuid]);
     return state;
   })(state);
 });
