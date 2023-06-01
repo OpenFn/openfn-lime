@@ -14,15 +14,20 @@ fn(state => {
   const identifiers = [];
   const newPatientUuid = [];
 
-  const { trackedEntityInstances } = state.data;
-  console.log('# of TEIs to send to OpenMRS: ', trackedEntityInstances.length);
+  const { trackedEntityInstances } = state;
+  if (trackedEntityInstances.length > 0)
+    console.log(
+      '# of TEIs to send to OpenMRS: ',
+      trackedEntityInstances.length
+    );
+  if (trackedEntityInstances.length === 0)
+    console.log('No data fetched in step prior to sync.');
 
   return {
     ...state,
     genderOptions,
     newPatientUuid,
     identifiers,
-    trackedEntityInstances,
   };
 });
 
@@ -50,16 +55,18 @@ fn(state => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const birthYear = currentYear - age;
-    // Using end of month date for each birthday
-    const birthday = new Date(birthYear, currentDate.getMonth(), 0);
+
+    const birthday = new Date(
+      birthYear,
+      currentDate.getMonth(),
+      currentDate.getDay()
+    );
 
     return birthday.toISOString().replace(/\.\d+Z$/, '+0000');
   };
 
   const patients = trackedEntityInstances.map((d, i) => {
-    const patientNumber = getValueForCode(d.attributes, 'patient_number').match(
-      /\b\d+\b/g
-    )[0]; // Add random number for testing + Math.random()
+    const patientNumber = getValueForCode(d.attributes, 'patient_number'); // Add random number for testing + Math.random()
 
     return {
       patientNumber: patientNumber,
