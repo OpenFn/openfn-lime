@@ -18,12 +18,14 @@ searchPatient({ q: '1000EJC', v: 'full' });
 
 fn(state => {
   const { body } = state.data;
+  console.log('Filtering patients to only sync most recent...'); 
   const patients = body.results.filter(
     patient => patient.auditInfo.dateCreated > state.cursor
   );
+  console.log('# patients to sync to dhis2 ::', patients.length); 
 
   const lastRunDateTime = new Date().toISOString();
-  console.log('Next sync start date:', lastRunDateTime);
+  console.log('Updating cursor; next sync start date:', lastRunDateTime);
 
   return { ...state, data: {}, references: [], patients, lastRunDateTime };
 });
