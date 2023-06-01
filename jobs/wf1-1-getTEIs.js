@@ -24,7 +24,11 @@ get(
     const trackedEntityInstances = state.data.trackedEntityInstances.filter(
       tei => tei.created > state.cursor
     );
-    const lastRunDateTime = new Date().toISOString();
+    const offset = 2; // GMT+2 (Geneva time)
+    const currentDateTime = new Date();
+    currentDateTime.setHours(currentDateTime.getHours() + offset);
+
+    const lastRunDateTime = currentDateTime.toISOString().replace('Z', '');
 
     console.log('# of TEIs extracted ::', trackedEntityInstances.length);
 
