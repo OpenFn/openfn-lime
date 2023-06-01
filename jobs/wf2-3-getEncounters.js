@@ -2,15 +2,15 @@
 fn(state => {
   const manualCursor = '2023-06-01T07:50:00.000';
 
-  const cursor = 
+  const cursor =
     state.lastRunDateTime != null && state.lastRunDateTime != ''
       ? state.lastRunDateTime
       : manualCursor;
-  
-  //FOR TESTING: To re-set job to use manual cursor, comment in the line below 
+
+  //FOR TESTING: To re-set job to use manual cursor, comment in the line below
   //const cursor = manualCursor;
-      
-  console.log('Date cursor to filter & get only new encounters ::', cursor); 
+
+  console.log('Date cursor to filter & get only new encounters ::', cursor);
 
   return { ...state, cursor };
 });
@@ -23,14 +23,15 @@ getEncounters({ q: 'Patient', v: 'full' });
 // Update cursor and return encounters
 fn(state => {
   const { cursor, data } = state;
+
   console.log('Filtering encounters to only get recent records...');
+
   const encounters = data.body.results.filter(
     encounter => encounter.encounterDatetime >= cursor
   );
   console.log('# of new encounters to sync to dhis2 ::', encounters.length);
 
   const lastRunDateTime = new Date().toISOString();
-
   console.log('Next sync start date:', lastRunDateTime);
 
   return { ...state, data: {}, references: [], lastRunDateTime, encounters };
