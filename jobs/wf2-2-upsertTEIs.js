@@ -16,15 +16,20 @@ fn(state => {
 fn(state => {
   const { genderOptions } = state;
 
-  const patientsMapping = state.patients.map(patient => {
-    const OldId = patient.identifiers.find(
-      i => i.identifierType.uuid === '8d79403a-c2cc-11de-8d13-0010c6dffd0f'
-    ); //finding DHIS2 patient_number
+  const pluckIdentifier = (patient, uuid) =>
+    patient.identifiers.find(i => i.identifierType.uuid === uuid);
 
-    const openMRSID = patient.identifiers.find(
-      i => i.identifierType.uuid === '05a29f94-c0ed-11e2-94be-8c13b969e334'
+  const patientsMapping = state.patients.map(patient => {
+    const oldId = pluckIdentifier(
+      patient,
+      '8d79403a-c2cc-11de-8d13-0010c6dffd0f'
+    ); //finding DHIS2 patient_number
+    const openMRSID = pluckIdentifier(
+      patient,
+      '05a29f94-c0ed-11e2-94be-8c13b969e334'
     ); //finding OpenMRS ID that was auto-assigned
-    const identifier = OldId ? OldId.identifier : openMRSID.identifier;
+
+    const identifier = oldId ? oldId.identifier : openMRSID.identifier;
 
     const dateCreated = patient.auditInfo.dateCreated.substring(0, 10);
 
@@ -80,8 +85,4 @@ each(
 );
 
 // Clean up state
-fn(state => {
-  state.data = {};
-  state.references = [];
-  return state;
-});
+fn(state => ({ ...state, data: {}, references: [] }));

@@ -70,8 +70,4 @@ each(
 );
 
 // Clean up state
-fn(state => {
-  state.data = {};
-  state.references = [];
-  return state;
-});
+fn(state => ({ ...state, data: {}, references: [] }));
