@@ -1,11 +1,11 @@
 fn(state => {
-  const manualCursor = '2023-06-01T08:00:00.000';
+  const manualCursor = '2023-06-01T09:43:37.115';
 
   const cursor =
     state.lastRunDateTime != null && state.lastRunDateTime != ''
       ? state.lastRunDateTime
       : manualCursor;
-      
+
   console.log('Date cursor to filter TEI extract ::', cursor);
 
   return { ...state, cursor };
@@ -33,6 +33,12 @@ get(
     console.log('# of TEIs extracted ::', trackedEntityInstances.length);
 
     console.log('Next sync start date:', lastRunDateTime);
-    return { ...state, trackedEntityInstances, lastRunDateTime };
+    return {
+      ...state,
+      references: [],
+      data: {},
+      trackedEntityInstances,
+      lastRunDateTime,
+    };
   }
 );
