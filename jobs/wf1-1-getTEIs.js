@@ -1,5 +1,5 @@
 fn(state => {
-  const manualCursor = '2023-06-01T09:43:37.115';
+  const manualCursor = '2023-06-01T17:00:00.00';
 
   const cursor =
     state.lastRunDateTime != null && state.lastRunDateTime != ''
