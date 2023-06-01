@@ -24,6 +24,8 @@ each('patients[*]', state => {
     i => i.identifierType.uuid === '05a29f94-c0ed-11e2-94be-8c13b969e334'
   ); //finding OpenMRS ID that was auto-assigned
   const identifier = OldId ? OldId.identifier : openMRSID.identifier;
+  
+  const dateCreated = patient.auditInfo.dateCreated.substring(0,10);
 
   //   console.log(`Identifier: ${identifier}`);
   //   console.log(`UUID: ${patient.uuid}`);
@@ -58,6 +60,15 @@ each('patients[*]', state => {
           value: patient.person.age,
         },
       ],
+      enrollments: [
+        {
+            orgUnit: 'l22DQq4iV3G',
+            program: 'uGHvY5HFoLG',
+            orgUnit: 'l22DQq4iV3G',
+            programStage: 'hfKSeo6nZK0',
+            enrollmentDate: dateCreated
+        }
+      ]
     }
   )(state);
 });
