@@ -5,6 +5,8 @@ fn(state => {
     state.lastRunDateTime != null && state.lastRunDateTime != ''
       ? state.lastRunDateTime
       : manualCursor;
+      
+  console.log('Date cursor to filter TEI extract ::', cursor);
 
   return { ...state, cursor };
 });
