@@ -47,6 +47,8 @@ each('encounters[*]', async state => {
   const valueForEncounter1 = oclMap1 ? oclMap1.to_concept_name_resolved : '';
   const valueForEncounter2 = oclMap2 ? oclMap2.to_concept_name_resolved : '';
 
+  console.log('trackedEntityInstance ID', TEIs[data.patient.uuid]);
+  
   return create('events', {
     program: 'uGHvY5HFoLG',
     orgUnit: 'l22DQq4iV3G',
