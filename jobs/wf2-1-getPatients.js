@@ -1,4 +1,4 @@
-searchPatient({ q: 'Test', v: 'full' });
+searchPatient({ q: '1000EJC', v: 'full' });
 //Query all patients (q=all) not supported on demo OpenMRS; needs to be configured
 //...so we query all Patients with name "Patient" instead
 
