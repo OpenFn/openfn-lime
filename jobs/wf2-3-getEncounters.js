@@ -24,7 +24,7 @@ fn(state => {
   const encounters = data.body.results.filter(
     encounter => encounter.encounterDatetime >= cursor
   );
-  console.log('# encounters to sync to dhis2 ::', encounters.length);
+  console.log('# of new encounters to sync to dhis2 ::', encounters.length);
 
   const lastRunDateTime = new Date().toISOString();
 
