@@ -18,11 +18,11 @@ each('patients[*]', state => {
 
   const [OldId] = patient.identifiers.filter(
     i => i.identifierType.uuid === '8d79403a-c2cc-11de-8d13-0010c6dffd0f'
-  );
+  ); //finding DHIS2 patient_number
 
   const [openMRSID] = patient.identifiers.filter(
     i => i.identifierType.uuid === '05a29f94-c0ed-11e2-94be-8c13b969e334'
-  );
+  ); //finding OpenMRS ID that was auto-assigned
   const identifier = OldId ? OldId.identifier : openMRSID.identifier;
 
   //   console.log(`Identifier: ${identifier}`);
