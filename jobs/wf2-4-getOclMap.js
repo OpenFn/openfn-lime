@@ -1,18 +1,17 @@
+/*
+ * This get() implementation is backward compatible with the http adaptor
+ **/
+
 // Fetch OCL mappings
 get(
-  'mappings',
+  'MSFOCG/collections/lime-demo/HEAD/mappings',
   {
-    owner: 'MSFOCG',
-    repository: 'collections',
-    repositoryId: 'lime-demo',
-    version: 'HEAD',
-    query: {
-      page: 1,
-      exact_match: 'off',
-      limit: 200,
-      verbose: false,
-      sortDesc: '_score',
-    },
+    // owner_type: "users",
+    page: 1,
+    exact_match: 'off',
+    limit: 200,
+    verbose: false,
+    sortDesc: '_score',
   },
   state => {
     // Add state oclMappings
@@ -21,15 +20,24 @@ get(
   }
 );
 
+/*
+ * The following implimentation of the get(),
+ * works only with the OCL adaptor
+ **/
 // get(
-//   'MSFOCG/collections/lime-demo/HEAD/mappings',
+//   'mappings',
 //   {
-//     // owner_type: "users",
-//     page: 1,
-//     exact_match: 'off',
-//     limit: 200,
-//     verbose: false,
-//     sortDesc: '_score',
+//     owner: 'MSFOCG',
+//     repository: 'collections',
+//     repositoryId: 'lime-demo',
+//     version: 'HEAD',
+//     query: {
+//       page: 1,
+//       exact_match: 'off',
+//       limit: 200,
+//       verbose: false,
+//       sortDesc: '_score',
+//     },
 //   },
 //   state => {
 //     // Add state oclMappings
