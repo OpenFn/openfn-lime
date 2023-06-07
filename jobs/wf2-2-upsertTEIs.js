@@ -19,7 +19,7 @@ fn(state => {
   const pluckIdentifier = (patient, uuid) =>
     patient.identifiers.find(i => i.identifierType.uuid === uuid);
 
-  const patientsMapping = state.patients.map(patient => {
+  const patientsUpsert = state.patients.map(patient => {
     const oldId = pluckIdentifier(
       patient,
       '8d79403a-c2cc-11de-8d13-0010c6dffd0f'
@@ -71,7 +71,7 @@ fn(state => {
       },
     };
   });
-  return { ...state, patientsMapping };
+  return { ...state, patientsUpsert };
 });
 
 // Upsert TEIs to DHIS2
