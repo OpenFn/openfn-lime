@@ -4,7 +4,7 @@ fn(state => {
 
   //Added this to replace cursor logic below for testing
   const cursor = 
-    manualCursor = '' 
+    manualCursor === '' 
       ? state.lastRunDateTime
       : manualCursor; 
       
