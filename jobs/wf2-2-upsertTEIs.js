@@ -16,22 +16,17 @@ fn(state => {
 fn(state => {
   const { genderOptions } = state;
 
-  const pluckIdentifier = (patient, uuid) =>
-    patient.identifiers.find(i => i.identifierType.uuid === uuid);
-
   const patientsUpsert = state.patients.map(patient => {
-    const oldId = pluckIdentifier(
-      patient,
-      '8d79403a-c2cc-11de-8d13-0010c6dffd0f'
-    ); //finding DHIS2 patient_number
-    const openMRSID = pluckIdentifier(
-      patient,
-      '05a29f94-c0ed-11e2-94be-8c13b969e334'
-    ); //finding OpenMRS ID that was auto-assigned
-
-    const identifier = oldId ? oldId.identifier : openMRSID.identifier;
-
     const dateCreated = patient.auditInfo.dateCreated.substring(0, 10);
+
+    const DHIS2_PATIENT_NUMBER = '8d79403a-c2cc-11de-8d13-0010c6dffd0f';
+    const OPENMRS_AUTO_ID = '05a29f94-c0ed-11e2-94be-8c13b969e334';
+
+    const { identifier } =
+      patient.identifiers.find(
+        i => i.identifierType.uuid === DHIS2_PATIENT_NUMBER
+      ) ||
+      patient.identifiers.find(i => i.identifierType.uuid === OPENMRS_AUTO_ID);
 
     return {
       query: {
@@ -76,7 +71,7 @@ fn(state => {
 
 // Upsert TEIs to DHIS2
 each(
-  'patients[*]',
+  'patientsUpsert[*]',
   upsert(
     'trackedEntityInstances',
     state => state.data.query,
