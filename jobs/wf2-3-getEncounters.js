@@ -1,11 +1,17 @@
 // here we define the date cursor
 fn(state => {
-  const manualCursor = '2023-06-01T07:50:00.000';
+  const manualCursor = '2023-06-01T07:50:00.000'; //'2023-06-01T07:50:00.000'
 
+  //Added this to replace cursor logic below for testing
   const cursor = 
-    state.lastRunDateTime != null && state.lastRunDateTime != ''
+    manualCursor = '' 
       ? state.lastRunDateTime
-      : manualCursor;
+      : manualCursor; 
+      
+    //TODO: Update OLD CURSOR LOGIC... this never is cleared if we "clear state" in job 1
+    // state.lastRunDateTime != null && state.lastRunDateTime != ''
+    //   ? state.lastRunDateTime
+    //   : manualCursor;
   
   //FOR TESTING: To re-set job to use manual cursor, comment in the line below 
   //const cursor = manualCursor;
