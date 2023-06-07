@@ -113,6 +113,10 @@ each('patients[*]', state => {
       patient_number: patientNumber,
       uuid: state.data.body.uuid,
     });
-    return state;
+    return {
+      ...state,
+      data: {},
+      references: [],
+    };
   });
 });
