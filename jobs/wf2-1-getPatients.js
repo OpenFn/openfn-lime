@@ -7,7 +7,10 @@ fn(state => {
       ? state.lastRunDateTime
       : manualCursor;
 
-  console.log('Date cursor to filter & get only new encounters ::', cursor);
+  console.log(
+    'Date cursor to filter & get only recent OMRS records ::',
+    cursor
+  );
 
   return { ...state, cursor };
 });
@@ -18,11 +21,15 @@ searchPatient({ q: 'Patient', v: 'full' });
 
 fn(state => {
   const { body } = state.data;
-  console.log('Filtering patients to only sync most recent...'); 
+  console.log('Filtering patients to only sync most recent records...');
+
   const patients = body.results.filter(
-    patient => patient.auditInfo.dateCreated > state.cursor
+    patient =>
+      (patient.auditInfo.dateChanged === null
+        ? patient.auditInfo.dateCreated
+        : patient.auditInfo.dateChanged) > state.cursor
   );
-  console.log('# of new patients to sync to dhis2 ::', patients.length); 
+  console.log('# of new patients to sync to dhis2 ::', patients.length);
   console.log(patients);
 
   const lastRunDateTime = new Date().toISOString();
