@@ -17,12 +17,12 @@
                     "value": "female"
                 }
             ],
-            enrollments: [
+            "enrollments": [
                 {
-                    orgUnit: 'l22DQq4iV3G',
-                    program: 'uGHvY5HFoLG',
-                    programStage: 'hfKSeo6nZK0',
-                    enrollmentDate: '2023-06-01'
+                    "orgUnit": "l22DQq4iV3G",
+                    "program": "uGHvY5HFoLG',
+                    "programStage": "hfKSeo6nZK0",
+                    "enrollmentDate": "2023-06-01"
                 }
             ]
 }
