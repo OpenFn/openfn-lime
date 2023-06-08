@@ -14,6 +14,7 @@ each(
     }),
     {},
     state => {
+      const encounter = state.references[0];
       state.TEIs[encounter.patient.uuid] =
         state.data.trackedEntityInstances[0].trackedEntityInstance;
 
