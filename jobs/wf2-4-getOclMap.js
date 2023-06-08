@@ -46,6 +46,7 @@ get('https://api.openconceptlab.org/orgs/MSFOCG/collections/lime-demo/HEAD/expan
  state => {
     // Add state oclMappings
     const oclMappings = state.data;
+    console.log(JSON.stringify(oclMappings, null, 2), "OCL Mappings")
     return { ...state, data: {}, references: [], response: {}, oclMappings };
   }
   ); 
