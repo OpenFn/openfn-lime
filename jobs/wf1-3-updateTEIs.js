@@ -5,15 +5,14 @@ fn(state => {
 });
 
 // Update TEI on DHIS2
-each('newPatientUuid[*]', state => {
-  console.log(JSON.stringify(state.data, null, 2));
-
-  return upsert(
+each(
+  'newPatientUuid[*]',
+  upsert(
     'trackedEntityInstances',
-    {
+    state => ({
       ou: 'l22DQq4iV3G',
       filter: [`P4wdYGkldeG:Eq:${state.data.patient_number}`],
-    },
+    }),
     {
       orgUnit: 'l22DQq4iV3G',
       program: 'uGHvY5HFoLG',
@@ -29,5 +28,5 @@ each('newPatientUuid[*]', state => {
         },
       ],
     }
-  )(state);
-});
+  )
+);

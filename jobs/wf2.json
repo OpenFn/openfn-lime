@@ -30,7 +30,7 @@
         },
         {
             "id": "getOclMap",
-            "adaptor": "http",
+            "adaptor": "ocl",
             "configuration": "tmp/ocl-creds.json",
             "expression": "wf2-4-getOclMap.js",
             "next": {

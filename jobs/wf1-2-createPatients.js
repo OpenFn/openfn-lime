@@ -116,3 +116,6 @@ each('patients[*]', state => {
     return state;
   });
 });
+
+// Clean up state
+fn(state => ({ ...state, data: {}, references: [] }));
