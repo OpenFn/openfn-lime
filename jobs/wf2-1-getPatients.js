@@ -21,6 +21,7 @@ searchPatient({ q: 'Patient', v: 'full' });
 
 fn(state => {
   const { body } = state.data;
+  console.log(state.data)
   console.log('Filtering patients to only sync most recent records...');
 
   const patients = body.results.filter(
