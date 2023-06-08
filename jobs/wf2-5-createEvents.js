@@ -4,29 +4,56 @@ fn(state => {
 });
 
 // Fetch TEI's for each patient
-each(
-  'encounters[*]',
-  get(
-    'trackedEntityInstances',
-    state => ({
-      ou: 'l22DQq4iV3G',
-      filter: [`jGNhqEeXy2L:Eq:${state.data.patient.uuid}`],
-    }),
-    {},
-    state => {
+// each(
+//   'encounters[*]',
+//   get(
+//     'trackedEntityInstances',
+//     state => ({
+//       ou: 'l22DQq4iV3G',
+//       filter: [`jGNhqEeXy2L:Eq:${state.data.patient.uuid}`],
+//     }),
+//     {},
+//     state => {
       
       
-      const encounter = state.references[0];
+//       const encounter = state.references[0];
       
-      console.log(encounter.patient.uuid, 'patient uuid')
-      console.log(state.data.trackedEntityInstances)
-      state.TEIs[encounter.patient.uuid] =
-        state.data.trackedEntityInstances[0].trackedEntityInstance;
+//       console.log(encounter.patient.uuid, 'patient uuid')
+//       console.log(state.data.trackedEntityInstances)
+//       state.TEIs[encounter.patient.uuid] =
+//         state.data.trackedEntityInstances[0].trackedEntityInstance;
 
-      return state;
-    }
-  )
-);
+//       return state;
+//     }
+//   )
+// );
+
+fn(async state => {
+  const { encounters } = state;
+
+  const getTEI = async encounter => {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    await get(
+      'trackedEntityInstances',
+      {
+        ou: 'l22DQq4iV3G',
+        filter: [`jGNhqEeXy2L:Eq:${encounter.patient.uuid}`],
+      },
+      {},
+      state => {
+        state.TEIs[encounter.patient.uuid] =
+          state.data.trackedEntityInstances[0].trackedEntityInstance;
+
+        return state;
+      }
+    )(state);
+  };
+
+  for (const encounter of encounters) {
+    await getTEI(encounter);
+  }
+  return state;
+});
 
 // Prepare DHIS2 data model for create events
 fn(state => {
