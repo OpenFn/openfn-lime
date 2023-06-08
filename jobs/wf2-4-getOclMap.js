@@ -4,7 +4,7 @@
 
 // Fetch OCL mappings
 get(
-  'MSFOCG/collections/lime-demo/HEAD/mappings',
+  'orgs/MSFOCG/collections/lime-demo/HEAD/mappings',
   {
     // owner_type: "users",
     page: 1,
