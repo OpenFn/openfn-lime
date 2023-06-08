@@ -58,6 +58,8 @@ fn(async state => {
 // Prepare DHIS2 data model for create events
 fn(state => {
   const { oclMappings, TEIs } = state;
+  
+  console.log(JSON.stringify(oclMappings,null,2));
 
   const encountersMapping = state.encounters.map(data => {
     const encounterDate = data.encounterDatetime.replace('+0000', '');
