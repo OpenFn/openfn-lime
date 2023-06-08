@@ -6,7 +6,6 @@
 get(
   'orgs/MSFOCG/collections/lime-demo/HEAD/mappings',
   {
-    // owner_type: "users",
     page: 1,
     exact_match: 'off',
     limit: 200,
@@ -27,22 +26,20 @@ get(
 // get(
 //   'mappings',
 //   {
-//     owner: 'MSFOCG',
+//     ownerId: 'MSFOCG',
 //     repository: 'collections',
 //     repositoryId: 'lime-demo',
 //     version: 'HEAD',
-//     query: {
-//       page: 1,
-//       exact_match: 'off',
-//       limit: 200,
-//       verbose: false,
-//       sortDesc: '_score',
-//     },
+//     page: 1,
+//     exact_match: 'off',
+//     limit: 200,
+//     verbose: false,
+//     sortDesc: '_score',
 //   },
 //   state => {
 //     // Add state oclMappings
 //     const oclMappings = state.data;
-//     return { ...state, data: {}, references: [], response: {}, oclMappings };
+//     return { ...state, data: {}, refÏerences: [], response: {}, oclMappings };
 //   }
 // );
 
