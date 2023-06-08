@@ -35,7 +35,7 @@
 get('https://api.openconceptlab.org/orgs/MSFOCG/collections/lime-demo/HEAD/expansions/autoexpand-HEAD/mappings', {
    query: { 
      page: 1,
-     limit: 500,
+     limit: 1000,
      verbose: false, 
      fromConceptOwner: 'MSFOCG', 
      toConceptOwner: 'MSFOCG',
