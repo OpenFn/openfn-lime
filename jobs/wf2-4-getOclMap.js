@@ -42,7 +42,13 @@ get('https://api.openconceptlab.org/orgs/MSFOCG/collections/lime-demo/HEAD/expan
    },
    headers: {'content-type': 'application/json'},
    //authentication: {username: 'user', password: 'pass'}
- }); 
+ },
+ state => {
+    // Add state oclMappings
+    const oclMappings = state.data;
+    return { ...state, data: {}, refÏerences: [], response: {}, oclMappings };
+  }
+  ); 
 /*
  * The following implimentation of the get(),
  * works only with the OCL adaptor
