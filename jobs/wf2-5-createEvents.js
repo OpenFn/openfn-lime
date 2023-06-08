@@ -32,7 +32,7 @@ fn(async state => {
   const { encounters } = state;
 
   const getTEI = async encounter => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 2000), 'OCL Mappings');
     await get(
       'trackedEntityInstances',
       {
