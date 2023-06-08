@@ -13,7 +13,7 @@ get(
     sortDesc: '_score',
     fromConceptOwner: 'MSFOCG',
     toConceptOwner: 'MSFOCG',
-    toConceptSource:'MSFOCG'
+    toConceptSource:'DHIS2DataElements'
     
   },
   state => {
