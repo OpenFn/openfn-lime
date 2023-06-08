@@ -74,28 +74,59 @@ fn(state => {
   };
 });
 
+fn(async state => {
+  const { buildPatientsUpsert, patients } = state;
+
+  const getPatient = async patient => {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    await get(
+      'trackedEntityInstances',
+      {
+        ou: 'l22DQq4iV3G',
+        filter: [`jGNhqEeXy2L:Eq:${patient.uuid}`],
+      },
+      {},
+      state => {
+        const { trackedEntityInstances } = state.data;
+        const isNewPatient = trackedEntityInstances.length === 0;
+
+        buildPatientsUpsert(patient, isNewPatient);
+        return state;
+      }
+    )(state);
+  };
+
+  for (const patient of patients) {
+    console.log(patient.uuid, 'patient uuid');
+    await getPatient(patient);
+  }
+  return state;
+});
+
 // Prepare DHIS2 data model for patients
-each(
-  'patients[*]',
-  get(
-    'trackedEntityInstances',
-    state => ({
-      ou: 'l22DQq4iV3G',
-      filter: [`jGNhqEeXy2L:Eq:${state.data.uuid}`],
-    }),
-    {},
-    state => {
-      const { buildPatientsUpsert, references, data } = state;
-      const { trackedEntityInstances } = data;
-      const patient = references[0];
+// each(
+//   'patients[*]',
+//   get(
+//     'trackedEntityInstances',
+//     state => ({
+//       ou: 'l22DQq4iV3G',
+//       filter: [`jGNhqEeXy2L:Eq:${state.data.uuid}`],
+//     }),
+//     {},
+//     state => {
+//       const { buildPatientsUpsert, references, data } = state;
+//       const { trackedEntityInstances } = data;
+//       const patient = references[0];
 
-      const isNewPatient = trackedEntityInstances.length === 0;
+//       console.log(patient.uuid);
 
-      buildPatientsUpsert(patient, isNewPatient);
-      return state;
-    }
-  )
-);
+//       const isNewPatient = trackedEntityInstances.length === 0;
+
+//       buildPatientsUpsert(patient, isNewPatient);
+//       return state;
+//     }
+//   )
+// );
 
 // Upsert TEIs to DHIS2
 each(
@@ -108,4 +139,4 @@ each(
 );
 
 // Clean up state
-fn(state => ({ ...state, data: {}, references: [] }));
+fn(state => ({ ...state, data: {} }));
