@@ -47,7 +47,9 @@ fn(state => {
 
     const valueForEncounter1 = oclMap1 ? oclMap1.to_concept_name_resolved : '';
     const valueForEncounter2 = oclMap2 ? oclMap2.to_concept_name_resolved : '';
-
+    console.log("valueForEncounter1", valueForEncounter1);
+    console.log("valueForEncounter2", valueForEncounter2);
+    
     return {
       program: 'uGHvY5HFoLG',
       orgUnit: 'l22DQq4iV3G',
