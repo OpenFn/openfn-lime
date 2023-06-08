@@ -23,14 +23,26 @@
 //   }
 // );
 
-get(
-  'https://api.openconceptlab.org/orgs/MSFOCG/collections/lime-demo/HEAD/expansions/autoexpand-HEAD/mappings/?page=1&exact_match=off&limit=200&verbose=false&fromConceptOwner=MSFOCG&toConceptOwner=MSFOCG&toConceptSource=DHIS2DataElements&sortDesc=_score',
-  {
-    //query: {foo: 'bar', a: 1},
-    headers: { 'content-type': 'application/json' },
-    //authentication: {username: 'user', password: 'pass'}
-  }
-);
+// get(
+//   'https://api.openconceptlab.org/orgs/MSFOCG/collections/lime-demo/HEAD/expansions/autoexpand-HEAD/mappings/?page=1&exact_match=off&limit=200&verbose=false&fromConceptOwner=MSFOCG&toConceptOwner=MSFOCG&toConceptSource=DHIS2DataElements&sortDesc=_score',
+//   {
+//     //query: {foo: 'bar', a: 1},
+//     headers: { 'content-type': 'application/json' },
+//     //authentication: {username: 'user', password: 'pass'}
+//   }
+// );
+
+get('https://api.openconceptlab.org/orgs/MSFOCG/collections/lime-demo/HEAD/expansions/autoexpand-HEAD/mappings', {
+   query: { 
+     verbose: false, 
+     fromConceptOwner: 'MSFOCG', 
+     toConceptOwner: 'MSFOCG',
+     toConceptSource: 'DHIS2DataElements',
+     sortDesc: '_score'
+   },
+   headers: {'content-type': 'application/json'},
+   //authentication: {username: 'user', password: 'pass'}
+ }); 
 /*
  * The following implimentation of the get(),
  * works only with the OCL adaptor
