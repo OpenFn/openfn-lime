@@ -6,6 +6,7 @@ getEncounters({ q: 'Patient', v: 'full' });
 // Update cursor and return encounters
 fn(state => {
   const { cursor, data } = state;
+  console.log("cursor", cursor);
 
   console.log('Filtering encounters to only get recent records...');
   console.log(
