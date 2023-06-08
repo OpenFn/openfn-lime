@@ -14,10 +14,12 @@ each(
     }),
     {},
     state => {
-      console.log(state.TEIs[encounter.patient.uuid], 'pluck from teis')
-      console.log(state.data.trackedEntityInstances)
+      
       
       const encounter = state.references[0];
+      
+      console.log(state.TEIs[encounter.patient.uuid], 'pluck from teis')
+      console.log(state.data.trackedEntityInstances)
       state.TEIs[encounter.patient.uuid] =
         state.data.trackedEntityInstances[0].trackedEntityInstance;
 
