@@ -14,7 +14,9 @@ each(
     }),
     {},
     state => {
-      console.log(JSON.stringify(state.references, null,2))
+      console.log(state.TEIs[encounter.patient.uuid], 'pluck from teis')
+      console.log(state.data.trackedEntityInstances)
+      
       const encounter = state.references[0];
       state.TEIs[encounter.patient.uuid] =
         state.data.trackedEntityInstances[0].trackedEntityInstance;
