@@ -30,7 +30,7 @@ fn(state => {
         : patient.auditInfo.dateChanged) > state.cursor
   );
   console.log('# of new patients to sync to dhis2 ::', patients.length);
-  console.log(patients);
+  // console.log(JSON.stringify(patients, null, 2));
 
   const lastRunDateTime = new Date().toISOString();
   console.log('Updating cursor; next sync start date:', lastRunDateTime);
