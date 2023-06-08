@@ -4,13 +4,17 @@
 
 // Fetch OCL mappings
 get(
-  'orgs/MSFOCG/collections/lime-demo/HEAD/mappings',
+  'orgs/MSFOCG/collections/lime-demo/HEAD/expansions/autoexpand-HEAD/mappings/',
   {
     page: 1,
     exact_match: 'off',
     limit: 200,
     verbose: false,
     sortDesc: '_score',
+    fromConceptOwner: 'MSFOCG',
+    toConceptOwner: 'MSFOCG',
+    toConceptSource:'MSFOCG'
+    
   },
   state => {
     // Add state oclMappings
