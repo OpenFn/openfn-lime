@@ -1,6 +1,6 @@
 // here we define the date cursor
 fn(state => {
-  const manualCursor = '2023-06-08T12:30:00.000+0000';
+  const manualCursor = '2023-06-09T06:00:00.000+0000';
 
   const cursor =
     state.lastRunDateTime != null && state.lastRunDateTime != ''
