@@ -4,6 +4,8 @@ fn(state => {
   return state;
 });
 
+console.log('newPatientUuid ::', JSON.stringify(newPatientUuid, null, 2));
+
 // Update TEI on DHIS2
 each(
   'newPatientUuid[*]',
