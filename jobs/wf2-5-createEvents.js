@@ -41,6 +41,7 @@ fn(async state => {
       },
       {},
       state => {
+        console.log(encounter.patient.uuid, 'Encounter patient uuid')
         state.TEIs[encounter.patient.uuid] =
           state.data.trackedEntityInstances[0].trackedEntityInstance;
 
