@@ -22,11 +22,13 @@ each(
       attributes: [
         {
           attribute: 'P4wdYGkldeG',
-          value: `${state.data.patient_number}`,
+          value: dataValue('patient_number')
+          //value: `${state.data.patient_number}`,
         },
         {
           attribute: 'jGNhqEeXy2L',
-          value: `${state.data.uuid}`,
+          value: dataValue('uuid')
+          //value: `${state.data.uuid}`,
         },
       ],
     }
