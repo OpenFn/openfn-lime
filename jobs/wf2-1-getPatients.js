@@ -15,7 +15,7 @@ fn(state => {
   return { ...state, cursor };
 });
 
-searchPatient({ q: 'Patient', v: 'full', limit: '500' });
+searchPatient({ q: 'Patient', v: 'full', limit: '100' });
 //Query all patients (q=all) not supported on demo OpenMRS; needs to be configured
 //...so we query all Patients with name "Patient" instead
 
