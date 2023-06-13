@@ -19,6 +19,7 @@ get(
   state => {
     // Add state oclMappings
     const oclMappings = state.data;
+    console.log(JSON.stringify(oclMappings, null, 2), 'OCL Mappings');
     return { ...state, data: {}, references: [], response: {}, oclMappings };
   }
 );
