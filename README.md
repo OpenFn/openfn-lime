@@ -11,5 +11,6 @@ Automating data exchange workflows between `DHIS2`, `OpenMRS`, and `OC`L.
 3. start writing and testing jobs locally with the relevant adaptor
 
 ## Solution Documentation
+For the `LIME-PROJECT` two workflows were prototyped: 
 
-[workflow1](./diagrams/MSF-LIME%20OpenFn%20Workflow%201.png)
+![workflow1](./diagrams/MSF-LIME%20OpenFn%20Workflow%201.png)
