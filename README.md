@@ -2,7 +2,7 @@
 
 Automating data exchange workflows between `DHIS2`, `OpenMRS`, and `Open Concept Lab (OCL)`. 
 
-*Note that commits to `main` will be auto-deployed to OpenFn.org. Always work on a branch!*
+*Note that commits to `main` will be auto-deployed to the connected project configuration hosted on OpenFn.org. Always work on a branch and submit a pull request when ready to release!*
 
 ## Working with the Repo
 
@@ -34,7 +34,7 @@ This workflow #1 is powered by by the following OpenFn jobs:
 - [wf1-2-createPatients.js](./jobs/wf1-2-createPatients.js) (using `openmrs` adaptor)
 - [wf1-3-updateTEIs.js](./jobs/wf1-3-updateTEIs.js) (using `dhis2` adaptor)
 
-See the [WF 1 technical diagrams](./diagrams/MSF-LIME OpenFn Workflow 1__vTECHNICAL.png) for documentation on the specific API endpoints and operations automated in the job code. 
+See the [WF 1 technical diagrams](./diagrams/MSF-LIME%20OpenFn%20Workflow%201__vTECHNICAL.png) for documentation on the specific API endpoints and operations automated in the job code. 
 
 ### Workflow 2: Ongoing sync of new/updated OpenMRS data to DHIS2 for program monitoring & reporting 
 ![workflow2](./diagrams/MSF-LIME%20OpenFn%20Workflow%202.png)
@@ -46,7 +46,7 @@ This workflow #2 is powered by by the following OpenFn jobs:
 - [wf2-4-getOclMap.js](./jobs/wf2-4-getOclMap.js) (using `ocl` adaptor)
 - [wf2-5-createEvents.js](./jobs/wf2-5-createEvents.js) (using `dhis` adaptor)
 
-See the [WF 2 technical diagram](./diagrams/MSF-LIME OpenFn Workflow 2__vTECHNICAL.png) for documentation on the specific API endpoints and operations automated in the job code. 
+See the [WF 2 technical diagram](./diagrams/MSF-LIME%20OpenFn%20Workflow%202__vTECHNICAL.png) for documentation on the specific API endpoints and operations automated in the job code. 
 
 
 #### Dynamically exporting mappings from OCL 
@@ -54,7 +54,7 @@ In Workflow 2, there is a step to dynamically export mapping specifications from
 - See [this lime-project collection](https://app.openconceptlab.org/#/orgs/MSFOCG/collections/lime-demo/HEAD/expansions/autoexpand-HEAD/mappings/) on the OCL hosted app to view how mappings were configured. 
 - See below diagram for an overview of how this works. For the prototype, this was implemented for the attributes `Entry triage color` and `Final diagnosis` (data that is collected when new OMRS `encounters` are created). 
 
-!['ocl_mapping](.diagrams/MSF-LIME_ocl_mapping.png)
+!['ocl_mapping](./diagrams/MSF-LIME_ocl_mapping.png)
 
 ## Questions? 
 Contact support@openfn.org for questions or help. 
