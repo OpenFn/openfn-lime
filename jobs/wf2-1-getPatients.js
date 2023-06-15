@@ -1,6 +1,6 @@
 // here we define the date cursor
 fn(state => {
-  const manualCursor = '2023-06-14T06:01:24.544Z';
+  const manualCursor = '2023-06-14T06:01:24.000+0000';
 
   const cursor =
     state.lastRunDateTime != null && state.lastRunDateTime != ''
@@ -23,8 +23,8 @@ fn(state => {
   const { body } = state.data;
   
   const getPatientByUuid = (uuid) => {
-    return body.results.find(patient=> patient.uuid === uuid)
-  }
+    body.results.find(patient=> patient.uuid === uuid)Ï
+  } 
   
   console.log('Debug patient',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8"))
   
