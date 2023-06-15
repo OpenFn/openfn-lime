@@ -23,7 +23,7 @@ fn(state => {
   const { body } = state.data;
   
   const getPatientByUuid = (uuid) => {
-    body.results.find(patient=> patient.uuid === uuid)Ï
+    return body.results.find(patient=> patient.uuid === uuid)
   } 
   
   console.log('Debug patient',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8"))
