@@ -21,9 +21,12 @@ searchPatient({ q: 'Patient', v: 'full', limit: '100' });
 
 fn(state => {
   const { body } = state.data;
-   const getPatientByUuid = (uuid) => {
+  
+  const getPatientByUuid = (uuid) => {
     body.results.find(patient=> patient.uuid === uuid)Ï
   } 
+  
+  console.log('Debug patient',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8"))
   
   console.log(JSON.stringify(state.data, null, 2));
   
