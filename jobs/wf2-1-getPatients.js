@@ -1,6 +1,6 @@
 // here we define the date cursor
 fn(state => {
-  //2023-05-20T06:01:24.000+0000
+  //manualCursor at beggining of the project 2023-05-20T06:01:24.000+0000
   const manualCursor = '2023-06-14T06:01:24.544Z';
 
   const cursor =
@@ -26,8 +26,7 @@ fn(state => {
   const getPatientByUuid = (uuid) => {
     return body.results.find(patient=> patient.uuid === uuid)
   } 
-  
-  console.log('Debug patient',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8"))
+  // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8").auditInfo.dateCreated)
   
   console.log(JSON.stringify(state.data, null, 2));
   
