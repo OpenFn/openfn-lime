@@ -21,7 +21,13 @@ searchPatient({ q: 'Patient', v: 'full', limit: '100' });
 
 fn(state => {
   const { body } = state.data;
+   const getPatientByUuid = (uuid) => {
+    body.results.find(patient=> patient.uuid === uuid)Ï
+  } 
+  
   console.log(JSON.stringify(state.data, null, 2));
+  
+ 
   console.log('Filtering patients to only sync most recent records...');
 
   const patients = body.results.filter(
