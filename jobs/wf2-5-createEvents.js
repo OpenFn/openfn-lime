@@ -59,26 +59,32 @@ fn(async state => {
 fn(state => {
   const { oclMappings, TEIs } = state;
 
-  console.log(JSON.stringify(oclMappings, null, 2));
+  //console.log(JSON.stringify(oclMappings, null, 2));
 
   const encountersMapping = state.encounters.map(data => {
     const encounterDate = data.encounterDatetime.replace('+0000', '');
 
     const pluckObs = arg => data.obs.find(ob => ob.concept.uuid === arg);
+    console.log('Observation ::', pluckObs); 
     // const pluckOcl = arg =>
     //   oclMappings.find(ocl => ocl.from_concept_name_resolved === arg); //TODO: map using concept uid, not name
     const pluckOcl = arg =>
       oclMappings.find(ocl => ocl.from_concept_code === arg);
+    console.log('OCL code match ::', pluckOcl); 
 
     const obs1 = pluckObs('da33d74e-33b3-495a-9d7c-aa00a-aa0160');
     const obs2 = pluckObs('da33d74e-33b3-495a-9d7c-aa00a-aa0177');
 
     // const oclMap1 = obs1 && pluckOcl(obs1.value.display);
     // const oclMap2 = obs2 && pluckOcl(obs2.value.display);
-    const oclMap1 =
-      obs1 && pluckOcl(obs1.value.uuid.split('-').pop().toUpperCase());
-    const oclMap2 =
-      obs2 && pluckOcl(obs2.value.uuid.split('-').pop().toUpperCase());
+    const cleanedObs1 = obs1.value.uuid.split('-').pop().toUpperCase(); 
+    const cleanedObs2 = obs2.value.uuid.split('-').pop().toUpperCase(); 
+    console.log('cleanedObs1 ', cleanedObs1); 
+    console.log('cleanedObs2 ', cleanedObs2); 
+    
+    
+    const oclMap1 = obs1 && pluckOcl(cleanedObs1);
+    const oclMap2 = obs2 && pluckOcl(cleanedObs2);
 
     const valueForEncounter1 = oclMap1 ? oclMap1.to_concept_name_resolved : '';
     const valueForEncounter2 = oclMap2 ? oclMap2.to_concept_name_resolved : '';
