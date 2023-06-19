@@ -65,12 +65,12 @@ fn(state => {
     const encounterDate = data.encounterDatetime.replace('+0000', '');
 
     const pluckObs = arg => data.obs.find(ob => ob.concept.uuid === arg);
-    console.log('Observation ::', pluckObs); 
+    //console.log('Observation ::', pluckObs); 
     // const pluckOcl = arg =>
     //   oclMappings.find(ocl => ocl.from_concept_name_resolved === arg); //TODO: map using concept uid, not name
     const pluckOcl = arg =>
       oclMappings.find(ocl => ocl.from_concept_code === arg);
-    console.log('OCL code match ::', pluckOcl); 
+    //console.log('OCL code match ::', pluckOcl); 
 
     const obs1 = pluckObs('da33d74e-33b3-495a-9d7c-aa00a-aa0160');
     const obs2 = pluckObs('da33d74e-33b3-495a-9d7c-aa00a-aa0177');
@@ -85,6 +85,8 @@ fn(state => {
     
     const oclMap1 = obs1 && pluckOcl(cleanedObs1);
     const oclMap2 = obs2 && pluckOcl(cleanedObs2);
+    console.log('oclMapping for Obs1 ', JSON.stringify(oclMap1,null,2)); 
+    console.log('oclMapping for Obs2 ', JSON.stringify(oclMap2,null,2)); 
 
     const valueForEncounter1 = oclMap1 ? oclMap1.to_concept_name_resolved : '';
     const valueForEncounter2 = oclMap2 ? oclMap2.to_concept_name_resolved : '';
