@@ -14,10 +14,9 @@ fn(state => {
 //     }),
 //     {},
 //     state => {
-      
-      
+
 //       const encounter = state.references[0];
-      
+
 //       console.log(encounter.patient.uuid, 'patient uuid')
 //       console.log(state.data.trackedEntityInstances)
 //       state.TEIs[encounter.patient.uuid] =
@@ -41,7 +40,7 @@ fn(async state => {
       },
       {},
       state => {
-        console.log(encounter.patient.uuid, 'Encounter patient uuid')
+        console.log(encounter.patient.uuid, 'Encounter patient uuid');
         state.TEIs[encounter.patient.uuid] =
           state.data.trackedEntityInstances[0].trackedEntityInstance;
 
@@ -59,27 +58,33 @@ fn(async state => {
 // Prepare DHIS2 data model for create events
 fn(state => {
   const { oclMappings, TEIs } = state;
-  
-  console.log(JSON.stringify(oclMappings,null,2));
+
+  console.log(JSON.stringify(oclMappings, null, 2));
 
   const encountersMapping = state.encounters.map(data => {
     const encounterDate = data.encounterDatetime.replace('+0000', '');
 
     const pluckObs = arg => data.obs.find(ob => ob.concept.uuid === arg);
+    // const pluckOcl = arg =>
+    //   oclMappings.find(ocl => ocl.from_concept_name_resolved === arg); //TODO: map using concept uid, not name
     const pluckOcl = arg =>
-      oclMappings.find(ocl => ocl.from_concept_name_resolved === arg);
+      oclMappings.find(ocl => ocl.from_concept_code === arg);
 
     const obs1 = pluckObs('da33d74e-33b3-495a-9d7c-aa00a-aa0160');
     const obs2 = pluckObs('da33d74e-33b3-495a-9d7c-aa00a-aa0177');
 
-    const oclMap1 = obs1 && pluckOcl(obs1.value.display);
-    const oclMap2 = obs2 && pluckOcl(obs2.value.display);
+    // const oclMap1 = obs1 && pluckOcl(obs1.value.display);
+    // const oclMap2 = obs2 && pluckOcl(obs2.value.display);
+    const oclMap1 =
+      obs1 && pluckOcl(obs1.value.uuid.split('-').pop().toUpperCase());
+    const oclMap2 =
+      obs2 && pluckOcl(obs2.value.uuid.split('-').pop().toUpperCase());
 
     const valueForEncounter1 = oclMap1 ? oclMap1.to_concept_name_resolved : '';
     const valueForEncounter2 = oclMap2 ? oclMap2.to_concept_name_resolved : '';
-    console.log("valueForEncounter1", valueForEncounter1);
-    console.log("valueForEncounter2", valueForEncounter2);
-    
+    console.log('valueForEncounter1', valueForEncounter1);
+    console.log('valueForEncounter2', valueForEncounter2);
+
     return {
       program: 'uGHvY5HFoLG',
       orgUnit: 'l22DQq4iV3G',
