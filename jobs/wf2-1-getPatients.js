@@ -28,7 +28,7 @@ fn(state => {
   } 
   // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8").auditInfo.dateCreated)
   
-  console.log(JSON.stringify(state.data, null, 2));
+  //console.log(JSON.stringify(state.data, null, 2));
   
  
   console.log('Filtering patients to only sync most recent records...');
