@@ -8,10 +8,10 @@ fn(state => {
   console.log("cursor datetime::", cursor);
 
   console.log('Filtering encounters to only get recent records...');
-  // console.log(
-  //   'Encounters returned before we filter for most recent ::',
-  //   JSON.stringify(data, null, 2)
-  // );
+  console.log(
+    'Encounters returned before we filter for most recent ::',
+    JSON.stringify(data, null, 2)
+  );
   const encounters = data.body.results.filter(
     encounter => encounter.encounterDatetime >= cursor
   );
