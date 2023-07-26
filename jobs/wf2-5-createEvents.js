@@ -106,11 +106,11 @@ fn(state => {
       eventDate: encounterDate,
       dataValues: [
         {
-          dataElement: 'ZTSBtZKc8Ff',
-          value: valueForEncounter1,
+          dataElement: 'ZTSBtZKc8Ff', //diagnosis
+          value: `'${valueForEncounter1}'`,
         },
         {
-          dataElement: 'vqGFXhDM1XG',
+          dataElement: 'vqGFXhDM1XG', //entry triage color
           value: valueForEncounter2,
         },
       ],
