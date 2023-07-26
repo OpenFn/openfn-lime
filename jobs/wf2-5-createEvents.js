@@ -107,7 +107,7 @@ fn(state => {
       dataValues: [
         {
           dataElement: 'ZTSBtZKc8Ff', //diagnosis
-          value: `'${valueForEncounter1}'`,
+          value: valueForEncounter1,
         },
         {
           dataElement: 'vqGFXhDM1XG', //entry triage color
