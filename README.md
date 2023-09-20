@@ -54,7 +54,7 @@ In Workflow 2, there is a step to dynamically export mapping specifications from
 - See [this lime-project collection](https://app.openconceptlab.org/#/orgs/MSFOCG/collections/lime-demo/HEAD/expansions/autoexpand-HEAD/mappings/) on the OCL hosted app to view how mappings were configured. 
 - See below diagram for an overview of how this works. For the prototype, this was implemented for the attributes `Entry triage color` and `Final diagnosis` (data that is collected when new OMRS `encounters` are created). 
 
-!['ocl_mapping](./diagrams/MSF-LIME_ocl_mapping.png)
+!['ocl_mapping](./diagrams/MSF-LIME_ocl_mapping_V2.png)
 
 ## Questions? 
 Contact support@openfn.org for questions or help. 
