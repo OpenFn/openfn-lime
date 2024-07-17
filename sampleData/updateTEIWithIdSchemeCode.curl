@@ -1,0 +1,32 @@
+curl --location 'https://dhis2-uat.ocg.msf.org/api/trackedEntityInstances?orgUnitIdScheme=code&programIdScheme=code' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic TElNRV9JUTE0Nl9Nb3N1bF9Ib3NwaXRhbF9kYXRhX3N5bmM6emlTYUQyMkIwVnFIQyQ=' \
+--header 'Cookie: JSESSIONID=8AAE1FAEF4E79D036B0907599E877CAD' \
+--data '{
+            "program": "uGHvY5HFoLG",
+            "orgUnit": "IQ",
+            "trackedEntityInstance": "qBNmd7yfKtW",
+            "trackedEntityType": "cHlzCA2MuEF",
+            "attributes": [
+                {
+                    "attribute": "P4wdYGkldeG",
+                    "value": "Patient DHIS2 Test 102"
+                },
+                {
+                    "attribute": "T1iX2NuPyqS",
+                    "value": "10"
+                },
+                {
+                    "attribute": "qptKDiv9uPl",
+                    "value": "female"
+                }
+            ],
+            "enrollments": [
+                {
+                    "orgUnit": "IQ",
+                    "program": "uGHvY5HFoLG",
+                    "programStage": "hfKSeo6nZK0",
+                    "enrollmentDate": "2023-06-01"
+                }
+            ]
+}'
