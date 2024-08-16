@@ -1,0 +1,710 @@
+{
+    "resourceType": "Bundle",
+    "id": "2622b56e-d1ae-4e28-9a22-b52fd72a3288",
+    "meta": {
+        "lastUpdated": "2024-08-16T04:41:26.106+00:00"
+    },
+    "type": "searchset",
+    "total": 23,
+    "link": [
+        {
+            "relation": "self",
+            "url": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient"
+        },
+        {
+            "relation": "next",
+            "url": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4?_getpages=34924f75-762f-4a33-a3c9-668c38acd50f&_getpagesoffset=10&_count=10&_bundletype=searchset"
+        }
+    ],
+    "entry": [
+        {
+            "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/6af53010-79d5-4c62-8611-89306c4159b2",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "6af53010-79d5-4c62-8611-89306c4159b2",
+                "meta": {
+                    "versionId": "1717167073000",
+                    "lastUpdated": "2024-05-31T14:51:13.000+00:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>6af53010-79d5-4c62-8611-89306c4159b2</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-001</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> Joshua <b>TEST </b></td></tr><tr><td>Gender:</td><td>MALE</td></tr><tr><td>Birth Date:</td><td>07/07/2005</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Al Sahaji </span><span>Ninewa </span><span>Iraq </span></td></tr></tbody></table></div>"
+                },
+                "identifier": [
+                    {
+                        "id": "48d1580d-24b7-4166-a3a4-f21fdd20060f",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                                "valueReference": {
+                                    "reference": "Location/ee7770e4-57d6-42db-886e-cdba2954dd70",
+                                    "type": "Location",
+                                    "display": "Emergency Room (ER)"
+                                }
+                            }
+                        ],
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                                }
+                            ],
+                            "text": "MSF ID"
+                        },
+                        "value": "IQ146-24-000-001"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "id": "66be07d5-510c-476f-bf25-287b9370e259",
+                        "family": "Test",
+                        "given": [
+                            "Joshua"
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "2005-07-07",
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "id": "4daf67ca-ae55-4cf9-a9f1-50c0702593a5",
+                        "use": "home",
+                        "city": "Al Sahaji",
+                        "district": "Mosul",
+                        "state": "Ninewa",
+                        "country": "Iraq"
+                    },
+                    {
+                        "id": "a8a95d5e-a6af-4cb7-955b-6e443a3df60e",
+                        "use": "old",
+                        "city": "Al Sahaji",
+                        "district": "Mosul",
+                        "state": "Ninawa",
+                        "country": "Iraq"
+                    },
+                    {
+                        "id": "495c9d09-5959-452d-a353-de1b61455267",
+                        "use": "old",
+                        "city": "Al Sahaji",
+                        "district": "Mosul",
+                        "state": "Ninawa",
+                        "country": "Iraq"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/ca36b916-809f-4331-a0d1-fa0ae4486d9d",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "ca36b916-809f-4331-a0d1-fa0ae4486d9d",
+                "meta": {
+                    "versionId": "1717167160000",
+                    "lastUpdated": "2024-05-31T14:52:40.000+00:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>ca36b916-809f-4331-a0d1-fa0ae4486d9d</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-002</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> Joshua Nsereko <b>TEST2 </b></td></tr><tr><td>Telecom:</td><td> joshtest2@example.com </td></tr><tr><td>Gender:</td><td>MALE</td></tr><tr><td>Birth Date:</td><td>11/04/1984</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Al Nabi Younis </span><span>Ninawa </span><span>Iraq </span></td></tr></tbody></table></div>"
+                },
+                "identifier": [
+                    {
+                        "id": "72baefee-0484-47fe-92c1-d7ef750a0f3d",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                                "valueReference": {
+                                    "reference": "Location/ee7770e4-57d6-42db-886e-cdba2954dd70",
+                                    "type": "Location",
+                                    "display": "Emergency Room (ER)"
+                                }
+                            }
+                        ],
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                                }
+                            ],
+                            "text": "MSF ID"
+                        },
+                        "value": "IQ146-24-000-002"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "id": "faf69c0f-e276-4c0b-8703-13b36b0e24c9",
+                        "family": "Test2",
+                        "given": [
+                            "Joshua",
+                            "Nsereko"
+                        ]
+                    }
+                ],
+                "telecom": [
+                    {
+                        "id": "7389a53b-634d-474f-87ac-d570c38ef43c",
+                        "value": "joshtest2@example.com"
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "1984-04-11",
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "id": "ed2dd29d-8d62-403d-a36c-79a718285075",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/address",
+                                "extension": [
+                                    {
+                                        "url": "http://fhir.openmrs.org/ext/address#address1",
+                                        "valueString": "Kampala"
+                                    }
+                                ]
+                            }
+                        ],
+                        "use": "home",
+                        "city": "Al Nabi Younis",
+                        "district": "Mosul",
+                        "state": "Ninawa",
+                        "country": "Iraq"
+                    },
+                    {
+                        "id": "5181fbde-3179-4248-a1a6-a129d7c7a454",
+                        "use": "old",
+                        "city": "Al Nabi Younis",
+                        "district": "Mosul",
+                        "state": "Ninawa",
+                        "country": "Iraq"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/61410aaf-61a5-42bc-a217-daf4c617f96a",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "61410aaf-61a5-42bc-a217-daf4c617f96a",
+                "meta": {
+                    "versionId": "1717167226000",
+                    "lastUpdated": "2024-05-31T14:53:46.000+00:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>61410aaf-61a5-42bc-a217-daf4c617f96a</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-003</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> John Cassius <b>DOE </b></td></tr><tr><td>Gender:</td><td>MALE</td></tr><tr><td>Birth Date:</td><td>01/03/1999</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Nablus </span><span>Ninawa </span><span>Iraq </span></td></tr></tbody></table></div>"
+                },
+                "identifier": [
+                    {
+                        "id": "eb47f4f9-51e2-479d-a0b5-12e6bd908170",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                                "valueReference": {
+                                    "reference": "Location/ee7770e4-57d6-42db-886e-cdba2954dd70",
+                                    "type": "Location",
+                                    "display": "Emergency Room (ER)"
+                                }
+                            }
+                        ],
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                                }
+                            ],
+                            "text": "MSF ID"
+                        },
+                        "value": "IQ146-24-000-003"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "id": "a03dfabd-844d-47d4-bdbe-baba80de6d90",
+                        "family": "Doe",
+                        "given": [
+                            "John",
+                            "Cassius"
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "1999-03-01",
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "id": "c0f4040b-8a48-4581-87d4-95b7e99bfe7f",
+                        "use": "home",
+                        "city": "Nablus",
+                        "district": "Mosul",
+                        "state": "Ninawa",
+                        "country": "Iraq"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/f642ceac-d612-4269-9534-339a08865ca3",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "f642ceac-d612-4269-9534-339a08865ca3",
+                "meta": {
+                    "versionId": "1717621758000",
+                    "lastUpdated": "2024-06-05T21:09:18.000+00:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>f642ceac-d612-4269-9534-339a08865ca3</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-004</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> Patient <b>ZERO </b></td></tr><tr><td>Gender:</td><td>MALE</td></tr><tr><td>Birth Date:</td><td>01/01/2001</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Ninewa </span><span>Iraq </span></td></tr></tbody></table></div>"
+                },
+                "identifier": [
+                    {
+                        "id": "0ada21b2-dbfa-4a47-8ea2-ea2fbe84f5d7",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                                "valueReference": {
+                                    "reference": "Location/cf6fa7d4-1f19-4c85-ac50-ff824805c51c",
+                                    "type": "Location",
+                                    "display": "Mental Health (MH)"
+                                }
+                            }
+                        ],
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                                }
+                            ],
+                            "text": "MSF ID"
+                        },
+                        "value": "IQ146-24-000-004"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "id": "ba5bc36c-e056-4e14-8357-487f95d34378",
+                        "family": "Zero",
+                        "given": [
+                            "Patient"
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "2001",
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "id": "775d0dbf-cef0-4a47-ab8a-afae7661acae",
+                        "use": "home",
+                        "district": "Mosul",
+                        "state": "Ninewa",
+                        "country": "Iraq"
+                    },
+                    {
+                        "id": "28c2c19c-a95e-4cea-915f-a34ef6ba11a5",
+                        "use": "old",
+                        "district": "Mosul",
+                        "state": "Ninewa",
+                        "country": "Iraq"
+                    },
+                    {
+                        "id": "d224b9cd-9eb9-4dab-97d8-3d4ec90fa8b7",
+                        "use": "old",
+                        "district": "Mosul",
+                        "state": "Ninewa",
+                        "country": "Iraq"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/8d67e2c6-4cee-4e8a-bd46-22e3b45d73ae",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "8d67e2c6-4cee-4e8a-bd46-22e3b45d73ae",
+                "meta": {
+                    "versionId": "1717181531000",
+                    "lastUpdated": "2024-05-31T18:52:11.000+00:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>8d67e2c6-4cee-4e8a-bd46-22e3b45d73ae</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-005</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> Joshua <b>NSEREKO </b></td></tr><tr><td>Gender:</td><td>MALE</td></tr><tr><td>Birth Date:</td><td>07/07/2005</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Kampala </span><span>Sazza </span><span>Uganda </span></td></tr></tbody></table></div>"
+                },
+                "identifier": [
+                    {
+                        "id": "f59fbd2b-7394-48b5-a5f4-f6e599fe5f71",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                                "valueReference": {
+                                    "reference": "Location/ee7770e4-57d6-42db-886e-cdba2954dd70",
+                                    "type": "Location",
+                                    "display": "Emergency Room (ER)"
+                                }
+                            }
+                        ],
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                                }
+                            ],
+                            "text": "MSF ID"
+                        },
+                        "value": "IQ146-24-000-005"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "id": "5e8b7332-7443-4c5e-aa0a-066e312c4e61",
+                        "family": "Nsereko",
+                        "given": [
+                            "Joshua"
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "2005-07-07",
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "id": "0fe8996d-d2d7-4b01-a601-84f85c367696",
+                        "use": "home",
+                        "city": "Kampala",
+                        "district": "Sazza",
+                        "state": "Sazza",
+                        "country": "Uganda"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/a65ad40e-b223-413e-ab50-a9b6fae056c0",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "a65ad40e-b223-413e-ab50-a9b6fae056c0",
+                "meta": {
+                    "versionId": "1717595508000",
+                    "lastUpdated": "2024-06-05T13:51:48.000+00:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>a65ad40e-b223-413e-ab50-a9b6fae056c0</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-006</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> Felix <b>KHAN </b></td></tr><tr><td>Gender:</td><td>MALE</td></tr><tr><td>Birth Date:</td><td>26/06/1980</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Ninewa </span><span>Iraq </span></td></tr></tbody></table></div>"
+                },
+                "identifier": [
+                    {
+                        "id": "86e40737-5876-4eb7-82f4-e550b1b18f63",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                                "valueReference": {
+                                    "reference": "Location/ee7770e4-57d6-42db-886e-cdba2954dd70",
+                                    "type": "Location",
+                                    "display": "Emergency Room (ER)"
+                                }
+                            }
+                        ],
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                                }
+                            ],
+                            "text": "MSF ID"
+                        },
+                        "value": "IQ146-24-000-006"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "id": "6517ce73-e921-4dff-8f05-1655fc3e77d4",
+                        "family": "Khan",
+                        "given": [
+                            "Felix"
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "1980-06-26",
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "id": "11cac0f0-e0a0-4ba1-9e95-6f814e2d3816",
+                        "use": "home",
+                        "district": "Mosul",
+                        "state": "Ninewa",
+                        "country": "Iraq"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/fdbbaced-eae5-4063-be18-8e420e5b3f20",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "fdbbaced-eae5-4063-be18-8e420e5b3f20",
+                "meta": {
+                    "versionId": "1717600823000",
+                    "lastUpdated": "2024-06-05T15:20:23.000+00:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>fdbbaced-eae5-4063-be18-8e420e5b3f20</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-007</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> Andres <b>KIBANDO </b></td></tr><tr><td>Gender:</td><td>MALE</td></tr><tr><td>Birth Date:</td><td>14/04/1967</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Ninewa </span><span>Iraq </span></td></tr></tbody></table></div>"
+                },
+                "identifier": [
+                    {
+                        "id": "f000171d-ded2-4423-840c-157635b22066",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                                "valueReference": {
+                                    "reference": "Location/cf6fa7d4-1f19-4c85-ac50-ff824805c51c",
+                                    "type": "Location",
+                                    "display": "Mental Health (MH)"
+                                }
+                            }
+                        ],
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                                }
+                            ],
+                            "text": "MSF ID"
+                        },
+                        "value": "IQ146-24-000-007"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "id": "b3acb26a-266b-4aac-807c-68c968544812",
+                        "family": "Kibando",
+                        "given": [
+                            "Andres"
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "1967-04-14",
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "id": "a6684a6b-86ad-4926-8eaa-2cc39af054ca",
+                        "use": "home",
+                        "district": "Mosul",
+                        "state": "Ninewa",
+                        "country": "Iraq"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/66d3c8ef-2215-4504-94e8-1a76488bb7a1",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "66d3c8ef-2215-4504-94e8-1a76488bb7a1",
+                "meta": {
+                    "versionId": "1717604468000",
+                    "lastUpdated": "2024-06-05T16:21:08.000+00:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>66d3c8ef-2215-4504-94e8-1a76488bb7a1</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-008</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> Dolores <b>KIPPLING </b></td></tr><tr><td>Gender:</td><td>FEMALE</td></tr><tr><td>Birth Date:</td><td>13/11/2010</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Ninewa </span><span>Iraq </span></td></tr></tbody></table></div>"
+                },
+                "identifier": [
+                    {
+                        "id": "abc363fb-a25f-40fc-b94e-d1e71e6e7bba",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                                "valueReference": {
+                                    "reference": "Location/50601d04-e1cd-4c09-b1b8-2058d8342957",
+                                    "type": "Location",
+                                    "display": "Registration Counter (REG) / تسجيل المستشفى"
+                                }
+                            }
+                        ],
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                                }
+                            ],
+                            "text": "MSF ID"
+                        },
+                        "value": "IQ146-24-000-008"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "id": "f7dd98ce-532a-4ed1-ae21-892d2799439b",
+                        "family": "Kippling",
+                        "given": [
+                            "Dolores"
+                        ]
+                    }
+                ],
+                "gender": "female",
+                "birthDate": "2010-11-13",
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "id": "63f243d2-b918-4a95-a7b7-69af5baa5531",
+                        "use": "home",
+                        "district": "Mosul",
+                        "state": "Ninewa",
+                        "country": "Iraq"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/a2677ee2-e741-46d0-8e20-759dffdbedce",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "a2677ee2-e741-46d0-8e20-759dffdbedce",
+                "meta": {
+                    "versionId": "1717622166000",
+                    "lastUpdated": "2024-06-05T21:16:06.000+00:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>a2677ee2-e741-46d0-8e20-759dffdbedce</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-009</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> New Patient Name Middle Name <b>PATIENT LAST NAME </b></td></tr><tr><td>Telecom:</td><td> mail@mail.com </td></tr><tr><td>Gender:</td><td>MALE</td></tr><tr><td>Birth Date:</td><td>15/06/2001</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Al Nabi Younis </span><span>Ninawa </span><span>Iraq </span></td></tr></tbody></table></div>"
+                },
+                "identifier": [
+                    {
+                        "id": "78f0325d-0b27-4fce-9c50-b32191e2482e",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                                "valueReference": {
+                                    "reference": "Location/cf6fa7d4-1f19-4c85-ac50-ff824805c51c",
+                                    "type": "Location",
+                                    "display": "Mental Health (MH)"
+                                }
+                            }
+                        ],
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                                }
+                            ],
+                            "text": "MSF ID"
+                        },
+                        "value": "IQ146-24-000-009"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "id": "70338c77-a91d-4ab5-8df5-1c987c3da366",
+                        "family": "Patient Last Name",
+                        "given": [
+                            "New Patient Name",
+                            "Middle Name"
+                        ]
+                    }
+                ],
+                "telecom": [
+                    {
+                        "id": "400f4f45-b602-459b-88a0-876cf33a1ef9",
+                        "value": "mail@mail.com"
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "2001",
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "id": "2c7dd387-05cd-422f-8d8c-e9f5c7dadd7f",
+                        "use": "home",
+                        "city": "Al Nabi Younis",
+                        "district": "Mosul",
+                        "state": "Ninawa",
+                        "country": "Iraq"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/f30bd634-353e-4347-9c8c-ab843867c51b",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "f30bd634-353e-4347-9c8c-ab843867c51b",
+                "meta": {
+                    "versionId": "1717659328000",
+                    "lastUpdated": "2024-06-06T07:35:28.000+00:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>f30bd634-353e-4347-9c8c-ab843867c51b</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-010</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> Noor <b>HAJID </b></td></tr><tr><td>Gender:</td><td>FEMALE</td></tr><tr><td>Birth Date:</td><td>15/06/2011</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Ninewa </span><span>Iraq </span></td></tr></tbody></table></div>"
+                },
+                "identifier": [
+                    {
+                        "id": "0d69475d-6204-476d-9509-8736361fca49",
+                        "extension": [
+                            {
+                                "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                                "valueReference": {
+                                    "reference": "Location/ee7770e4-57d6-42db-886e-cdba2954dd70",
+                                    "type": "Location",
+                                    "display": "Emergency Room (ER)"
+                                }
+                            }
+                        ],
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                                }
+                            ],
+                            "text": "MSF ID"
+                        },
+                        "value": "IQ146-24-000-010"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "id": "e5098599-7292-4587-a7d7-a6c06c61ca78",
+                        "family": "Hajid",
+                        "given": [
+                            "Noor"
+                        ]
+                    }
+                ],
+                "gender": "female",
+                "birthDate": "2011",
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "id": "c20d5d17-4512-4994-9fb4-243b94cdbd20",
+                        "use": "home",
+                        "district": "Mosul",
+                        "state": "Ninewa",
+                        "country": "Iraq"
+                    }
+                ]
+            }
+        }
+    ]
+}
