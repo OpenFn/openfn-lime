@@ -1,0 +1,76 @@
+{
+    "fullUrl": "http://msf-ocg-openmrs3-dev.westeurope.cloudapp.azure.com/openmrs/ws/fhir2/R4/Patient/f642ceac-d612-4269-9534-339a08865ca3",
+    "resource": {
+        "resourceType": "Patient",
+        "id": "f642ceac-d612-4269-9534-339a08865ca3",
+        "meta": {
+            "versionId": "1717621758000",
+            "lastUpdated": "2024-06-05T21:09:18.000+00:00"
+        },
+        "text": {
+            "status": "generated",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>f642ceac-d612-4269-9534-339a08865ca3</td></tr><tr><td>Identifier:</td><td><div>IQ146-24-000-004</div></td></tr><tr><td>Active:</td><td>true</td></tr><tr><td>Name:</td><td> Patient <b>ZERO </b></td></tr><tr><td>Gender:</td><td>MALE</td></tr><tr><td>Birth Date:</td><td>01/01/2001</td></tr><tr><td>Deceased:</td><td>false</td></tr><tr><td>Address:</td><td><span>Ninewa </span><span>Iraq </span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+            {
+                "id": "0ada21b2-dbfa-4a47-8ea2-ea2fbe84f5d7",
+                "extension": [
+                    {
+                        "url": "http://fhir.openmrs.org/ext/patient/identifier#location",
+                        "valueReference": {
+                            "reference": "Location/cf6fa7d4-1f19-4c85-ac50-ff824805c51c",
+                            "type": "Location",
+                            "display": "Mental Health (MH)"
+                        }
+                    }
+                ],
+                "use": "official",
+                "type": {
+                    "coding": [
+                        {
+                            "code": "05a29f94-c0ed-11e2-94be-8c13b969e334"
+                        }
+                    ],
+                    "text": "MSF ID"
+                },
+                "value": "IQ146-24-000-004"
+            }
+        ],
+        "active": true,
+        "name": [
+            {
+                "id": "ba5bc36c-e056-4e14-8357-487f95d34378",
+                "family": "Zero",
+                "given": [
+                    "Patient"
+                ]
+            }
+        ],
+        "gender": "male",
+        "birthDate": "2001",
+        "deceasedBoolean": false,
+        "address": [
+            {
+                "id": "775d0dbf-cef0-4a47-ab8a-afae7661acae",
+                "use": "home",
+                "district": "Mosul",
+                "state": "Ninewa",
+                "country": "Iraq"
+            },
+            {
+                "id": "28c2c19c-a95e-4cea-915f-a34ef6ba11a5",
+                "use": "old",
+                "district": "Mosul",
+                "state": "Ninewa",
+                "country": "Iraq"
+            },
+            {
+                "id": "d224b9cd-9eb9-4dab-97d8-3d4ec90fa8b7",
+                "use": "old",
+                "district": "Mosul",
+                "state": "Ninewa",
+                "country": "Iraq"
+            }
+        ]
+    }
+}
