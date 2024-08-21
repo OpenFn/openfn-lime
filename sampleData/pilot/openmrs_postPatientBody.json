@@ -1,0 +1,69 @@
+{
+    "uuid": "7629f8aa-c3a6-4c31-8671-fee63be2e4db",
+    "person": {
+        "uuid": "7629f8aa-c3a6-4c31-8671-fee63be2e4db",
+        "names": [
+            {
+                "preferred": true,
+                "givenName": "Aleksa",
+                "middleName": "",
+                "familyName": "Test"
+            }
+        ],
+        "gender": "U",
+        "birthdate": "1984-6-15",
+        "birthdateEstimated": true,
+        "attributes": [
+            {
+                "attributeType": "bc851ec1-9fb7-49da-acd7-1a61168002fe",
+                "value": "8293833883"
+            },
+            {
+                "attributeType": "14d4f066-15f5-102d-96e4-000c29c2a5d7",
+                "value": "test2@openfn.org"
+            },
+            {
+                "attributeType": "24d1fa23-9778-4a8e-9f7b-93f694fc25e2", //Nationality
+                "value": "b422270e-d8af-4a32-b523-742545a17a3f" //Iran
+            },
+            {
+                "attributeType": "e0b6ed99-72c4-4847-a442-e9929eac4a0f", //Current Status
+                "value": "bbdb287c-4ba1-4944-bd87-eb126c5f9d92" //Resident
+            },
+            {
+                "attributeType": "a9b2c642-097f-43f8-b96b-4d2f50ffd9b1", //Legal Status
+                "value": "2bacead2-f280-457c-9d28-e80e106f7d25" //No Status
+            },
+            {
+                "attributeType": "3884dc76-c271-4bcb-8df8-81c6fb897f53", //Marital Status attribute
+                "value": "MSF-AAAAAA000000000000001863" //married value
+            },
+            {
+                "attributeType": "e363161a-9d5c-4331-8463-238938f018ed", //Number of children
+                "value": "0"
+            },
+            {
+                "attributeType": "dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e", //Occupation
+                "value": "MSF-AAAAAA000000000000001871" //Student
+            }
+        ],
+        "addresses": [
+            {
+                "country": "Iraq",
+                "stateProvince": "Ninewa",
+                "countyDistrict": "Mosul",
+                "cityVillage": "VillageA",
+                "address1": "Street1"
+            }
+        ],
+        "dead": false
+    },
+    "identifiers": [
+        {
+            "identifier": "IQ146-34",
+            "identifierType": "05a29f94-c0ed-11e2-94be-8c13b969e334",
+            "location": "cf6fa7d4-1f19-4c85-ac50-ff824805c51c",
+            "preferred": true
+        }
+    ]
+}
