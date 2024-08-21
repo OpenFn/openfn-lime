@@ -1,5 +1,5 @@
 fn(state => {
-  const manualCursor = '2023-06-20T17:00:00.00';
+  const manualCursor = '2020-06-20T17:00:00.00';
 
   const cursor =
     state.lastRunDateTime != null && state.lastRunDateTime != ''
@@ -15,8 +15,8 @@ fn(state => {
 get(
   'trackedEntityInstances',
   {
-    ou: 'l22DQq4iV3G',
-    program: 'uGHvY5HFoLG',
+    ou: 'OPjuJMZFLop', //Nablus Hospital - MH
+    program: 'w9MSPn5oSqp', //Mental Health v3
     programStatus: 'ACTIVE',
   },
   {},
