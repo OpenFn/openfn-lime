@@ -58,6 +58,12 @@
             "identifierType": "05a29f94-c0ed-11e2-94be-8c13b969e334",
             "location": "ee7770e4-57d6-42db-886e-cdba2954dd70",
             "preferred": true
+        },
+        {
+            "identifier": "ER-IQ2024-1234",
+            "uuid": "pCNpPpsV08B",
+            "identifierType": "8d79403a-c2cc-11de-8d13-0010c6dffd0f",
+            "preferred": false
         }
     ]
 }
