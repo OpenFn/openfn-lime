@@ -1,0 +1,63 @@
+{
+    "uuid": "136e1c5f-f396-49e8-84ee-ffea538e2dc1",
+    "person": {
+        "uuid": "136e1c5f-f396-49e8-84ee-ffea538e2dc1",
+        "names": [
+            {
+                "preferred": true,
+                "givenName": "UNKNOWN",
+                "middleName": "",
+                "familyName": "UNKNOWN"
+            }
+        ],
+        "gender": "M",
+        "birthdate": "2012-6-15",
+        "birthdateEstimated": true,
+        "attributes": [
+            {
+                "attributeType": "8b56eac7-5c76-4b9c-8c6f-1deab8d3fc47",
+                "value": "true"
+            },
+            {
+                "attributeType": "24d1fa23-9778-4a8e-9f7b-93f694fc25e2",
+                "value": "84066564-253e-43d8-b141-76730cffa878"
+            },
+            {
+                "attributeType": "e0b6ed99-72c4-4847-a442-e9929eac4a0f",
+                "value": "a9b2c642-097f-43f8-b96b-4d2f50ffd9b1"
+            },
+            {
+                "attributeType": "a9b2c642-097f-43f8-b96b-4d2f50ffd9b1",
+                "value": "MSF-AAAAAA000000000000001329"
+            },
+            {
+                "attributeType": "3884dc76-c271-4bcb-8df8-81c6fb897f53",
+                "value": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            },
+            {
+                "attributeType": "e363161a-9d5c-4331-8463-238938f018ed",
+                "value": "1"
+            },
+            {
+                "attributeType": "dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e",
+                "value": "2cb73bee-7f94-4695-89c7-c81187dbc90c"
+            }
+        ],
+        "addresses": [
+            {
+                "country": "Iraq",
+                "stateProvince": "Ninewa",
+                "countyDistrict": "Mosul"
+            }
+        ],
+        "dead": false
+    },
+    "identifiers": [
+        {
+            "identifier": "IQ146-36",
+            "identifierType": "05a29f94-c0ed-11e2-94be-8c13b969e334",
+            "location": "ee7770e4-57d6-42db-886e-cdba2954dd70",
+            "preferred": true
+        }
+    ]
+}
