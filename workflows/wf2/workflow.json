@@ -1,0 +1,51 @@
+{
+    "workflow": {
+        "steps": [
+            {
+                "id": "get-patients",
+                "adaptor": "openmrs",
+                "configuration": "../tmp/openmrs-creds.json",
+                "state": {
+                    "manualCursor": "2023-07-27T07:16:24.544Z"
+                },
+                "expression": "1-get-patients.js",
+                "next": {
+                    "upsert-teis": true
+                }
+            },
+            {
+                "id": "upsert-teis",
+                "adaptor": "dhis2",
+                "configuration": "../tmp/dhis2-creds.json",
+                "expression": "2-upsert-teis.js",
+                "next": {
+                    "get-encounters": true
+                }
+            },
+            {
+                "id": "get-encounters",
+                "adaptor": "openmrs",
+                "configuration": "../tmp/openmrs-creds.json",
+                "expression": "3-get-encounters.js",
+                "next": {
+                    "get-oclmap": true
+                }
+            },
+            {
+                "id": "get-oclmap",
+                "adaptor": "ocl",
+                "configuration": "../tmp/ocl-creds.json",
+                "expression": "4-get-oclmap.js",
+                "next": {
+                    "create-events": true
+                }
+            },
+            {
+                "id": "create-events",
+                "adaptor": "dhis2",
+                "configuration": "../tmp/dhis2-creds.json",
+                "expression": "5-create-events.js"
+            }
+        ]
+    }
+}

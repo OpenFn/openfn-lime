@@ -1,0 +1,30 @@
+{
+    "workflow": {
+        "steps": [
+            {
+                "id": "get-teis",
+                "adaptor": "dhis2",
+                "configuration": "../tmp/dhis2-creds.json",
+                "expression": "1-get-teis.js",
+                "next": {
+                    "create-patients": true
+                }
+            },
+            {
+                "id": "create-patients",
+                "adaptor": "openmrs",
+                "configuration": "../tmp/openmrs-creds.json",
+                "expression": "2-create-patients.js",
+                "next": {
+                    "update-teis": true
+                }
+            },
+            {
+                "id": "update-teis",
+                "adaptor": "openmrs",
+                "configuration": "tmp/openmrs-creds.json",
+                "expression": "3-update-teis.js"
+            }
+        ]
+    }
+}
