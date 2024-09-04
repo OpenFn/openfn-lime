@@ -13,35 +13,35 @@ fn(state => {
   return state;
 });
 
-searchPatient({ q: 'Patient', v: 'full', limit: '100' });
+searchPatient({ q: 'Aisha', v: 'full', limit: '1' });
+// searchPatient({ q: 'Patient', v: 'full', limit: '100' });
 //Query all patients (q=all) not supported on demo OpenMRS; needs to be configured
 //...so we query all Patients with name "Patient" instead
 
-fn(state => {
-  const { results } = state.data;
+// fn(state => {
+//   const { results } = state.data;
 
-  const getPatientByUuid = uuid => {
-    return results.find(patient => patient.uuid === uuid);
-  };
-  // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8").auditInfo.dateCreated)
+//   const getPatientByUuid = uuid =>
+//     results.find(patient => patient.uuid === uuid).auditInfo.dateCreated;
 
-  //console.log(JSON.stringify(state.data, null, 2));
+//   // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8"))
+//   //console.log(JSON.stringify(state.data, null, 2));
 
-  console.log('Filtering patients to only sync most recent records...');
+//   console.log('Filtering patients to only sync most recent records...');
 
-  state.patients = results.filter(
-    patient =>
-      (patient.auditInfo.dateChanged === null
-        ? patient.auditInfo.dateCreated
-        : patient.auditInfo.dateChanged) > state.cursor
-  );
-  console.log('# of new patients to sync to dhis2 ::', state.patients.length);
-  // console.log(JSON.stringify(patients, null, 2));
+//   state.patients = results.filter(
+//     patient =>
+//       (patient.auditInfo.dateChanged === null
+//         ? patient.auditInfo.dateCreated
+//         : patient.auditInfo.dateChanged) > state.cursor
+//   );
+//   console.log('# of new patients to sync to dhis2 ::', state.patients.length);
+//   // console.log(JSON.stringify(patients, null, 2));
 
-  state.lastRunDateTime = new Date().toISOString();
-  console.log('Updating cursor; next sync start date:', state.lastRunDateTime);
+//   state.lastRunDateTime = new Date().toISOString();
+//   console.log('Updating cursor; next sync start date:', state.lastRunDateTime);
 
-  state.data = {};
-  state.references = [];
-  return state;
-});
+//   state.data = {};
+//   state.references = [];
+//   return state;
+// });
