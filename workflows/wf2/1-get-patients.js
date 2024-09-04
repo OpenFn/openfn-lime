@@ -18,10 +18,10 @@ searchPatient({ q: 'Patient', v: 'full', limit: '100' });
 //...so we query all Patients with name "Patient" instead
 
 fn(state => {
-  const { body } = state.data;
+  const { results } = state.data;
 
   const getPatientByUuid = uuid => {
-    return body.results.find(patient => patient.uuid === uuid);
+    return results.find(patient => patient.uuid === uuid);
   };
   // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8").auditInfo.dateCreated)
 
@@ -29,17 +29,17 @@ fn(state => {
 
   console.log('Filtering patients to only sync most recent records...');
 
-  state.patients = body.results.filter(
+  state.patients = results.filter(
     patient =>
       (patient.auditInfo.dateChanged === null
         ? patient.auditInfo.dateCreated
         : patient.auditInfo.dateChanged) > state.cursor
   );
-  console.log('# of new patients to sync to dhis2 ::', patients.length);
+  console.log('# of new patients to sync to dhis2 ::', state.patients.length);
   // console.log(JSON.stringify(patients, null, 2));
 
   state.lastRunDateTime = new Date().toISOString();
-  console.log('Updating cursor; next sync start date:', lastRunDateTime);
+  console.log('Updating cursor; next sync start date:', state.lastRunDateTime);
 
   state.data = {};
   state.references = [];

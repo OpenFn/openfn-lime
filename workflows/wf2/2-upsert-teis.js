@@ -103,8 +103,6 @@ fn(async state => {
   return state;
 });
 
-
-
 // Upsert TEIs to DHIS2
 each(
   'patientsUpsert[*]',
