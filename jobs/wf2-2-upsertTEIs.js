@@ -21,21 +21,21 @@ fn(state => {
 
     const enrollments = [
       {
-        orgUnit: 'l22DQq4iV3G',
-        program: 'uGHvY5HFoLG',
-        programStage: 'hfKSeo6nZK0',
+        orgUnit: 'OPjuJMZFLop',
+        program: 'w9MSPn5oSqp',
+        programStage: 'EZJ9FsNau7Q',
         enrollmentDate: dateCreated,
       },
     ];
 
     const payload = {
       query: {
-        ou: 'l22DQq4iV3G',
-        filter: [`jGNhqEeXy2L:Eq:${patient.uuid}`],
+        ou: 'OPjuJMZFLop',
+        filter: [`AYbfTPYMNJH:Eq:${patient.uuid}`],
       },
       data: {
-        program: 'uGHvY5HFoLG',
-        orgUnit: 'l22DQq4iV3G',
+        program: 'w9MSPn5oSqp',
+        orgUnit: 'OPjuJMZFLop',
         trackedEntityType: 'cHlzCA2MuEF',
         attributes: [
           {
@@ -43,7 +43,7 @@ fn(state => {
             value: identifier,
           },
           {
-            attribute: 'jGNhqEeXy2L',
+            attribute: 'AYbfTPYMNJH',
             value: patient.uuid,
           },
           {
@@ -59,7 +59,7 @@ fn(state => {
     };
 
     if (isNewPatient) {
-      console.log('create enrollmenet');
+      console.log('create enrollment');
       payload.data.enrollments = enrollments;
     }
 
@@ -82,7 +82,7 @@ fn(async state => {
     await get(
       'trackedEntityInstances',
       {
-        ou: 'l22DQq4iV3G',
+        ou: 'OPjuJMZFLop',
         filter: [`jGNhqEeXy2L:Eq:${patient.uuid}`],
       },
       {},
@@ -103,30 +103,7 @@ fn(async state => {
   return state;
 });
 
-// Prepare DHIS2 data model for patients
-// each(
-//   'patients[*]',
-//   get(
-//     'trackedEntityInstances',
-//     state => ({
-//       ou: 'l22DQq4iV3G',
-//       filter: [`jGNhqEeXy2L:Eq:${state.data.uuid}`],
-//     }),
-//     {},
-//     state => {
-//       const { buildPatientsUpsert, references, data } = state;
-//       const { trackedEntityInstances } = data;
-//       const patient = references[0];
 
-//       console.log(patient.uuid);
-
-//       const isNewPatient = trackedEntityInstances.length === 0;
-
-//       buildPatientsUpsert(patient, isNewPatient);
-//       return state;
-//     }
-//   )
-// );
 
 // Upsert TEIs to DHIS2
 each(
