@@ -3,30 +3,6 @@ fn(state => {
   return { ...state, TEIs };
 });
 
-// Fetch TEI's for each patient
-// each(
-//   'encounters[*]',
-//   get(
-//     'trackedEntityInstances',
-//     state => ({
-//       ou: 'l22DQq4iV3G',
-//       filter: [`jGNhqEeXy2L:Eq:${state.data.patient.uuid}`],
-//     }),
-//     {},
-//     state => {
-
-//       const encounter = state.references[0];
-
-//       console.log(encounter.patient.uuid, 'patient uuid')
-//       console.log(state.data.trackedEntityInstances)
-//       state.TEIs[encounter.patient.uuid] =
-//         state.data.trackedEntityInstances[0].trackedEntityInstance;
-
-//       return state;
-//     }
-//   )
-// );
-
 fn(async state => {
   const { encounters } = state;
 
@@ -35,8 +11,8 @@ fn(async state => {
     await get(
       'trackedEntityInstances',
       {
-        ou: 'l22DQq4iV3G',
-        filter: [`jGNhqEeXy2L:Eq:${encounter.patient.uuid}`],
+        ou: 'OPjuJMZFLop',
+        filter: [`AYbfTPYMNJH:Eq:${encounter.patient.uuid}`],
       },
       {},
       state => {
@@ -99,12 +75,13 @@ fn(state => {
     console.log('valueForEncounter2', valueForEncounter2);
 
     return {
-      program: 'uGHvY5HFoLG',
-      orgUnit: 'l22DQq4iV3G',
-      programStage: 'hfKSeo6nZK0',
+      program: 'w9MSPn5oSqp',
+      orgUnit: 'OPjuJMZFLop',
+      programStage: 'EZJ9FsNau7Q',
       trackedEntityInstance: TEIs[data.patient.uuid],
       eventDate: encounterDate,
-      dataValues: [
+      //=== TODO: REPLACE & ADD NEW DATAVALUES TO MAP ====================//
+      dataValues: [ 
         {
           dataElement: 'ZTSBtZKc8Ff', //diagnosis
           value: valueForEncounter1,
@@ -114,6 +91,7 @@ fn(state => {
           value: valueForEncounter2,
         },
       ],
+      //==================================================================//
     };
   });
   return { ...state, encountersMapping };
@@ -122,7 +100,7 @@ fn(state => {
 // Create events fore each encounter
 each(
   'encountersMapping[*]',
-  create('events', state => state.data)
+  create('events', state => state.data) //TODO: Add query parameter '/events?dataElementIdScheme=UID'
 );
 
 // Clean up state
