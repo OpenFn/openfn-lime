@@ -108,12 +108,8 @@ fn(async state => {
 // Upsert TEIs to DHIS2
 each(
   'patientsUpsert[*]',
-  upsert(
-    'trackedEntityInstances',
-    state => state.data.query,
-    state => state.data.data
-  )
+  upsert('trackedEntityInstances', $.data.query, $.data.data)
 );
 
 // Clean up state
-fn(state => ({ ...state, data: {} }));
+fn(({ data, ...state }) => state);

@@ -28,14 +28,14 @@
                 "configuration": "../tmp/openmrs-creds.json",
                 "expression": "3-get-encounters.js",
                 "next": {
-                    "get-oclmap": true
+                    "get-options-map": true
                 }
             },
             {
-                "id": "get-oclmap",
-                "adaptor": "ocl",
-                "configuration": "../tmp/ocl-creds.json",
-                "expression": "4-get-oclmap.js",
+                "id": "get-options-map",
+                "adaptor": "http",
+                
+                "expression": "4-get-options-map.js",
                 "next": {
                     "create-events": true
                 }
