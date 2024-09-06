@@ -9,55 +9,42 @@ workflows:
         name: Get Patients
         adaptor: '@openfn/language-openmrs@latest'
         credential: null
-        body: |
-          
-          // Check out the Job Writing Guide for help getting started:
-          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+        body:
+          path: workflows/wf2/1-get-patients.js
 
       Upsert-TEIs:
         name: Upsert TEIs
         adaptor: '@openfn/language-dhis2@latest'
         credential: null
-        body: |
-          
-          // Check out the Job Writing Guide for help getting started:
-          // https://docs.openfn.org/documentation/jobs/job-writing-guide
-
+        body:
+          path: workflows/wf2/2-upsert-teis.js
       Get-Encounters:
         name: Get Encounters
         adaptor: '@openfn/language-openmrs@latest'
         credential: null
-        body: |
-          
-          // Check out the Job Writing Guide for help getting started:
-          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+        body:
+          path: workflows/wf2/3-get-encounters.js
 
       Get-Options-Map:
         name: Get Options Map
         adaptor: '@openfn/language-http@latest'
         credential: null
-        body: |
-          
-          // Check out the Job Writing Guide for help getting started:
-          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+        body:
+          path: workflows/wf2/4-get-options-map.js
 
       Get-TEIs:
         name: Get TEIs
         adaptor: '@openfn/language-dhis2@latest'
         credential: null
-        body: |
-          
-          // Check out the Job Writing Guide for help getting started:
-          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+        body:
+          path: workflows/wf2/5-get-teis.js
 
       Create-Events:
         name: Create Events
         adaptor: '@openfn/language-dhis2@latest'
         credential: null
-        body: |
-          
-          // Check out the Job Writing Guide for help getting started:
-          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+        body:
+          path: workflows/wf2/6-create-events.js
 
     triggers:
       webhook:
