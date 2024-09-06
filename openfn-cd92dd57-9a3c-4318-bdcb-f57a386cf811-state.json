@@ -1,0 +1,46 @@
+{
+  "id": "cd92dd57-9a3c-4318-bdcb-f57a386cf811",
+  "name": "msf-lime-iraq",
+  "description": null,
+  "inserted_at": "2024-09-05T06:59:05Z",
+  "updated_at": "2024-09-05T07:08:47Z",
+  "project_credentials": {},
+  "scheduled_deletion": null,
+  "history_retention_period": null,
+  "dataclip_retention_period": null,
+  "retention_policy": "retain_all",
+  "workflows": {
+    "wf2": {
+      "id": "0f8ec062-1a2d-4f13-a8c5-b8298004512c",
+      "name": "wf2",
+      "inserted_at": "2024-09-06T11:58:48.083707Z",
+      "lock_version": 1,
+      "triggers": {
+        "webhook": {
+          "enabled": true,
+          "id": "51283b68-c07a-4d85-854c-c2e6e93af041",
+          "type": "webhook"
+        }
+      },
+      "jobs": {
+        "New-job": {
+          "id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
+          "name": "New job",
+          "body": "\n// Check out the Job Writing Guide for help getting started:\n// https://docs.openfn.org/documentation/jobs/job-writing-guide\n",
+          "adaptor": "@openfn/language-common@latest",
+          "project_credential_id": null
+        }
+      },
+      "edges": {
+        "webhook->New-job": {
+          "enabled": true,
+          "id": "7d239f46-635e-4b7f-8706-6a3d08d473db",
+          "source_trigger_id": "51283b68-c07a-4d85-854c-c2e6e93af041",
+          "condition_type": "always",
+          "target_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca"
+        }
+      }
+    }
+  },
+  "requires_mfa": false
+}
