@@ -31,6 +31,7 @@ fn(state => {
     const payload = {
       query: {
         ou: 'OPjuJMZFLop',
+        program: 'w9MSPn5oSqp',
         filter: [`AYbfTPYMNJH:Eq:${patient.uuid}`],
       },
       data: {
@@ -83,7 +84,8 @@ fn(async state => {
       'trackedEntityInstances',
       {
         ou: 'OPjuJMZFLop',
-        filter: [`jGNhqEeXy2L:Eq:${patient.uuid}`],
+        filter: [`AYbfTPYMNJH:Eq:${patient.uuid}`],
+        program: 'w9MSPn5oSqp',
       },
       {},
       state => {
@@ -106,12 +108,8 @@ fn(async state => {
 // Upsert TEIs to DHIS2
 each(
   'patientsUpsert[*]',
-  upsert(
-    'trackedEntityInstances',
-    state => state.data.query,
-    state => state.data.data
-  )
+  upsert('trackedEntityInstances', $.data.query, $.data.data)
 );
 
 // Clean up state
-fn(state => ({ ...state, data: {} }));
+fn(({ data, ...state }) => state);

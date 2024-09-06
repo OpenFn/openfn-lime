@@ -28,14 +28,22 @@
                 "configuration": "../tmp/openmrs-creds.json",
                 "expression": "3-get-encounters.js",
                 "next": {
-                    "get-oclmap": true
+                    "get-options-map": true
                 }
             },
             {
-                "id": "get-oclmap",
-                "adaptor": "ocl",
-                "configuration": "../tmp/ocl-creds.json",
-                "expression": "4-get-oclmap.js",
+                "id": "get-options-map",
+                "adaptor": "http",
+                "expression": "4-get-options-map.js",
+                "next": {
+                    "get-teis": true
+                }
+            },
+            {
+                "id": "get-teis",
+                "adaptor": "dhis2",
+                "configuration": "../tmp/dhis2-creds.json",
+                "expression": "5-get-teis.js",
                 "next": {
                     "create-events": true
                 }
@@ -44,7 +52,7 @@
                 "id": "create-events",
                 "adaptor": "dhis2",
                 "configuration": "../tmp/dhis2-creds.json",
-                "expression": "5-create-events.js"
+                "expression": "6-create-events.js"
             }
         ]
     }

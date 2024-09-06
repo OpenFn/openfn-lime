@@ -13,18 +13,18 @@ fn(state => {
   return state;
 });
 
-searchPatient({ q: 'Patient', v: 'full', limit: '100' });
+searchPatient({ q: 'Aisha', v: 'full', limit: '1' });
+// searchPatient({ q: 'Patient', v: 'full', limit: '100' });
 //Query all patients (q=all) not supported on demo OpenMRS; needs to be configured
 //...so we query all Patients with name "Patient" instead
 
 fn(state => {
   const { results } = state.data;
 
-  const getPatientByUuid = uuid => {
-    return results.find(patient => patient.uuid === uuid);
-  };
-  // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8").auditInfo.dateCreated)
+  const getPatientByUuid = uuid =>
+    results.find(patient => patient.uuid === uuid).auditInfo.dateCreated;
 
+  // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid("31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8"))
   //console.log(JSON.stringify(state.data, null, 2));
 
   console.log('Filtering patients to only sync most recent records...');
