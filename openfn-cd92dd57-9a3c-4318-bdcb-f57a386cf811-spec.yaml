@@ -5,9 +5,54 @@ workflows:
   wf2:
     name: wf2
     jobs:
-      New-job:
-        name: New job
-        adaptor: '@openfn/language-common@latest'
+      Get-Patients:
+        name: Get Patients
+        adaptor: '@openfn/language-openmrs@latest'
+        credential: null
+        body: |
+          
+          // Check out the Job Writing Guide for help getting started:
+          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+
+      Upsert-TEIs:
+        name: Upsert TEIs
+        adaptor: '@openfn/language-dhis2@latest'
+        credential: null
+        body: |
+          
+          // Check out the Job Writing Guide for help getting started:
+          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+
+      Get-Encounters:
+        name: Get Encounters
+        adaptor: '@openfn/language-openmrs@latest'
+        credential: null
+        body: |
+          
+          // Check out the Job Writing Guide for help getting started:
+          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+
+      Get-Options-Map:
+        name: Get Options Map
+        adaptor: '@openfn/language-http@latest'
+        credential: null
+        body: |
+          
+          // Check out the Job Writing Guide for help getting started:
+          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+
+      Get-TEIs:
+        name: Get TEIs
+        adaptor: '@openfn/language-dhis2@latest'
+        credential: null
+        body: |
+          
+          // Check out the Job Writing Guide for help getting started:
+          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+
+      Create-Events:
+        name: Create Events
+        adaptor: '@openfn/language-dhis2@latest'
         credential: null
         body: |
           
@@ -19,8 +64,33 @@ workflows:
         type: webhook
         enabled: true
     edges:
-      webhook->New-job:
+      webhook->Get-Patients:
         source_trigger: webhook
-        target_job: New-job
+        target_job: Get-Patients
         condition_type: always
+        enabled: true
+      Get-Patients->Upsert-TEIs:
+        source_job: Get-Patients
+        target_job: Upsert-TEIs
+        condition_type: on_job_success
+        enabled: true
+      Upsert-TEIs->Get-Encounters:
+        source_job: Upsert-TEIs
+        target_job: Get-Encounters
+        condition_type: on_job_success
+        enabled: true
+      Get-Encounters->Get-Options-Map:
+        source_job: Get-Encounters
+        target_job: Get-Options-Map
+        condition_type: on_job_success
+        enabled: true
+      Get-Options-Map->Get-TEIs:
+        source_job: Get-Options-Map
+        target_job: Get-TEIs
+        condition_type: on_job_success
+        enabled: true
+      Get-TEIs->Create-Events:
+        source_job: Get-TEIs
+        target_job: Create-Events
+        condition_type: on_job_success
         enabled: true

@@ -4,8 +4,8 @@
   "description": null,
   "inserted_at": "2024-09-05T06:59:05Z",
   "updated_at": "2024-09-05T07:08:47Z",
-  "project_credentials": {},
   "scheduled_deletion": null,
+  "project_credentials": {},
   "history_retention_period": null,
   "dataclip_retention_period": null,
   "retention_policy": "retain_all",
@@ -13,8 +13,8 @@
     "wf2": {
       "id": "0f8ec062-1a2d-4f13-a8c5-b8298004512c",
       "name": "wf2",
-      "inserted_at": "2024-09-06T11:58:48.083707Z",
-      "lock_version": 1,
+      "inserted_at": "2024-09-06T12:17:32.563717Z",
+      "lock_version": 6,
       "triggers": {
         "webhook": {
           "enabled": true,
@@ -23,21 +23,91 @@
         }
       },
       "jobs": {
-        "New-job": {
+        "Get-Patients": {
           "id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
-          "name": "New job",
+          "name": "Get Patients",
           "body": "\n// Check out the Job Writing Guide for help getting started:\n// https://docs.openfn.org/documentation/jobs/job-writing-guide\n",
-          "adaptor": "@openfn/language-common@latest",
+          "adaptor": "@openfn/language-openmrs@latest",
+          "project_credential_id": null
+        },
+        "Upsert-TEIs": {
+          "id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
+          "name": "Upsert TEIs",
+          "body": "\n// Check out the Job Writing Guide for help getting started:\n// https://docs.openfn.org/documentation/jobs/job-writing-guide\n",
+          "adaptor": "@openfn/language-dhis2@latest",
+          "project_credential_id": null
+        },
+        "Get-Encounters": {
+          "id": "8fb577e5-d068-4d47-8172-81f08153ced9",
+          "name": "Get Encounters",
+          "body": "\n// Check out the Job Writing Guide for help getting started:\n// https://docs.openfn.org/documentation/jobs/job-writing-guide\n",
+          "adaptor": "@openfn/language-openmrs@latest",
+          "project_credential_id": null
+        },
+        "Get-Options-Map": {
+          "id": "175ac575-ea3d-470e-8faf-61de514e222e",
+          "name": "Get Options Map",
+          "body": "\n// Check out the Job Writing Guide for help getting started:\n// https://docs.openfn.org/documentation/jobs/job-writing-guide\n",
+          "adaptor": "@openfn/language-http@latest",
+          "project_credential_id": null
+        },
+        "Get-TEIs": {
+          "id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
+          "name": "Get TEIs",
+          "body": "\n// Check out the Job Writing Guide for help getting started:\n// https://docs.openfn.org/documentation/jobs/job-writing-guide\n",
+          "adaptor": "@openfn/language-dhis2@latest",
+          "project_credential_id": null
+        },
+        "Create-Events": {
+          "id": "932645d8-ddb8-4d00-841e-7fe7af214837",
+          "name": "Create Events",
+          "body": "\n// Check out the Job Writing Guide for help getting started:\n// https://docs.openfn.org/documentation/jobs/job-writing-guide\n",
+          "adaptor": "@openfn/language-dhis2@latest",
           "project_credential_id": null
         }
       },
       "edges": {
-        "webhook->New-job": {
+        "webhook->Get-Patients": {
           "enabled": true,
           "id": "7d239f46-635e-4b7f-8706-6a3d08d473db",
           "source_trigger_id": "51283b68-c07a-4d85-854c-c2e6e93af041",
           "condition_type": "always",
           "target_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca"
+        },
+        "Get-Patients->Upsert-TEIs": {
+          "enabled": true,
+          "id": "11de414f-193e-4a17-89c3-012465c7cce0",
+          "source_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
+          "condition_type": "on_job_success",
+          "target_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57"
+        },
+        "Upsert-TEIs->Get-Encounters": {
+          "enabled": true,
+          "id": "79ca3ec3-641f-4167-8fe3-a96c40cc9954",
+          "source_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
+          "condition_type": "on_job_success",
+          "target_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9"
+        },
+        "Get-Encounters->Get-Options-Map": {
+          "enabled": true,
+          "id": "e0c3565e-a875-429c-8ce3-138df39fdf4c",
+          "source_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9",
+          "condition_type": "on_job_success",
+          "target_job_id": "175ac575-ea3d-470e-8faf-61de514e222e"
+        },
+        "Get-Options-Map->Get-TEIs": {
+          "enabled": true,
+          "id": "eb6bf369-19b8-4608-86a7-95935831ee6e",
+          "source_job_id": "175ac575-ea3d-470e-8faf-61de514e222e",
+          "condition_type": "on_job_success",
+          "target_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3"
+        },
+        "Get-TEIs->Create-Events": {
+          "enabled": true,
+          "id": "32b04529-a796-461c-8a0a-a5e543ef535e",
+          "source_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
+          "condition_type": "on_job_success",
+          "target_job_id": "932645d8-ddb8-4d00-841e-7fe7af214837"
         }
       }
     }
