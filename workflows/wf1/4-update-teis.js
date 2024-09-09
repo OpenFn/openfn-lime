@@ -12,24 +12,21 @@ each(
   upsert(
     'trackedEntityInstances',
     state => ({
-      ou: 'l22DQq4iV3G',
+      ou: 'OPjuJMZFLop',
+      program: 'w9MSPn5oSqp',
       filter: [`P4wdYGkldeG:Eq:${state.data.patient_number}`],
     }),
     {
-      orgUnit: 'l22DQq4iV3G',
-      program: 'uGHvY5HFoLG',
+      orgUnit: 'OPjuJMZFLop',
+      program: 'w9MSPn5oSqp',
       trackedEntityType: 'cHlzCA2MuEF',
       attributes: [
+        { attribute: 'P4wdYGkldeG', value: `${$.data.patient_number}` }, //DHIS2 patient number to use as lookup key
+        { attribute: 'AYbfTPYMNJH', value: `${$.data.patient.uuid}` }, //OMRS patient uuid
         {
-          attribute: 'P4wdYGkldeG',
-          value: dataValue('patient_number')
-          //value: `${state.data.patient_number}`,
-        },
-        {
-          attribute: 'jGNhqEeXy2L',
-          value: dataValue('uuid')
-          //value: `${state.data.uuid}`,
-        },
+          attribute: 'ZBoxuExmxcZ',
+          value: `${$.data.patient.identifier[0].identifier}`,
+        }, //id generated in wf1-2 e.g., "IQ146-24-000-027"
       ],
     }
   )

@@ -32,15 +32,16 @@ fn(state => {
 });
 
 //First we generate a unique OpenMRS ID for each patient
-each('trackedEntityInstances[*]', state => {
-  return post(
+each(
+  'trackedEntityInstances[*]',
+  post(
     'idgen/identifiersource/8549f706-7e85-4c1d-9424-217d50a2988b/identifier',
     {}
-  )(state).then(state => {
-    state.identifiers.push(state.data.body.identifier);
+  ).then(state => {
+    state.identifiers.push(state.data.identifier);
     return state;
-  });
-});
+  })
+);
 
 // Then we map trackedEntityInstances to openMRS data model
 fn(state => {
@@ -69,7 +70,7 @@ fn(state => {
     const patientNumber = getValueForCode(d.attributes, 'patient_number'); // Add random number for testing + Math.random()
 
     return {
-      patientNumber: patientNumber,
+      uuid: patientNumber,
       identifiers: [
         {
           identifier: identifiers[i], //map ID value from DHIS2 attribute
@@ -85,6 +86,7 @@ fn(state => {
         },
       ],
       person: {
+        uuid: patientNumber,
         gender: genderOptions[getValueForCode(d.attributes, 'sex')],
         age: getValueForCode(d.attributes, 'age'),
         birthdate: calculateDOB(getValueForCode(d.attributes, 'age')),
@@ -95,6 +97,21 @@ fn(state => {
             givenName: 'Patient',
           },
         ],
+        attributes: [
+          {
+            attributeType: 'bc851ec1-9fb7-49da-acd7-1a61168002fe',
+            value: '8293833883',
+          },
+        ],
+        addresses: [
+          {
+            country: 'Iraq',
+            stateProvince: 'Ninewa',
+            countyDistrict: 'Mosul',
+            cityVillage: 'VillageA',
+            address1: 'Street1',
+          },
+        ],
       },
     };
   });
@@ -103,19 +120,19 @@ fn(state => {
 });
 
 // Creating patients in openMRS
-each('patients[*]', state => {
-  const { patientNumber, ...patient } = state.data;
+// each('patients[*]', state => {
+//   const { patientNumber, ...patient } = state.data;
 
-  console.log('Creating patient record\n', JSON.stringify(patient, null, 2));
+//   console.log('Creating patient record\n', JSON.stringify(patient, null, 2));
 
-  return createPatient(patient)(state).then(state => {
-    state.newPatientUuid.push({
-      patient_number: patientNumber,
-      uuid: state.data.body.uuid,
-    });
-    return state;
-  });
-});
+//   return createPatient(patient)(state).then(state => {
+//     state.newPatientUuid.push({
+//       patient_number: patientNumber,
+//       uuid: state.data.body.uuid,
+//     });
+//     return state;
+//   });
+// });
 
-// Clean up state
-fn(state => ({ ...state, data: {}, references: [] }));
+// // Clean up state
+// fn(({ data, references, ...state }) => state);
