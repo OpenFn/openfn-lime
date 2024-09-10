@@ -3,7 +3,7 @@
   "name": "msf-lime-iraq",
   "description": null,
   "inserted_at": "2024-09-05T06:59:05Z",
-  "updated_at": "2024-09-10T12:30:51Z",
+  "updated_at": "2024-09-10T13:32:46Z",
   "project_credentials": {},
   "scheduled_deletion": null,
   "history_retention_period": null,
@@ -60,7 +60,7 @@
       },
       "concurrency": null,
       "inserted_at": "2024-09-06T11:58:48Z",
-      "updated_at": "2024-09-10T12:30:51Z",
+      "updated_at": "2024-09-10T13:32:46Z",
       "jobs": {
         "Get-Patients": {
           "id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
@@ -100,13 +100,13 @@
         "Create-Events": {
           "id": "932645d8-ddb8-4d00-841e-7fe7af214837",
           "name": "Create Events",
-          "body": "// Prepare DHIS2 data model for create events\nfn(state => {\n  const { TEIs, mhpssMap } = state;\n  const optsMap = JSON.parse(state.optsMap);\n\n  const dataValuesMapping = data => {\n    return Object.keys(mhpssMap)\n      .map(k => {\n        let value;\n        const dataElement = k;\n        const conceptUuid = mhpssMap[k];\n        const answer = data.obs.find(o => o.concept.uuid === conceptUuid);\n\n        if (answer) {\n          if (typeof answer.value === 'string') {\n            value = answer.value;\n          }\n          if (typeof answer.value === 'object') {\n            if (\n              answer.value.uuid === '278401ee-3d6f-4c65-9455-f1c16d0a7a98' &&\n              conceptUuid === '722dd83a-c1cf-48ad-ac99-45ac131ccc96'\n            ) {\n              value = 'TRUE';\n            } else {\n              value = optsMap.find(\n                o => o['value.uuid - External ID'] == answer?.value?.uuid\n              )?.['DHIS2 Option UID'];\n            }\n          }\n        }\n        if (!answer) {\n          value = '';\n        }\n        return { dataElement, value };\n      })\n      .filter(d => d);\n  };\n\n  state.encountersMapping = state.encounters.map(data => {\n    const dataValues = dataValuesMapping(data);\n    const encounterDate = data.encounterDatetime.replace('+0000', '');\n\n    return {\n      program: 'w9MSPn5oSqp',\n      orgUnit: 'OPjuJMZFLop',\n      programStage: 'MdTtRixaC1B',\n      trackedEntityInstance: TEIs[data.patient.uuid],\n      eventDate: encounterDate,\n      dataValues,\n    };\n  });\n\n  return state;\n});\n\n// Create events fore each encounter\neach(\n  '$.encountersMapping[*]',\n  create(\n    'events',\n    state => {\n      // console.log(state.data);\n      return state.data;\n    },\n    {\n      params: {\n        dataElementIdScheme: 'UID',\n      },\n    }\n  )\n);\n\n// Clean up state\nfn(({ data, references, ...state }) => state);\n",
+          "body": "// Prepare DHIS2 data model for create events\nfn(state => {\n  const { TEIs, mhpssMap } = state;\n  const optsMap = JSON.parse(state.optsMap);\n\n  const dataValuesMapping = data => {\n    return Object.keys(mhpssMap)\n      .map(k => {\n        let value;\n        const dataElement = k;\n        const conceptUuid = mhpssMap[k];\n        const answer = data.obs.find(o => o.concept.uuid === conceptUuid);\n\n        if (answer) {\n          if (typeof answer.value === 'string') {\n            value = answer.value;\n          }\n          if (typeof answer.value === 'object') {\n            if (\n              //TODO: Ask mtuchi about this mapping\n              answer.value.uuid === '278401ee-3d6f-4c65-9455-f1c16d0a7a98' &&\n              conceptUuid === '722dd83a-c1cf-48ad-ac99-45ac131ccc96'\n            ) {\n              value = 'TRUE';\n            } else {\n              value = optsMap.find(\n                o => o['value.uuid - External ID'] == answer?.value?.uuid\n              )?.['DHIS2 Option Code']; //Changed from 'DHIS2 Option UID'\n            }\n          }\n        }\n        if (!answer) {\n          value = '';\n        }\n        return { dataElement, value };\n      })\n      .filter(d => d);\n  };\n\n  state.encountersMapping = state.encounters.map(data => {\n    const dataValues = dataValuesMapping(data);\n    const encounterDate = data.encounterDatetime.replace('+0000', '');\n\n    return {\n      program: 'w9MSPn5oSqp',\n      orgUnit: 'OPjuJMZFLop',\n      programStage: 'MdTtRixaC1B',\n      trackedEntityInstance: TEIs[data.patient.uuid],\n      eventDate: encounterDate,\n      dataValues,\n    };\n  });\n\n  return state;\n});\n\n// Create events fore each encounter\neach(\n  '$.encountersMapping[*]',\n  create(\n    'events',\n    state => {\n      // console.log(state.data);\n      return state.data;\n    },\n    {\n      params: {\n        dataElementIdScheme: 'UID',\n      },\n    }\n  )\n);\n\n// Clean up state\nfn(({ data, references, ...state }) => state);\n",
           "adaptor": "@openfn/language-dhis2@latest",
           "project_credential_id": null
         }
       },
       "deleted_at": null,
-      "lock_version": 14,
+      "lock_version": 15,
       "triggers": {
         "webhook": {
           "enabled": true,
