@@ -6,21 +6,12 @@ fn(state => {
     O: 'prefer_not_to_answer',
   };
 
-  const DHIS2_PATIENT_NUMBER = '8d79403a-c2cc-11de-8d13-0010c6dffd0f';
-  const OPENMRS_AUTO_ID = '05a29f94-c0ed-11e2-94be-8c13b969e334';
+  const DHIS2_PATIENT_NUMBER = '8d79403a-c2cc-11de-8d13-0010c6dffd0f'; //DHIS2 ID or DHIS2 Patient Number
+  const OPENMRS_AUTO_ID = '05a29f94-c0ed-11e2-94be-8c13b969e334'; //MSF ID or OpenMRS Patient Number
   const patientsUpsert = [];
 
   const buildPatientsUpsert = (patient, isNewPatient) => {
     const dateCreated = patient.auditInfo.dateCreated.substring(0, 10);
-
-    // TODO: OLD MAPPING TO REMOVE if not using identifier elsewhere?
-    // const { identifier } =
-    //   patient.identifiers.find(
-    //     i => i.identifierType.uuid === DHIS2_PATIENT_NUMBER
-    //   ) ||
-    //   patient.identifiers.find(i => i.identifierType.uuid === OPENMRS_AUTO_ID);
-
-    //TODO: Return null if no DHIS2_PATIENT_NUMBER found in input
 
     function findIdentifierByUuid(identifiers, targetUuid) {
       // Use the `find` method to locate the matching identifier
@@ -31,16 +22,6 @@ fn(state => {
       // Return the `identifier` value if a match is found; otherwise, return null
       return matchingIdentifier ? matchingIdentifier.identifier : undefined;
     }
-
-    const { identifierDHIS2 } =
-      patient.identifiers.find(
-        i => i.identifierType.uuid === DHIS2_PATIENT_NUMBER
-      ) ||
-      patient.identifiers.find(i => i.identifierType.uuid === OPENMRS_AUTO_ID);
-
-    const { identifierMSFID } = patient.identifiers.find(
-      i => i.identifierType.uuid === OPENMRS_AUTO_ID
-    );
 
     const calculateDOB = age => {
       const currentDate = new Date();
@@ -142,6 +123,8 @@ fn(state => {
         ],
       },
     };
+
+    console.log('mapped dhis2 payloads:: ', JSON.stringify(payload, null, 2));
 
     if (isNewPatient) {
       console.log('create enrollment');
