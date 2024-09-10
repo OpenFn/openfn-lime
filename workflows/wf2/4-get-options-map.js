@@ -20,10 +20,10 @@ fn(state => {
     H1fMCaOzr8F: '3e97c2d0-15c1-4cfd-884f-7a4721079217',
     yCwuZ0htrlH: '5f6e245c-83fc-421b-8d46-061ac773ae71',
     RiiH9A53rvG: '6d3876be-0a27-466d-ad58-92edcc8c31fb',
-    pN4iQH4AEzk: '722dd83a-c1cf-48ad-ac99-45ac131ccc96',
+    //pN4iQH4AEzk: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //TODO: return boolean
     qgfKPlIHjcD: 'd8c84af2-bd9b-4bf3-a815-81652cb0b0bc',
     rSIazMFEBjD: '4dae5b12-070f-4153-b1ca-fbec906106e1',
-    qptKDiv9uPl: 'ec42d68d-3e23-43de-b8c5-a03bb538e7c7',
+    //Sex//qptKDiv9uPl: 'ec42d68d-3e23-43de-b8c5-a03bb538e7c7', //TODO: Remove TEA?
     KSBMR1BDGwx: '1a8bf24f-4f36-4971-aad9-ae77f3525738',
     WDY6MkQWyHb: '722dd83a-c1cf-48ad-ac99-45ac131ccc96',
     AuDPJg6gZE7: '82978311-bef9-46f9-9a9a-cc62254b00a6',
@@ -53,7 +53,7 @@ fn(state => {
     MF3RML0HLbP: 'b2c5b6e0-66f0-4b9d-8576-b6f48e0a06df',
     m8qis4iUOTo: '790b41ce-e1e7-11e8-b02f-0242ac130002',
     OZViJk8FPVd: 'c2664992-8a5a-4a6d-9238-5df591307d55',
-    // tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //phq9 score
+    // tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //TODO: phq9 score logic
   };
 
   return state;
