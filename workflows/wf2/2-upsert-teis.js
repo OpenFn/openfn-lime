@@ -20,9 +20,23 @@ fn(state => {
     //   ) ||
     //   patient.identifiers.find(i => i.identifierType.uuid === OPENMRS_AUTO_ID);
 
-    const { identifierDHIS2 } = patient.identifiers.find(
-      i => i.identifierType.uuid === DHIS2_PATIENT_NUMBER
-    );
+    //TODO: Return null if no DHIS2_PATIENT_NUMBER found in input
+
+    function findIdentifierByUuid(identifiers, targetUuid) {
+      // Use the `find` method to locate the matching identifier
+      const matchingIdentifier = identifiers.find(
+        identifier => identifier.identifierType.uuid === targetUuid
+      );
+
+      // Return the `identifier` value if a match is found; otherwise, return null
+      return matchingIdentifier ? matchingIdentifier.identifier : undefined;
+    }
+
+    const { identifierDHIS2 } =
+      patient.identifiers.find(
+        i => i.identifierType.uuid === DHIS2_PATIENT_NUMBER
+      ) ||
+      patient.identifiers.find(i => i.identifierType.uuid === OPENMRS_AUTO_ID);
 
     const { identifierMSFID } = patient.identifiers.find(
       i => i.identifierType.uuid === OPENMRS_AUTO_ID
@@ -72,11 +86,14 @@ fn(state => {
           },
           {
             attribute: 'P4wdYGkldeG', //DHIS2 ID ==> "Patient Number"
-            value: identifierDHIS2,
+            value: findIdentifierByUuid(
+              patient.identifiers,
+              DHIS2_PATIENT_NUMBER
+            ),
           },
           {
             attribute: 'ZBoxuExmxcZ', //MSF ID ==> "OpenMRS Patient Number"
-            value: identifierMSFID,
+            value: findIdentifierByUuid(patient.identifiers, OPENMRS_AUTO_ID),
           },
           {
             attribute: 'AYbfTPYMNJH', //"OpenMRS Patient UID"
@@ -92,7 +109,7 @@ fn(state => {
           },
           {
             attribute: 'WDp4nVor9Z7',
-            value: patient.person.birthDate,
+            value: patient.person.birthdate,
           },
           // {
           //   attribute: 'rBtrjV1Mqkz', //Place of living
