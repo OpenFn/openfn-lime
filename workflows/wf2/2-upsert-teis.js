@@ -19,6 +19,10 @@ fn(state => {
       ) ||
       patient.identifiers.find(i => i.identifierType.uuid === OPENMRS_AUTO_ID);
 
+    const { identifierMSFID } = patient.identifiers.find(
+      i => i.identifierType.uuid === OPENMRS_AUTO_ID
+    );
+
     const enrollments = [
       {
         orgUnit: 'OPjuJMZFLop',
@@ -40,11 +44,23 @@ fn(state => {
         trackedEntityType: 'cHlzCA2MuEF',
         attributes: [
           {
-            attribute: 'P4wdYGkldeG',
+            attribute: 'fa7uwpCKIwa',
+            value: patient.person.names[0].givenName,
+          },
+          {
+            attribute: 'Jt9BhFZkvP2',
+            value: patient.person.names[0].familyName,
+          },
+          {
+            attribute: 'P4wdYGkldeG', //DHIS2 ID ==> "Patient Number"
             value: identifier,
           },
           {
-            attribute: 'AYbfTPYMNJH',
+            attribute: 'ZBoxuExmxcZ', //MSF ID ==> "OpenMRS Patient Number"
+            value: identifierMSFID,
+          },
+          {
+            attribute: 'AYbfTPYMNJH', //"OpenMRS Patient UID"
             value: patient.uuid,
           },
           {
