@@ -51,6 +51,7 @@ fn(state => {
     genderOptions,
     nationalityMap,
     statusMap,
+    locations,
   } = state;
 
   const getValueForCode = (attributes, code) => {
@@ -90,6 +91,15 @@ fn(state => {
     const noOfChildren = d.attributes.find(
       a => a.attribute === 'SVoT2cVLd5O'
     )?.value;
+
+    // const lonlat = d.attributes.find(a => a.attribute === 'rBtrjV1Mqkz')?.value;
+    // const location = locations.options.find(
+    //   o => o.code === lonlat
+    // )?.displayName;
+
+    // const [countyDistrict, remainder] = location?.split(' (');
+    // const [cityVillage] = remainder?.split(')');
+
     return {
       patientNumber,
       person: {
@@ -117,8 +127,8 @@ fn(state => {
           {
             country: 'Iraq',
             stateProvince: 'Ninewa',
-            countyDistrict: 'Mosul', //TODO
-            cityVillage: 'Al-Abar', //TODO
+            // countyDistrict,
+            // cityVillage,
           },
         ],
         attributes: [
@@ -171,19 +181,27 @@ fn(state => {
 });
 
 // Creating patients in openMRS
-each('patients[*]', state => {
-  const { patientNumber, ...patient } = state.data;
-
-  console.log('Creating patient record\n', JSON.stringify(patient, null, 2));
-
-  return createPatient(patient)(state).then(state => {
-    state.newPatientUuid.push({
-      patient_number: patientNumber,
-      uuid: state.data.body.uuid,
-    });
-    return state;
-  });
-});
+each(
+  'patients[*]',
+  create(
+    'patient',
+    state => {
+      const { patientNumber, ...patient } = state.data;
+      console.log(
+        'Creating patient record\n',
+        JSON.stringify(patient, null, 2)
+      );
+      return patient;
+    },
+    state => {
+      state.newPatientUuid.push({
+        patient_number: state.references.at(-1)?.patientNumber,
+        uuid: state.data.body.uuid,
+      });
+      return state;
+    }
+  )
+);
 
 // Clean up state
 fn(({ data, references, ...state }) => state);
