@@ -1,0 +1,5 @@
+{
+    "endpoint": "https://app.openfn.org",
+    "specPath": "openfn-cd92dd57-9a3c-4318-bdcb-f57a386cf811-spec.yaml",
+    "statePath": "openfn-cd92dd57-9a3c-4318-bdcb-f57a386cf811-state.json"
+}
