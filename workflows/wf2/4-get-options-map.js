@@ -24,6 +24,7 @@ fn(state => {
     qgfKPlIHjcD: 'd8c84af2-bd9b-4bf3-a815-81652cb0b0bc', //Patient experienced an act of aggression or violence - What type(s) of violence?
     rSIazMFEBjD: '4dae5b12-070f-4153-b1ca-fbec906106e1', //Admission type
     KSBMR1BDGwx: '1a8bf24f-4f36-4971-aad9-ae77f3525738', //Type of consultation
+    WDY6MkQWyHb: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Consultation done by
     AuDPJg6gZE7: '82978311-bef9-46f9-9a9a-cc62254b00a6', //Location of intervention
     KeyiEPc4pII: '82978311-bef9-46f9-9a9a-cc62254b00a6', //Type of intervention
     qfYPXP76j8g: 'c3c86c1b-07be-4506-ab25-8f35f4389b19', //Patient referred by
@@ -50,10 +51,9 @@ fn(state => {
     W7cPAi8iXLZ: '819f79e7-b9af-4afd-85d4-2ab677223113', //Clinical diagnosis - If other, specify
     MF3RML0HLbP: 'b2c5b6e0-66f0-4b9d-8576-b6f48e0a06df', //MHOS score
     m8qis4iUOTo: '790b41ce-e1e7-11e8-b02f-0242ac130002', //Past / Precipitating Events - If other, specify
-    WDY6MkQWyHb: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Q: Consultation done by ==> returns "psychologist" or other. This works!
-    //pN4iQH4AEzk: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Q: Diagnosis done by psychologist? //TODO: If answer.value =  "psychologist", return TRUE (boolean)
-    //qptKDiv9uPl: 'ec42d68d-3e23-43de-b8c5-a03bb538e7c7', //Sex //AK TODO: Remove TEA?
-    //tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ9 Score //AK TODO: add logic
+    //pN4iQH4AEzk: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Consultation done by //TODO: Return BOOLEAN
+    //qptKDiv9uPl: 'ec42d68d-3e23-43de-b8c5-a03bb538e7c7', //Sex //TODO: Remove TEA?
+    //tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ9 Score //TODO: ass logic
   };
 
   return state;
