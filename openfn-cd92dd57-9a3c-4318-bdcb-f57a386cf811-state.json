@@ -3,7 +3,7 @@
   "name": "msf-lime-iraq",
   "description": null,
   "inserted_at": "2024-09-05T06:59:05Z",
-  "updated_at": "2024-09-11T07:18:06Z",
+  "updated_at": "2024-09-11T08:41:32Z",
   "scheduled_deletion": null,
   "project_credentials": {
     "mtuchi@openfn.org-OpenMRS-Demo": {
@@ -70,7 +70,7 @@
       },
       "concurrency": null,
       "inserted_at": "2024-09-06T11:58:48Z",
-      "updated_at": "2024-09-11T07:18:06Z",
+      "updated_at": "2024-09-11T08:41:32Z",
       "jobs": {
         "Get-Patients": {
           "id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
@@ -89,7 +89,7 @@
         "Get-Encounters": {
           "id": "8fb577e5-d068-4d47-8172-81f08153ced9",
           "name": "Get Encounters",
-          "body": "// Fetch encounters from the date of cursor\n// OpenMRS demo instance does not support querying ALL records (q=all)\n// getEncounters({ q: 'Patient', v: 'full', limit: 100 });\ngetEncounters({\n  q: 'Aisha',\n  v: 'full',\n  limit: 1,\n  encounterType: '95d68645-1b72-4290-be0b-ec1fb64bc067',\n});\n\n// Update cursor and return encounters\nfn(state => {\n  const { cursor, data } = state;\n  console.log('cursor datetime::', cursor);\n\n  console.log('Filtering encounters to only get recent records...');\n  // console.log(\n  //   'Encounters returned before we filter for most recent ::',\n  //   JSON.stringify(data, null, 2)\n  // );\n  const encounters = data.results.filter(\n    encounter => encounter.encounterDatetime >= cursor\n  );\n  console.log('# of new encounters to sync to dhis2 ::', encounters.length);\n\n  return { ...state, data: {}, references: [], encounters };\n});\n",
+          "body": "// Fetch encounters from the date of cursor\n// OpenMRS demo instance does not support querying ALL records (q=all)\n// getEncounters({ q: 'Patient', v: 'full', limit: 100 });\ngetEncounters({\n  q: 'MHtwo',\n  v: 'full',\n  limit: 1,\n  encounterType: '95d68645-1b72-4290-be0b-ec1fb64bc067',\n});\n\n// Update cursor and return encounters\nfn(state => {\n  const { cursor, data } = state;\n  console.log('cursor datetime::', cursor);\n\n  console.log('Filtering encounters to only get recent records...');\n  // console.log(\n  //   'Encounters returned before we filter for most recent ::',\n  //   JSON.stringify(data, null, 2)\n  // );\n  const encounters = data.results.filter(\n    encounter => encounter.encounterDatetime >= cursor\n  );\n  console.log('# of new encounters to sync to dhis2 ::', encounters.length);\n\n  return { ...state, data: {}, references: [], encounters };\n});\n",
           "adaptor": "@openfn/language-openmrs@latest",
           "project_credential_id": "3141d874-5456-4168-9680-ce04efb1089c"
         },
@@ -116,7 +116,7 @@
         }
       },
       "deleted_at": null,
-      "lock_version": 53,
+      "lock_version": 60,
       "triggers": {
         "webhook": {
           "enabled": true,
@@ -160,7 +160,7 @@
       },
       "concurrency": null,
       "inserted_at": "2024-09-10T16:34:04Z",
-      "updated_at": "2024-09-10T16:42:25Z",
+      "updated_at": "2024-09-11T08:41:32Z",
       "jobs": {
         "Get-Teis": {
           "id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5",
@@ -192,7 +192,7 @@
         }
       },
       "deleted_at": null,
-      "lock_version": 9,
+      "lock_version": 13,
       "triggers": {
         "webhook": {
           "enabled": true,
