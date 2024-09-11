@@ -97,13 +97,14 @@
     "wf2": {
       "id": "0f8ec062-1a2d-4f13-a8c5-b8298004512c",
       "name": "wf2",
-      "inserted_at": "2024-09-11T09:02:40.647641Z",
-      "lock_version": 63,
+      "inserted_at": "2024-09-11T09:21:38.886861Z",
+      "lock_version": 64,
       "triggers": {
-        "webhook": {
+        "cron": {
           "enabled": true,
           "id": "51283b68-c07a-4d85-854c-c2e6e93af041",
-          "type": "webhook"
+          "type": "cron",
+          "cron_expression": "0 0 * * *"
         }
       },
       "jobs": {
@@ -151,7 +152,7 @@
         }
       },
       "edges": {
-        "webhook->Get-Patients": {
+        "cron->Get-Patients": {
           "enabled": true,
           "id": "7d239f46-635e-4b7f-8706-6a3d08d473db",
           "source_trigger_id": "51283b68-c07a-4d85-854c-c2e6e93af041",

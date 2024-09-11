@@ -571,12 +571,13 @@ workflows:
           path: workflows/wf2/6-create-events.js
 
     triggers:
-      webhook:
-        type: webhook
+      cron:
+        type: cron
+        cron_expression: '0 0 * * *'
         enabled: true
     edges:
-      webhook->Get-Patients:
-        source_trigger: webhook
+      cron->Get-Patients:
+        source_trigger: cron
         target_job: Get-Patients
         condition_type: always
         enabled: true
