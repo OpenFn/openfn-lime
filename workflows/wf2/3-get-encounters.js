@@ -2,7 +2,7 @@
 // OpenMRS demo instance does not support querying ALL records (q=all)
 // getEncounters({ q: 'Patient', v: 'full', limit: 100 });
 getEncounters({
-  q: 'Aisha',
+  q: 'MHtwo',
   v: 'full',
   limit: 1,
   encounterType: '95d68645-1b72-4290-be0b-ec1fb64bc067',
