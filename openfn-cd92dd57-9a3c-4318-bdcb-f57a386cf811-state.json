@@ -3,7 +3,7 @@
   "name": "msf-lime-iraq",
   "description": null,
   "inserted_at": "2024-09-05T06:59:05Z",
-  "updated_at": "2024-09-10T13:32:46Z",
+  "updated_at": "2024-09-11T07:18:06Z",
   "scheduled_deletion": null,
   "project_credentials": {
     "mtuchi@openfn.org-OpenMRS-Demo": {
@@ -24,20 +24,58 @@
     "wf2": {
       "id": "0f8ec062-1a2d-4f13-a8c5-b8298004512c",
       "name": "wf2",
-      "inserted_at": "2024-09-10T15:45:40.150142Z",
-      "lock_version": 52,
-      "triggers": {
-        "webhook": {
+      "edges": {
+        "webhook->Get-Patients": {
           "enabled": true,
-          "id": "51283b68-c07a-4d85-854c-c2e6e93af041",
-          "type": "webhook"
+          "id": "7d239f46-635e-4b7f-8706-6a3d08d473db",
+          "source_trigger_id": "51283b68-c07a-4d85-854c-c2e6e93af041",
+          "condition_type": "always",
+          "target_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca"
+        },
+        "Get-Patients->Upsert-TEIs": {
+          "enabled": true,
+          "id": "11de414f-193e-4a17-89c3-012465c7cce0",
+          "source_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
+          "condition_type": "on_job_success",
+          "target_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57"
+        },
+        "Upsert-TEIs->Get-Encounters": {
+          "enabled": true,
+          "id": "79ca3ec3-641f-4167-8fe3-a96c40cc9954",
+          "source_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
+          "condition_type": "on_job_success",
+          "target_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9"
+        },
+        "Get-Encounters->Get-Options-Map": {
+          "enabled": true,
+          "id": "e0c3565e-a875-429c-8ce3-138df39fdf4c",
+          "source_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9",
+          "condition_type": "on_job_success",
+          "target_job_id": "175ac575-ea3d-470e-8faf-61de514e222e"
+        },
+        "Get-TEIs->Create-Events": {
+          "enabled": true,
+          "id": "32b04529-a796-461c-8a0a-a5e543ef535e",
+          "source_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
+          "condition_type": "on_job_success",
+          "target_job_id": "932645d8-ddb8-4d00-841e-7fe7af214837"
+        },
+        "Get-Options-Map->Get-TEIs": {
+          "enabled": true,
+          "id": "eb6bf369-19b8-4608-86a7-95935831ee6e",
+          "source_job_id": "175ac575-ea3d-470e-8faf-61de514e222e",
+          "condition_type": "on_job_success",
+          "target_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3"
         }
       },
+      "concurrency": null,
+      "inserted_at": "2024-09-06T11:58:48Z",
+      "updated_at": "2024-09-11T07:18:06Z",
       "jobs": {
         "Get-Patients": {
           "id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
           "name": "Get Patients",
-          "body": "// here we define the date cursor\nfn(state => {\n  //manualCursor at beggining of the project 2023-05-20T06:01:24.000+0000\n  const manualCursor = '2023-07-27T07:16:24.544Z';\n\n  state.cursor = state.lastRunDateTime || manualCursor;\n\n  console.log(\n    'Date cursor to filter & get only recent OMRS records ::',\n    state.cursor\n  );\n\n  return state;\n});\n\nsearchPatient({ q: 'Aisha', v: 'full', limit: '3' });\n// searchPatient({ q: 'Patient', v: 'full', limit: '100' });\n//Query all patients (q=all) not supported on demo OpenMRS; needs to be configured\n//...so we query all Patients with name \"Patient\" instead\n\nfn(state => {\n  const { results } = state.data;\n\n  const getPatientByUuid = uuid =>\n    results.find(patient => patient.uuid === uuid).auditInfo.dateCreated;\n\n  // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid(\"31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8\"))\n  //console.log(JSON.stringify(state.data, null, 2));\n\n  console.log('Filtering patients to only sync most recent records...');\n\n  state.patients = results.filter(\n    patient =>\n      (patient.auditInfo.dateChanged === null\n        ? patient.auditInfo.dateCreated\n        : patient.auditInfo.dateChanged) > state.cursor\n  );\n  console.log('# of new patients to sync to dhis2 ::', state.patients.length);\n  // console.log(JSON.stringify(patients, null, 2));\n\n  state.lastRunDateTime = new Date().toISOString();\n  console.log('Updating cursor; next sync start date:', state.lastRunDateTime);\n\n  state.data = {};\n  state.references = [];\n  return state;\n});\n",
+          "body": "// here we define the date cursor\nfn(state => {\n  //manualCursor at beggining of the project 2023-05-20T06:01:24.000+0000\n  const manualCursor = '2023-07-27T07:16:24.544Z';\n\n  state.cursor = state.lastRunDateTime || manualCursor;\n\n  console.log(\n    'Date cursor to filter & get only recent OMRS records ::',\n    state.cursor\n  );\n\n  return state;\n});\n\nsearchPatient({ q: 'MHtwo', v: 'full', limit: '3' });\n// searchPatient({ q: 'Patient', v: 'full', limit: '100' });\n//Query all patients (q=all) not supported on demo OpenMRS; needs to be configured\n//...so we query all Patients with name \"Patient\" instead\n\nfn(state => {\n  const { results } = state.data;\n\n  const getPatientByUuid = uuid =>\n    results.find(patient => patient.uuid === uuid).auditInfo.dateCreated;\n\n  // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid(\"31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8\"))\n  //console.log(JSON.stringify(state.data, null, 2));\n\n  console.log('Filtering patients to only sync most recent records...');\n\n  state.patients = results.filter(\n    patient =>\n      (patient.auditInfo.dateChanged === null\n        ? patient.auditInfo.dateCreated\n        : patient.auditInfo.dateChanged) > state.cursor\n  );\n  console.log('# of new patients to sync to dhis2 ::', state.patients.length);\n  // console.log(JSON.stringify(patients, null, 2));\n\n  state.lastRunDateTime = new Date().toISOString();\n  console.log('Updating cursor; next sync start date:', state.lastRunDateTime);\n\n  state.data = {};\n  state.references = [];\n  return state;\n});\n",
           "adaptor": "@openfn/language-openmrs@latest",
           "project_credential_id": "3141d874-5456-4168-9680-ce04efb1089c"
         },
@@ -77,63 +115,52 @@
           "project_credential_id": "8a5ead9b-5f9e-49b1-9e9a-9dc3c4ccf72d"
         }
       },
-      "edges": {
-        "webhook->Get-Patients": {
+      "deleted_at": null,
+      "lock_version": 53,
+      "triggers": {
+        "webhook": {
           "enabled": true,
-          "id": "7d239f46-635e-4b7f-8706-6a3d08d473db",
-          "source_trigger_id": "51283b68-c07a-4d85-854c-c2e6e93af041",
-          "condition_type": "always",
-          "target_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca"
-        },
-        "Get-Patients->Upsert-TEIs": {
-          "enabled": true,
-          "id": "11de414f-193e-4a17-89c3-012465c7cce0",
-          "source_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
-          "condition_type": "on_job_success",
-          "target_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57"
-        },
-        "Upsert-TEIs->Get-Encounters": {
-          "enabled": true,
-          "id": "79ca3ec3-641f-4167-8fe3-a96c40cc9954",
-          "source_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
-          "condition_type": "on_job_success",
-          "target_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9"
-        },
-        "Get-Encounters->Get-Options-Map": {
-          "enabled": true,
-          "id": "e0c3565e-a875-429c-8ce3-138df39fdf4c",
-          "source_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9",
-          "condition_type": "on_job_success",
-          "target_job_id": "175ac575-ea3d-470e-8faf-61de514e222e"
-        },
-        "Get-Options-Map->Get-TEIs": {
-          "enabled": true,
-          "id": "eb6bf369-19b8-4608-86a7-95935831ee6e",
-          "source_job_id": "175ac575-ea3d-470e-8faf-61de514e222e",
-          "condition_type": "on_job_success",
-          "target_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3"
-        },
-        "Get-TEIs->Create-Events": {
-          "enabled": true,
-          "id": "32b04529-a796-461c-8a0a-a5e543ef535e",
-          "source_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
-          "condition_type": "on_job_success",
-          "target_job_id": "932645d8-ddb8-4d00-841e-7fe7af214837"
+          "id": "51283b68-c07a-4d85-854c-c2e6e93af041",
+          "type": "webhook"
         }
       }
     },
     "wf1": {
       "id": "94e04fb5-d5ae-45ad-be31-98b902f36861",
       "name": "wf1",
-      "inserted_at": "2024-09-10T16:42:25.919683Z",
-      "lock_version": 9,
-      "triggers": {
-        "webhook": {
+      "edges": {
+        "webhook->Get-Teis": {
           "enabled": true,
-          "id": "0e7d525f-c24a-4969-8131-397cc94a6065",
-          "type": "webhook"
+          "id": "f54f198a-5fa1-4ee0-803f-35316e32ab92",
+          "source_trigger_id": "0e7d525f-c24a-4969-8131-397cc94a6065",
+          "condition_type": "always",
+          "target_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5"
+        },
+        "Get-Teis->Get-Locations": {
+          "enabled": true,
+          "id": "dd4d3b24-f3c2-4162-895e-970aea5a50dc",
+          "source_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5",
+          "condition_type": "on_job_success",
+          "target_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07"
+        },
+        "Get-Locations->Create-Patients": {
+          "enabled": true,
+          "id": "e80f8963-3c31-48cc-8df4-6b6dd89fd616",
+          "source_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07",
+          "condition_type": "on_job_success",
+          "target_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc"
+        },
+        "Create-Patients->Update-Teis": {
+          "enabled": true,
+          "id": "eb140757-c73f-4f9f-83d6-0ac0c76cf4da",
+          "source_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc",
+          "condition_type": "on_job_success",
+          "target_job_id": "eed2a687-7ef3-4a38-819e-d50319874d03"
         }
       },
+      "concurrency": null,
+      "inserted_at": "2024-09-10T16:34:04Z",
+      "updated_at": "2024-09-10T16:42:25Z",
       "jobs": {
         "Get-Teis": {
           "id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5",
@@ -164,34 +191,13 @@
           "project_credential_id": "8a5ead9b-5f9e-49b1-9e9a-9dc3c4ccf72d"
         }
       },
-      "edges": {
-        "webhook->Get-Teis": {
+      "deleted_at": null,
+      "lock_version": 9,
+      "triggers": {
+        "webhook": {
           "enabled": true,
-          "id": "f54f198a-5fa1-4ee0-803f-35316e32ab92",
-          "source_trigger_id": "0e7d525f-c24a-4969-8131-397cc94a6065",
-          "condition_type": "always",
-          "target_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5"
-        },
-        "Get-Teis->Get-Locations": {
-          "enabled": true,
-          "id": "dd4d3b24-f3c2-4162-895e-970aea5a50dc",
-          "source_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5",
-          "condition_type": "on_job_success",
-          "target_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07"
-        },
-        "Get-Locations->Create-Patients": {
-          "enabled": true,
-          "id": "e80f8963-3c31-48cc-8df4-6b6dd89fd616",
-          "source_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07",
-          "condition_type": "on_job_success",
-          "target_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc"
-        },
-        "Create-Patients->Update-Teis": {
-          "enabled": true,
-          "id": "eb140757-c73f-4f9f-83d6-0ac0c76cf4da",
-          "source_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc",
-          "condition_type": "on_job_success",
-          "target_job_id": "eed2a687-7ef3-4a38-819e-d50319874d03"
+          "id": "0e7d525f-c24a-4969-8131-397cc94a6065",
+          "type": "webhook"
         }
       }
     }
