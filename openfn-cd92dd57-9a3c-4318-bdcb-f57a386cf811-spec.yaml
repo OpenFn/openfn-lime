@@ -8,8 +8,8 @@ credentials:
     name: OpenMRS Demo
     owner: mtuchi@openfn.org
 workflows:
-  wf1:
-    name: wf1
+  wf1-dhis2-omrs-migration:
+    name: wf1-dhis2-omrs-migration
     jobs:
       Get-Teis:
         name: Get Teis
@@ -526,8 +526,8 @@ workflows:
         target_job: Update-Teis
         condition_type: on_job_success
         enabled: true
-  wf2:
-    name: wf2
+  wf2-omrs-dhis2:
+    name: wf2-omrs-dhis2
     jobs:
       Get-Patients:
         name: Get Patients
