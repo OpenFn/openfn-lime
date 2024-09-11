@@ -21,9 +21,9 @@ fn(state => {
             )?.['DHIS2 Option Code']; //Changed from 'DHIS2 Option UID
             //**** TODO: this is only true if DE = pN4iQH4AEzk' *************
             // if (
-            //   //TODO: this is only true if DE = pN4iQH4AEzk
-            //   answer.value.uuid === '278401ee-3d6f-4c65-9455-f1c16d0a7a98' &&
-            //   conceptUuid === '1a8bf24f-4f36-4971-aad9-ae77f3525738'
+            //   //If "Consultation Done By" = "psychologist", then return TRUE
+            //   answer.value.uuid === '278401ee-3d6f-4c65-9455-f1c16d0a7a98' && //A: "psychologist"
+            //   conceptUuid === '722dd83a-c1cf-48ad-ac99-45ac131ccc96' //Q: Consultation Done By"
             // ) {
             //   value = 'TRUE';
             // } else {
