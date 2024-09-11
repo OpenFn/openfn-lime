@@ -501,12 +501,13 @@ workflows:
           );
 
     triggers:
-      webhook:
-        type: webhook
+      cron:
+        type: cron
+        cron_expression: '0 0 * * *'
         enabled: true
     edges:
-      webhook->Get-Teis:
-        source_trigger: webhook
+      cron->Get-Teis:
+        source_trigger: cron
         target_job: Get-Teis
         condition_type: always
         enabled: true
