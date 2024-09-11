@@ -569,6 +569,7 @@ workflows:
         credential: mtuchi@openfn.org-MSF-DHIS2-UAT
         body:
           path: workflows/wf2/6-create-events.js
+
     triggers:
       webhook:
         type: webhook
