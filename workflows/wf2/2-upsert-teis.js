@@ -1,4 +1,5 @@
 fn(state => {
+  const { nationalityMap, statusMap, placeOflivingMap } = state;
   const genderOptions = {
     M: 'male',
     F: 'female',
@@ -59,11 +60,11 @@ fn(state => {
         attributes: [
           {
             attribute: 'fa7uwpCKIwa',
-            value: patient.person.names[0].givenName,
+            value: patient.person?.names[0]?.givenName,
           },
           {
             attribute: 'Jt9BhFZkvP2',
-            value: patient.person.names[0].familyName,
+            value: patient.person?.names[0]?.familyName,
           },
           {
             attribute: 'P4wdYGkldeG', //DHIS2 ID ==> "Patient Number"
@@ -92,34 +93,72 @@ fn(state => {
             attribute: 'WDp4nVor9Z7',
             value: patient.person.birthdate,
           },
-          // {
-          //   attribute: 'rBtrjV1Mqkz', //Place of living
-          //   value: patient.person.address,
-          // },
-          // {
-          //   attribute: 'Xvzc9e0JJmp', //nationality
-          //   value: patient.person.attributes[x].value, //input.attributeType = "24d1fa23-9778-4a8e-9f7b-93f694fc25e2"
-          // },
-          // {
-          //   attribute: 'YUIQIA2ClN6', //current status
-          //   value: patient.person.attributes[x].value, //input.attributeType = "e0b6ed99-72c4-4847-a442-e9929eac4a0f"
-          // },
-          // {
-          //   attribute: 'Qq6xQ2s6LO8', //legal status
-          //   value: patient.person.attributes[x].value, //input.attributeType = "a9b2c642-097f-43f8-b96b-4d2f50ffd9b1"
-          // },
-          // {
-          //   attribute: 'FpuGAOu6itZ', //marital status
-          //   value: patient.person.attributes[x].value, //input.attributeType = "3884dc76-c271-4bcb-8df8-81c6fb897f53"
-          // },
+          {
+            attribute: 'rBtrjV1Mqkz', //Place of living
+            value: placeOflivingMap[patient.person?.addresses[0]?.cityVillage],
+          },
+          {
+            attribute: 'Xvzc9e0JJmp', //nationality
+            value:
+              nationalityMap[
+                patient.person.attributes.find(
+                  a =>
+                    a.attributeType.uuid ===
+                    '24d1fa23-9778-4a8e-9f7b-93f694fc25e2'
+                )?.value.uuid
+              ], //input.attributeType = "24d1fa23-9778-4a8e-9f7b-93f694fc25e2"
+          },
+          {
+            attribute: 'YUIQIA2ClN6', //current status
+            value:
+              statusMap[
+                patient.person.attributes.find(
+                  a =>
+                    a.attributeType.uuid ===
+                    'e0b6ed99-72c4-4847-a442-e9929eac4a0f'
+                )?.value.uuid
+              ], //input.attributeType = "e0b6ed99-72c4-4847-a442-e9929eac4a0f"
+          },
+          {
+            attribute: 'Qq6xQ2s6LO8', //legal status
+            value:
+              statusMap[
+                patient.person.attributes.find(
+                  a =>
+                    a.attributeType.uuid ===
+                    'a9b2c642-097f-43f8-b96b-4d2f50ffd9b1'
+                )?.value.uuid
+              ], //input.attributeType = "a9b2c642-097f-43f8-b96b-4d2f50ffd9b1"
+          },
+          {
+            attribute: 'FpuGAOu6itZ', //marital status
+            value:
+              statusMap[
+                patient.person.attributes.find(
+                  a =>
+                    a.attributeType.uuid ===
+                    '3884dc76-c271-4bcb-8df8-81c6fb897f53'
+                )?.value.uuid
+              ], //input.attributeType = "3884dc76-c271-4bcb-8df8-81c6fb897f53"
+          },
           // {
           //   attribute: 'v7k4OcXrWR8', //employment status
-          //   value: patient.person.attributes[x].value, //input.attributeType = "dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e"
+          //   value:
+          //     statusMap[
+          //       patient.person.attributes.find(
+          //         a =>
+          //           a.attributeType.uuid ===
+          //           'dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e'
+          //       )?.value.uuid
+          //     ], //input.attributeType = "dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e"
           // },
-          // {
-          //   attribute: 'SVoT2cVLd5O', //employment status
-          //   value: patient.person.attributes[x].value, //input.attributeType = "e363161a-9d5c-4331-8463-238938f018ed"
-          // },
+          {
+            attribute: 'SVoT2cVLd5O', //Number of children
+            value: patient.person.attributes.find(
+              a =>
+                a.attributeType.uuid === 'e363161a-9d5c-4331-8463-238938f018ed'
+            )?.value, //input.attributeType = "e363161a-9d5c-4331-8463-238938f018ed"
+          },
         ],
       },
     };
@@ -142,35 +181,30 @@ fn(state => {
   };
 });
 
-fn(async state => {
-  const { buildPatientsUpsert, patients } = state;
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-  const getPatient = async patient => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    await get(
-      'trackedEntityInstances',
-      {
-        ou: 'OPjuJMZFLop',
-        filter: [`AYbfTPYMNJH:Eq:${patient.uuid}`],
-        program: 'w9MSPn5oSqp',
-      },
-      {},
-      state => {
-        const { trackedEntityInstances } = state.data;
-        const isNewPatient = trackedEntityInstances.length === 0;
+each(
+  '$.patients[*]',
+  get(
+    'trackedEntityInstances',
+    {
+      ou: 'OPjuJMZFLop',
+      filter: [`AYbfTPYMNJH:Eq:${$.data.uuid}`],
+      program: 'w9MSPn5oSqp',
+    },
+    {},
+    async state => {
+      const patient = state.references.at(-1);
+      console.log(patient.uuid, 'patient uuid');
+      const { trackedEntityInstances } = state.data;
+      const isNewPatient = trackedEntityInstances.length === 0;
 
-        buildPatientsUpsert(patient, isNewPatient);
-        return state;
-      }
-    )(state);
-  };
-
-  for (const patient of patients) {
-    console.log(patient.uuid, 'patient uuid');
-    await getPatient(patient);
-  }
-  return state;
-});
+      state.buildPatientsUpsert(patient, isNewPatient);
+      await delay(2000);
+      return state;
+    }
+  )
+);
 
 // Upsert TEIs to DHIS2
 each(

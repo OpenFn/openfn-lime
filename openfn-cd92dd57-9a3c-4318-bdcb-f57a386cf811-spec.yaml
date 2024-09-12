@@ -536,6 +536,13 @@ workflows:
         body:
           path: workflows/wf2/1-get-patients.js
 
+      Mappings:
+        name: Mappings
+        adaptor: '@openfn/language-common@latest'
+        credential: null
+        body:
+          path: workflows/wf2/2-mappings.js
+    
       Upsert-TEIs:
         name: Upsert TEIs
         adaptor: '@openfn/language-dhis2@latest'
@@ -582,8 +589,13 @@ workflows:
         target_job: Get-Patients
         condition_type: always
         enabled: true
-      Get-Patients->Upsert-TEIs:
+      Get-Patients->Mappings:
         source_job: Get-Patients
+        target_job: Mappings
+        condition_type: on_job_success
+        enabled: true
+      Mappings->Upsert-TEIs:
+        source_job: Mappings
         target_job: Upsert-TEIs
         condition_type: on_job_success
         enabled: true

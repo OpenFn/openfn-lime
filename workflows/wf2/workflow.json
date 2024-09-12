@@ -10,6 +10,14 @@
                 },
                 "expression": "1-get-patients.js",
                 "next": {
+                    "mappings": true
+                }
+            },
+            {
+                "id": "mappings",
+                "adaptor": "common",
+                "expression": "2-mappings.js",
+                "next": {
                     "upsert-teis": true
                 }
             },
