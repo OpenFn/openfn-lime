@@ -1,6 +1,6 @@
 get(
   'https://gist.githubusercontent.com/aleksa-krolls/b22987f7569bc069e963973401832349/raw/066aae1199723144a1b5b7637a65d469a5b7ccd6/msf_mhBaseline_optionsMap.json'
-);
+); //ak's gist
 
 fn(state => {
   state.optsMap = state.data;
