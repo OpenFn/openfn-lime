@@ -3,7 +3,7 @@
   "name": "msf-lime-iraq",
   "description": null,
   "inserted_at": "2024-09-05T06:59:05Z",
-  "updated_at": "2024-09-11T09:52:16Z",
+  "updated_at": "2024-09-12T13:31:03Z",
   "project_credentials": {
     "mtuchi@openfn.org-OpenMRS-Demo": {
       "id": "3141d874-5456-4168-9680-ce04efb1089c",
@@ -21,19 +21,147 @@
   "dataclip_retention_period": null,
   "retention_policy": "retain_all",
   "workflows": {
-    "wf1-dhis2-omrs-migration": {
-      "id": "94e04fb5-d5ae-45ad-be31-98b902f36861",
-      "name": "wf1-dhis2-omrs-migration",
-      "inserted_at": "2024-09-11T09:51:03.894447Z",
-      "lock_version": 16,
+    "wf2-omrs-dhis2": {
+      "id": "0f8ec062-1a2d-4f13-a8c5-b8298004512c",
+      "name": "wf2-omrs-dhis2",
+      "edges": {
+        "cron->Get-Patients": {
+          "enabled": true,
+          "id": "7d239f46-635e-4b7f-8706-6a3d08d473db",
+          "source_trigger_id": "51283b68-c07a-4d85-854c-c2e6e93af041",
+          "condition_type": "always",
+          "target_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca"
+        },
+        "Get-Patients->Upsert-TEIs": {
+          "enabled": true,
+          "id": "11de414f-193e-4a17-89c3-012465c7cce0",
+          "source_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
+          "condition_type": "on_job_success",
+          "target_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57"
+        },
+        "Upsert-TEIs->Get-Encounters": {
+          "enabled": true,
+          "id": "79ca3ec3-641f-4167-8fe3-a96c40cc9954",
+          "source_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
+          "condition_type": "on_job_success",
+          "target_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9"
+        },
+        "Get-Encounters->Get-Options-Map": {
+          "enabled": true,
+          "id": "e0c3565e-a875-429c-8ce3-138df39fdf4c",
+          "source_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9",
+          "condition_type": "on_job_success",
+          "target_job_id": "175ac575-ea3d-470e-8faf-61de514e222e"
+        },
+        "Get-TEIs->Create-Events": {
+          "enabled": true,
+          "id": "32b04529-a796-461c-8a0a-a5e543ef535e",
+          "source_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
+          "condition_type": "on_job_success",
+          "target_job_id": "932645d8-ddb8-4d00-841e-7fe7af214837"
+        },
+        "Get-Options-Map->Get-TEIs": {
+          "enabled": true,
+          "id": "eb6bf369-19b8-4608-86a7-95935831ee6e",
+          "source_job_id": "175ac575-ea3d-470e-8faf-61de514e222e",
+          "condition_type": "on_job_success",
+          "target_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3"
+        }
+      },
+      "concurrency": null,
+      "inserted_at": "2024-09-06T11:58:48Z",
+      "updated_at": "2024-09-12T13:31:03Z",
+      "jobs": {
+        "Get-Patients": {
+          "id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
+          "name": "Get Patients",
+          "body": "// here we define the date cursor\nfn(state => {\n  //manualCursor at beggining of the project 2023-05-20T06:01:24.000+0000\n  const manualCursor = '2023-07-27T07:16:24.544Z';\n\n  state.cursor = state.lastRunDateTime || manualCursor;\n\n  console.log(\n    'Date cursor to filter & get only recent OMRS records ::',\n    state.cursor\n  );\n\n  return state;\n});\n\nsearchPatient({ q: 'MHtwo', v: 'full', limit: '3' });\n// searchPatient({ q: 'Patient', v: 'full', limit: '100' });\n//Query all patients (q=all) not supported on demo OpenMRS; needs to be configured\n//...so we query all Patients with name \"Patient\" instead\n\nfn(state => {\n  const { results } = state.data;\n\n  const getPatientByUuid = uuid =>\n    results.find(patient => patient.uuid === uuid).auditInfo.dateCreated;\n\n  // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid(\"31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8\"))\n  //console.log(JSON.stringify(state.data, null, 2));\n\n  console.log('Filtering patients to only sync most recent records...');\n\n  state.patients = results.filter(\n    patient =>\n      (patient.auditInfo.dateChanged === null\n        ? patient.auditInfo.dateCreated\n        : patient.auditInfo.dateChanged) > state.cursor\n  );\n  console.log('# of new patients to sync to dhis2 ::', state.patients.length);\n  // console.log(JSON.stringify(patients, null, 2));\n\n  state.lastRunDateTime = new Date().toISOString();\n  console.log('Updating cursor; next sync start date:', state.lastRunDateTime);\n\n  state.data = {};\n  state.references = [];\n  return state;\n});\n",
+          "adaptor": "@openfn/language-openmrs@latest",
+          "project_credential_id": "3141d874-5456-4168-9680-ce04efb1089c"
+        },
+        "Upsert-TEIs": {
+          "id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
+          "name": "Upsert TEIs",
+          "body": "fn(state => {\n  const genderOptions = {\n    M: 'male',\n    F: 'female',\n    U: 'unknown',\n    O: 'prefer_not_to_answer',\n  };\n\n  const DHIS2_PATIENT_NUMBER = '8d79403a-c2cc-11de-8d13-0010c6dffd0f'; //DHIS2 ID or DHIS2 Patient Number\n  const OPENMRS_AUTO_ID = '05a29f94-c0ed-11e2-94be-8c13b969e334'; //MSF ID or OpenMRS Patient Number\n  const patientsUpsert = [];\n\n  const buildPatientsUpsert = (patient, isNewPatient) => {\n    const dateCreated = patient.auditInfo.dateCreated.substring(0, 10);\n\n    function findIdentifierByUuid(identifiers, targetUuid) {\n      // Use the `find` method to locate the matching identifier\n      const matchingIdentifier = identifiers.find(\n        identifier => identifier.identifierType.uuid === targetUuid\n      );\n\n      // Return the `identifier` value if a match is found; otherwise, return null\n      return matchingIdentifier ? matchingIdentifier.identifier : undefined;\n    }\n\n    const calculateDOB = age => {\n      const currentDate = new Date();\n      const currentYear = currentDate.getFullYear();\n      const birthYear = currentYear - age;\n\n      const birthday = new Date(\n        birthYear,\n        currentDate.getMonth(),\n        currentDate.getDay()\n      );\n\n      return birthday.toISOString().replace(/\\.\\d+Z$/, '+0000');\n    };\n\n    const enrollments = [\n      {\n        orgUnit: 'OPjuJMZFLop',\n        program: 'w9MSPn5oSqp',\n        programStage: 'EZJ9FsNau7Q',\n        enrollmentDate: dateCreated,\n      },\n    ];\n\n    const payload = {\n      query: {\n        ou: 'OPjuJMZFLop',\n        program: 'w9MSPn5oSqp',\n        filter: [`AYbfTPYMNJH:Eq:${patient.uuid}`], //upsert on omrs.patient.uid\n      },\n      data: {\n        program: 'w9MSPn5oSqp',\n        orgUnit: 'OPjuJMZFLop',\n        trackedEntityType: 'cHlzCA2MuEF',\n        attributes: [\n          {\n            attribute: 'fa7uwpCKIwa',\n            value: patient.person.names[0].givenName,\n          },\n          {\n            attribute: 'Jt9BhFZkvP2',\n            value: patient.person.names[0].familyName,\n          },\n          {\n            attribute: 'P4wdYGkldeG', //DHIS2 ID ==> \"Patient Number\"\n            value: findIdentifierByUuid(\n              patient.identifiers,\n              DHIS2_PATIENT_NUMBER\n            ),\n          },\n          {\n            attribute: 'ZBoxuExmxcZ', //MSF ID ==> \"OpenMRS Patient Number\"\n            value: findIdentifierByUuid(patient.identifiers, OPENMRS_AUTO_ID),\n          },\n          {\n            attribute: 'AYbfTPYMNJH', //\"OpenMRS Patient UID\"\n            value: patient.uuid,\n          },\n          {\n            attribute: 'qptKDiv9uPl',\n            value: genderOptions[patient.person.gender],\n          },\n          {\n            attribute: 'Rv8WM2mTuS5',\n            value: patient.person.age,\n          },\n          {\n            attribute: 'WDp4nVor9Z7',\n            value: patient.person.birthdate,\n          },\n          // {\n          //   attribute: 'rBtrjV1Mqkz', //Place of living\n          //   value: patient.person.address,\n          // },\n          // {\n          //   attribute: 'Xvzc9e0JJmp', //nationality\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"24d1fa23-9778-4a8e-9f7b-93f694fc25e2\"\n          // },\n          // {\n          //   attribute: 'YUIQIA2ClN6', //current status\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"e0b6ed99-72c4-4847-a442-e9929eac4a0f\"\n          // },\n          // {\n          //   attribute: 'Qq6xQ2s6LO8', //legal status\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"a9b2c642-097f-43f8-b96b-4d2f50ffd9b1\"\n          // },\n          // {\n          //   attribute: 'FpuGAOu6itZ', //marital status\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"3884dc76-c271-4bcb-8df8-81c6fb897f53\"\n          // },\n          // {\n          //   attribute: 'v7k4OcXrWR8', //employment status\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e\"\n          // },\n          // {\n          //   attribute: 'SVoT2cVLd5O', //employment status\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"e363161a-9d5c-4331-8463-238938f018ed\"\n          // },\n        ],\n      },\n    };\n\n    console.log('mapped dhis2 payloads:: ', JSON.stringify(payload, null, 2));\n\n    if (isNewPatient) {\n      console.log('create enrollment');\n      payload.data.enrollments = enrollments;\n    }\n\n    return patientsUpsert.push(payload);\n  };\n\n  return {\n    ...state,\n    genderOptions,\n    patientsUpsert,\n    buildPatientsUpsert,\n  };\n});\n\nfn(async state => {\n  const { buildPatientsUpsert, patients } = state;\n\n  const getPatient = async patient => {\n    await new Promise(resolve => setTimeout(resolve, 2000));\n    await get(\n      'trackedEntityInstances',\n      {\n        ou: 'OPjuJMZFLop',\n        filter: [`AYbfTPYMNJH:Eq:${patient.uuid}`],\n        program: 'w9MSPn5oSqp',\n      },\n      {},\n      state => {\n        const { trackedEntityInstances } = state.data;\n        const isNewPatient = trackedEntityInstances.length === 0;\n\n        buildPatientsUpsert(patient, isNewPatient);\n        return state;\n      }\n    )(state);\n  };\n\n  for (const patient of patients) {\n    console.log(patient.uuid, 'patient uuid');\n    await getPatient(patient);\n  }\n  return state;\n});\n\n// Upsert TEIs to DHIS2\neach(\n  'patientsUpsert[*]',\n  upsert('trackedEntityInstances', $.data.query, $.data.data)\n);\n\n// Clean up state\nfn(({ data, ...state }) => state);\n",
+          "adaptor": "@openfn/language-dhis2@latest",
+          "project_credential_id": "8a5ead9b-5f9e-49b1-9e9a-9dc3c4ccf72d"
+        },
+        "Get-Encounters": {
+          "id": "8fb577e5-d068-4d47-8172-81f08153ced9",
+          "name": "Get Encounters",
+          "body": "// Fetch encounters from the date of cursor\n// OpenMRS demo instance does not support querying ALL records (q=all)\n// getEncounters({ q: 'Patient', v: 'full', limit: 100 });\ngetEncounters({\n  q: 'MHtwo',\n  v: 'full',\n  //limit: 1,\n  encounterType: '95d68645-1b72-4290-be0b-ec1fb64bc067',\n});\n\n// Update cursor and return encounters\nfn(state => {\n  const { cursor, data } = state;\n  console.log('cursor datetime::', cursor);\n\n  console.log('Filtering encounters to only get recent records...');\n  // console.log(\n  //   'Encounters returned before we filter for most recent ::',\n  //   JSON.stringify(data, null, 2)\n  // );\n  const encountersFound = data.results.filter(\n    encounter => encounter.encounterDatetime >= cursor\n    && encounter.form.uuid == '6a3e1e0e-dd13-3465-b8f5-ee2d42691fe5'\n  );\n  const firstEncounter = encountersFound.slice(0, 1);\n\n  console.log('# of new encounters found in OMRS ::', encountersFound.length);\n  console.log('first encounter:: ', firstEncounter);\n  const encounters = encountersFound.length > 1 ? firstEncounter : encountersFound; \n  console.log('# of new encounters to sync to dhis2 ::', encounters.length);\n\n  return { ...state, data: {}, references: [], encounters };\n});\n",
+          "adaptor": "@openfn/language-openmrs@latest",
+          "project_credential_id": "3141d874-5456-4168-9680-ce04efb1089c"
+        },
+        "Get-Options-Map": {
+          "id": "175ac575-ea3d-470e-8faf-61de514e222e",
+          "name": "Get Options Map",
+          "body": "get(\n  'https://gist.githubusercontent.com/aleksa-krolls/b22987f7569bc069e963973401832349/raw/066aae1199723144a1b5b7637a65d469a5b7ccd6/msf_mhBaseline_optionsMap.json'\n); //ak's gist\n\nfn(state => {\n  state.optsMap = state.data;\n  // console.log(JSON.stringify(state.optsMap, null, 2), 'Options Map');\n  delete state.data;\n  delete state.references;\n  delete state.response;\n  return state;\n});\n\nfn(state => {\n  state.mhpssMap = {\n    dfdv3SkeXKe: 'a6c5188c-29f0-4d3d-8cf5-7852998df86f', //Has the patient attempted suicide or tried to kill themselves?\n    hWMBCCA2yy1: 'abede172-ba87-4ebe-8054-3afadb181ea3', //Is the patient currently at risk of hurting himself/herself or attempting suicide?\n    TWuCY5r2wx7: 'ccc4f06c-b76a-440d-9b7e-c48ba2c4a0ab', //Is the patient currently at risk of hurting others?\n    QHrIUMhjZlO: 'd516de07-979b-411c-b7e4-bd09cf7d9d91', //Does the patient regularly use alcohol / substances to become intoxicated?\n    H1fMCaOzr8F: '3e97c2d0-15c1-4cfd-884f-7a4721079217', //Has the patient experienced an act of aggression or violence?\n    yCwuZ0htrlH: '5f6e245c-83fc-421b-8d46-061ac773ae71', //Follow up session required?\n    RiiH9A53rvG: '6d3876be-0a27-466d-ad58-92edcc8c31fb', //Referral done\n    OZViJk8FPVd: 'c2664992-8a5a-4a6d-9238-5df591307d55', //Has the patient had thoughts of death or suicide?\n    qgfKPlIHjcD: 'd8c84af2-bd9b-4bf3-a815-81652cb0b0bc', //Patient experienced an act of aggression or violence - What type(s) of violence?\n    rSIazMFEBjD: '4dae5b12-070f-4153-b1ca-fbec906106e1', //Admission type\n    KSBMR1BDGwx: '1a8bf24f-4f36-4971-aad9-ae77f3525738', //Type of consultation\n    WDY6MkQWyHb: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Consultation done by\n    AuDPJg6gZE7: '82978311-bef9-46f9-9a9a-cc62254b00a6', //Location of intervention\n    KeyiEPc4pII: '82978311-bef9-46f9-9a9a-cc62254b00a6', //Type of intervention\n    qfYPXP76j8g: 'c3c86c1b-07be-4506-ab25-8f35f4389b19', //Patient referred by\n    PCGI7EnvCQS: '45b39cbf-0fb2-4682-8544-8aaf3e07a744', //Current symptoms or complaints 1\n    RnbiVrrSFdm: 'ee1b7973-e931-494e-a9cb-22b814b4d8ed', //Current symptoms or complaints 2\n    CUdI1BJ5W8G: '92a92f62-3ff6-4944-9ea9-a7af23949bad', //Current symptoms or complaints 3\n    YfcNA5bvkxT: '9a8204ca-d908-4157-9285-7c970dbb5287', //Main category of symptoms\n    vC3bg9NwJ78: '3edcfddb-7988-4ce5-97a0-d4c46b267a04', //Duration of the main symptom\n    RqsvaPH9vHt: '22809b19-54ca-4d88-8d26-9577637c184e', //Clinical diagnosis\n    qacGXlyyQOS: 'a1a75011-0fef-460a-b666-dda2d171f39b', //CGI-S score\n    S22iy8o0iLg: 'aae000c3-5242-4e3c-bd1f-7e922a6d3d34', //Patient experienced an act of aggression or violence - Time between violence event and consultation\n    v0qFX0qv1tX: 'd5e3d927-f7ce-4fdd-ac4e-6ad0b510b608', //Main past or precipitating events - 1\n    SsQqwDBGxjh: '54a9b20e-bce5-4d4a-8c9c-e0248a182586', //Main past or precipitating events - 2\n    FLIlRjAwn4G: 'e0d4e006-85b5-41cb-8a21-e013b1978b8b', //Main past or precipitating events - 3\n    JUabDHhT1wJ: 'c1a3ed2d-6d9a-453d-9d93-749164a76413', //Main category of precipitating event\n    DlqJSA5VApl: '8fb3bb7d-c935-4b57-8444-1b953470e109', //Type of referral\n    DMaLm9u4GCq: 'b87a93ff-a4a1-4601-b35d-1e42bfa7e194', //Total number of beneficiaries in family consultation\n    CLGnlnFqqnk: '0a0c70d2-2ba5-4cb3-941f-b4a9a4a7ec6d', //Location of intervention - If Health Facility, specify\n    f64XCwzJW02: '41e68dee-a2a3-4e6c-9d96-53def5caff52', //Location of intervention - If MSF Health Facility, specify\n    YeaUNruqmca: '08cd4b4a-4b0b-4391-987b-b5b3d770d30f', //Location of intervention - If Mobile Clinic, specify\n    KjgDauY9v4J: 'e08d532b-e56c-43dc-b831-af705654d2dc', //Location of intervention - If other, specify\n    pj5hIE6iyAR: 'e08d532b-e56c-43dc-b831-af705654d2dc', //Current symptoms or complaints - If other, specify\n    pj5hIE6iyAR: 'e08d532b-e56c-43dc-b831-af705654d2dc', //Current symptoms or complaints - If other, specify\n    W7cPAi8iXLZ: '819f79e7-b9af-4afd-85d4-2ab677223113', //Clinical diagnosis - If other, specify\n    MF3RML0HLbP: 'b2c5b6e0-66f0-4b9d-8576-b6f48e0a06df', //MHOS score\n    m8qis4iUOTo: '790b41ce-e1e7-11e8-b02f-0242ac130002', //Past / Precipitating Events - If other, specify\n    pN4iQH4AEzk: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Consultation done by //TODO: Return BOOLEAN\n    //qptKDiv9uPl: 'ec42d68d-3e23-43de-b8c5-a03bb538e7c7', //Sex //TODO: Remove TEA?\n    //tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ9 Score //TODO: ass logic\n  };\n\n  return state;\n});\n",
+          "adaptor": "@openfn/language-http@latest",
+          "project_credential_id": null
+        },
+        "Get-TEIs": {
+          "id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
+          "name": "Get TEIs",
+          "body": "const delay = ms => new Promise(resolve => setTimeout(resolve, ms));\n\neach(\n  'encounters[*]',\n  get(\n    'trackedEntityInstances',\n    {\n      ou: 'OPjuJMZFLop',\n      program: 'w9MSPn5oSqp',\n      filter: [`AYbfTPYMNJH:Eq:${$.data.patient.uuid}`],\n    },\n    {},\n    async state => {\n      const encounter = state.references.at(-1);\n      console.log(encounter.patient.uuid, 'Encounter patient uuid');\n      state.TEIs ??= {};\n      state.TEIs[encounter.patient.uuid] =\n        state.data.trackedEntityInstances[0].trackedEntityInstance;\n\n      await delay(2000);\n      return state;\n    }\n  )\n);\n",
+          "adaptor": "@openfn/language-dhis2@latest",
+          "project_credential_id": "8a5ead9b-5f9e-49b1-9e9a-9dc3c4ccf72d"
+        },
+        "Create-Events": {
+          "id": "932645d8-ddb8-4d00-841e-7fe7af214837",
+          "name": "Create Events",
+          "body": "// Prepare DHIS2 data model for create events\nfn(state => {\n  const { TEIs, mhpssMap } = state;\n  const optsMap = JSON.parse(state.optsMap);\n\n  const dataValuesMapping = data => {\n    return Object.keys(mhpssMap)\n      .map(k => {\n        let value;\n        const dataElement = k;\n        const conceptUuid = mhpssMap[k];\n        const answer = data.obs.find(o => o.concept.uuid === conceptUuid);\n\n        if (answer) {\n          if (typeof answer.value === 'string') {\n            value = answer.value;\n          }\n          if (typeof answer.value === 'object') {\n            value = optsMap.find(\n              o => o['value.uuid - External ID'] == answer?.value?.uuid\n            )?.['DHIS2 Option Code']; //Changed from 'DHIS2 Option UID'\n            if (\n              answer.value.uuid === '278401ee-3d6f-4c65-9455-f1c16d0a7a98' &&\n              conceptUuid === '722dd83a-c1cf-48ad-ac99-45ac131ccc96' &&\n              dataElement === 'pN4iQH4AEzk'\n            ) {\n              value = 'TRUE';\n            } else {\n              value = optsMap.find(\n                o => o['value.uuid - External ID'] == answer?.value?.uuid\n              )?.['DHIS2 Option Code']; //Changed from 'DHIS2 Option UID'\n            }\n          }\n        }\n        if (!answer) {\n          value = '';\n        }\n        return { dataElement, value };\n      })\n      .filter(d => d);\n  };\n\n  state.encountersMapping = state.encounters.map(data => {\n    const dataValues = dataValuesMapping(data);\n    const encounterDate = data.encounterDatetime.replace('+0000', '');\n\n    return {\n      program: 'w9MSPn5oSqp',\n      orgUnit: 'OPjuJMZFLop',\n      programStage: 'MdTtRixaC1B',\n      trackedEntityInstance: TEIs[data.patient.uuid],\n      eventDate: encounterDate,\n      dataValues,\n    };\n  });\n\n  console.log(\n    'dhis2 events to import:: ',\n    JSON.stringify(state.encountersMapping, null, 2)\n  );\n\n  return state;\n});\n\n// Create events fore each encounter\neach(\n  '$.encountersMapping[*]',\n  create(\n    'events',\n    state => {\n      // console.log(state.data);\n      return state.data;\n    },\n    {\n      params: {\n        dataElementIdScheme: 'UID',\n      },\n    }\n  )\n);\n\n// Clean up state\nfn(({ data, references, ...state }) => state);\n",
+          "adaptor": "@openfn/language-dhis2@latest",
+          "project_credential_id": "8a5ead9b-5f9e-49b1-9e9a-9dc3c4ccf72d"
+        }
+      },
+      "deleted_at": null,
+      "lock_version": 82,
       "triggers": {
         "cron": {
           "enabled": false,
-          "id": "0e7d525f-c24a-4969-8131-397cc94a6065",
+          "id": "51283b68-c07a-4d85-854c-c2e6e93af041",
           "type": "cron",
           "cron_expression": "0 0 * * *"
         }
+      }
+    },
+    "wf1-dhis2-omrs-migration": {
+      "id": "94e04fb5-d5ae-45ad-be31-98b902f36861",
+      "name": "wf1-dhis2-omrs-migration",
+      "edges": {
+        "cron->Get-Teis": {
+          "enabled": true,
+          "id": "f54f198a-5fa1-4ee0-803f-35316e32ab92",
+          "source_trigger_id": "0e7d525f-c24a-4969-8131-397cc94a6065",
+          "condition_type": "always",
+          "target_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5"
+        },
+        "Get-Teis->Get-Locations": {
+          "enabled": true,
+          "id": "dd4d3b24-f3c2-4162-895e-970aea5a50dc",
+          "source_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5",
+          "condition_type": "on_job_success",
+          "target_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07"
+        },
+        "Get-Locations->Create-Patients": {
+          "enabled": true,
+          "id": "e80f8963-3c31-48cc-8df4-6b6dd89fd616",
+          "source_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07",
+          "condition_type": "on_job_success",
+          "target_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc"
+        },
+        "Create-Patients->Update-Teis": {
+          "enabled": true,
+          "id": "eb140757-c73f-4f9f-83d6-0ac0c76cf4da",
+          "source_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc",
+          "condition_type": "on_job_success",
+          "target_job_id": "eed2a687-7ef3-4a38-819e-d50319874d03"
+        }
       },
+      "concurrency": null,
+      "inserted_at": "2024-09-10T16:34:04Z",
+      "updated_at": "2024-09-11T09:51:03Z",
       "jobs": {
         "Get-Teis": {
           "id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5",
@@ -64,136 +192,14 @@
           "project_credential_id": "8a5ead9b-5f9e-49b1-9e9a-9dc3c4ccf72d"
         }
       },
-      "edges": {
-        "cron->Get-Teis": {
-          "enabled": true,
-          "id": "f54f198a-5fa1-4ee0-803f-35316e32ab92",
-          "source_trigger_id": "0e7d525f-c24a-4969-8131-397cc94a6065",
-          "condition_type": "always",
-          "target_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5"
-        },
-        "Get-Teis->Get-Locations": {
-          "enabled": true,
-          "id": "dd4d3b24-f3c2-4162-895e-970aea5a50dc",
-          "source_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5",
-          "condition_type": "on_job_success",
-          "target_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07"
-        },
-        "Get-Locations->Create-Patients": {
-          "enabled": true,
-          "id": "e80f8963-3c31-48cc-8df4-6b6dd89fd616",
-          "source_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07",
-          "condition_type": "on_job_success",
-          "target_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc"
-        },
-        "Create-Patients->Update-Teis": {
-          "enabled": true,
-          "id": "eb140757-c73f-4f9f-83d6-0ac0c76cf4da",
-          "source_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc",
-          "condition_type": "on_job_success",
-          "target_job_id": "eed2a687-7ef3-4a38-819e-d50319874d03"
-        }
-      }
-    },
-    "wf2-omrs-dhis2": {
-      "id": "0f8ec062-1a2d-4f13-a8c5-b8298004512c",
-      "name": "wf2-omrs-dhis2",
-      "inserted_at": "2024-09-12T07:34:36.285807Z",
-      "lock_version": 78,
+      "deleted_at": null,
+      "lock_version": 16,
       "triggers": {
         "cron": {
           "enabled": false,
-          "id": "51283b68-c07a-4d85-854c-c2e6e93af041",
+          "id": "0e7d525f-c24a-4969-8131-397cc94a6065",
           "type": "cron",
           "cron_expression": "0 0 * * *"
-        }
-      },
-      "jobs": {
-        "Get-Patients": {
-          "id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
-          "name": "Get Patients",
-          "body": "// here we define the date cursor\nfn(state => {\n  //manualCursor at beggining of the project 2023-05-20T06:01:24.000+0000\n  const manualCursor = '2023-07-27T07:16:24.544Z';\n\n  state.cursor = state.lastRunDateTime || manualCursor;\n\n  console.log(\n    'Date cursor to filter & get only recent OMRS records ::',\n    state.cursor\n  );\n\n  return state;\n});\n\nsearchPatient({ q: 'MHtwo', v: 'full', limit: '3' });\n// searchPatient({ q: 'Patient', v: 'full', limit: '100' });\n//Query all patients (q=all) not supported on demo OpenMRS; needs to be configured\n//...so we query all Patients with name \"Patient\" instead\n\nfn(state => {\n  const { results } = state.data;\n\n  const getPatientByUuid = uuid =>\n    results.find(patient => patient.uuid === uuid).auditInfo.dateCreated;\n\n  // console.log('dateCreated for patient uuid ...2c6dbfc5acc8',getPatientByUuid(\"31b4d9c8-f7cc-4c26-ae61-2c6dbfc5acc8\"))\n  //console.log(JSON.stringify(state.data, null, 2));\n\n  console.log('Filtering patients to only sync most recent records...');\n\n  state.patients = results.filter(\n    patient =>\n      (patient.auditInfo.dateChanged === null\n        ? patient.auditInfo.dateCreated\n        : patient.auditInfo.dateChanged) > state.cursor\n  );\n  console.log('# of new patients to sync to dhis2 ::', state.patients.length);\n  // console.log(JSON.stringify(patients, null, 2));\n\n  state.lastRunDateTime = new Date().toISOString();\n  console.log('Updating cursor; next sync start date:', state.lastRunDateTime);\n\n  state.data = {};\n  state.references = [];\n  return state;\n});\n",
-          "adaptor": "@openfn/language-openmrs@latest",
-          "project_credential_id": "3141d874-5456-4168-9680-ce04efb1089c"
-        },
-        "Upsert-TEIs": {
-          "id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
-          "name": "Upsert TEIs",
-          "body": "fn(state => {\n  const genderOptions = {\n    M: 'male',\n    F: 'female',\n    U: 'unknown',\n    O: 'prefer_not_to_answer',\n  };\n\n  const DHIS2_PATIENT_NUMBER = '8d79403a-c2cc-11de-8d13-0010c6dffd0f'; //DHIS2 ID or DHIS2 Patient Number\n  const OPENMRS_AUTO_ID = '05a29f94-c0ed-11e2-94be-8c13b969e334'; //MSF ID or OpenMRS Patient Number\n  const patientsUpsert = [];\n\n  const buildPatientsUpsert = (patient, isNewPatient) => {\n    const dateCreated = patient.auditInfo.dateCreated.substring(0, 10);\n\n    function findIdentifierByUuid(identifiers, targetUuid) {\n      // Use the `find` method to locate the matching identifier\n      const matchingIdentifier = identifiers.find(\n        identifier => identifier.identifierType.uuid === targetUuid\n      );\n\n      // Return the `identifier` value if a match is found; otherwise, return null\n      return matchingIdentifier ? matchingIdentifier.identifier : undefined;\n    }\n\n    const calculateDOB = age => {\n      const currentDate = new Date();\n      const currentYear = currentDate.getFullYear();\n      const birthYear = currentYear - age;\n\n      const birthday = new Date(\n        birthYear,\n        currentDate.getMonth(),\n        currentDate.getDay()\n      );\n\n      return birthday.toISOString().replace(/\\.\\d+Z$/, '+0000');\n    };\n\n    const enrollments = [\n      {\n        orgUnit: 'OPjuJMZFLop',\n        program: 'w9MSPn5oSqp',\n        programStage: 'EZJ9FsNau7Q',\n        enrollmentDate: dateCreated,\n      },\n    ];\n\n    const payload = {\n      query: {\n        ou: 'OPjuJMZFLop',\n        program: 'w9MSPn5oSqp',\n        filter: [`AYbfTPYMNJH:Eq:${patient.uuid}`], //upsert on omrs.patient.uid\n      },\n      data: {\n        program: 'w9MSPn5oSqp',\n        orgUnit: 'OPjuJMZFLop',\n        trackedEntityType: 'cHlzCA2MuEF',\n        attributes: [\n          {\n            attribute: 'fa7uwpCKIwa',\n            value: patient.person.names[0].givenName,\n          },\n          {\n            attribute: 'Jt9BhFZkvP2',\n            value: patient.person.names[0].familyName,\n          },\n          {\n            attribute: 'P4wdYGkldeG', //DHIS2 ID ==> \"Patient Number\"\n            value: findIdentifierByUuid(\n              patient.identifiers,\n              DHIS2_PATIENT_NUMBER\n            ),\n          },\n          {\n            attribute: 'ZBoxuExmxcZ', //MSF ID ==> \"OpenMRS Patient Number\"\n            value: findIdentifierByUuid(patient.identifiers, OPENMRS_AUTO_ID),\n          },\n          {\n            attribute: 'AYbfTPYMNJH', //\"OpenMRS Patient UID\"\n            value: patient.uuid,\n          },\n          {\n            attribute: 'qptKDiv9uPl',\n            value: genderOptions[patient.person.gender],\n          },\n          {\n            attribute: 'Rv8WM2mTuS5',\n            value: patient.person.age,\n          },\n          {\n            attribute: 'WDp4nVor9Z7',\n            value: patient.person.birthdate,\n          },\n          // {\n          //   attribute: 'rBtrjV1Mqkz', //Place of living\n          //   value: patient.person.address,\n          // },\n          // {\n          //   attribute: 'Xvzc9e0JJmp', //nationality\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"24d1fa23-9778-4a8e-9f7b-93f694fc25e2\"\n          // },\n          // {\n          //   attribute: 'YUIQIA2ClN6', //current status\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"e0b6ed99-72c4-4847-a442-e9929eac4a0f\"\n          // },\n          // {\n          //   attribute: 'Qq6xQ2s6LO8', //legal status\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"a9b2c642-097f-43f8-b96b-4d2f50ffd9b1\"\n          // },\n          // {\n          //   attribute: 'FpuGAOu6itZ', //marital status\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"3884dc76-c271-4bcb-8df8-81c6fb897f53\"\n          // },\n          // {\n          //   attribute: 'v7k4OcXrWR8', //employment status\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e\"\n          // },\n          // {\n          //   attribute: 'SVoT2cVLd5O', //employment status\n          //   value: patient.person.attributes[x].value, //input.attributeType = \"e363161a-9d5c-4331-8463-238938f018ed\"\n          // },\n        ],\n      },\n    };\n\n    console.log('mapped dhis2 payloads:: ', JSON.stringify(payload, null, 2));\n\n    if (isNewPatient) {\n      console.log('create enrollment');\n      payload.data.enrollments = enrollments;\n    }\n\n    return patientsUpsert.push(payload);\n  };\n\n  return {\n    ...state,\n    genderOptions,\n    patientsUpsert,\n    buildPatientsUpsert,\n  };\n});\n\nfn(async state => {\n  const { buildPatientsUpsert, patients } = state;\n\n  const getPatient = async patient => {\n    await new Promise(resolve => setTimeout(resolve, 2000));\n    await get(\n      'trackedEntityInstances',\n      {\n        ou: 'OPjuJMZFLop',\n        filter: [`AYbfTPYMNJH:Eq:${patient.uuid}`],\n        program: 'w9MSPn5oSqp',\n      },\n      {},\n      state => {\n        const { trackedEntityInstances } = state.data;\n        const isNewPatient = trackedEntityInstances.length === 0;\n\n        buildPatientsUpsert(patient, isNewPatient);\n        return state;\n      }\n    )(state);\n  };\n\n  for (const patient of patients) {\n    console.log(patient.uuid, 'patient uuid');\n    await getPatient(patient);\n  }\n  return state;\n});\n\n// Upsert TEIs to DHIS2\neach(\n  'patientsUpsert[*]',\n  upsert('trackedEntityInstances', $.data.query, $.data.data)\n);\n\n// Clean up state\nfn(({ data, ...state }) => state);\n",
-          "adaptor": "@openfn/language-dhis2@latest",
-          "project_credential_id": "8a5ead9b-5f9e-49b1-9e9a-9dc3c4ccf72d"
-        },
-        "Get-Encounters": {
-          "id": "8fb577e5-d068-4d47-8172-81f08153ced9",
-          "name": "Get Encounters",
-          "body": "// Fetch encounters from the date of cursor\n// OpenMRS demo instance does not support querying ALL records (q=all)\n// getEncounters({ q: 'Patient', v: 'full', limit: 100 });\ngetEncounters({\n  q: 'MHtwo',\n  v: 'full',\n  //limit: 1,\n  encounterType: '95d68645-1b72-4290-be0b-ec1fb64bc067',\n});\n\n// Update cursor and return encounters\nfn(state => {\n  const { cursor, data } = state;\n  console.log('cursor datetime::', cursor);\n\n  console.log('Filtering encounters to only get recent records...');\n  // console.log(\n  //   'Encounters returned before we filter for most recent ::',\n  //   JSON.stringify(data, null, 2)\n  // );\n  const encountersFound = data.results.filter(\n    encounter => encounter.encounterDatetime >= cursor\n    && encounter.form.uuid == '6a3e1e0e-dd13-3465-b8f5-ee2d42691fe5'\n  );\n  const firstEncounter = encountersFound.slice(0, 1);\n\n  console.log('# of new encounters found in OMRS ::', encountersFound.length);\n  console.log('first encounter:: ', firstEncounter);\n  const encounters = encountersFound.length > 1 ? firstEncounter : encountersFound; \n  console.log('# of new encounters to sync to dhis2 ::', encounters.length);\n\n  return { ...state, data: {}, references: [], encounters };\n});\n",
-          "adaptor": "@openfn/language-openmrs@latest",
-          "project_credential_id": "3141d874-5456-4168-9680-ce04efb1089c"
-        },
-        "Get-Options-Map": {
-          "id": "175ac575-ea3d-470e-8faf-61de514e222e",
-          "name": "Get Options Map",
-          "body": "get(\n  'https://gist.githubusercontent.com/aleksa-krolls/b22987f7569bc069e963973401832349/raw/066aae1199723144a1b5b7637a65d469a5b7ccd6/msf_mhBaseline_optionsMap.json'\n);\n\nfn(state => {\n  state.optsMap = state.data;\n  // console.log(JSON.stringify(state.optsMap, null, 2), 'Options Map');\n  delete state.data;\n  delete state.references;\n  delete state.response;\n  return state;\n});\n\nfn(state => {\n  state.mhpssMap = {\n    dfdv3SkeXKe: 'a6c5188c-29f0-4d3d-8cf5-7852998df86f', //Has the patient attempted suicide or tried to kill themselves?\n    hWMBCCA2yy1: 'abede172-ba87-4ebe-8054-3afadb181ea3', //Is the patient currently at risk of hurting himself/herself or attempting suicide?\n    TWuCY5r2wx7: 'ccc4f06c-b76a-440d-9b7e-c48ba2c4a0ab', //Is the patient currently at risk of hurting others?\n    QHrIUMhjZlO: 'd516de07-979b-411c-b7e4-bd09cf7d9d91', //Does the patient regularly use alcohol / substances to become intoxicated?\n    H1fMCaOzr8F: '3e97c2d0-15c1-4cfd-884f-7a4721079217', //Has the patient experienced an act of aggression or violence?\n    yCwuZ0htrlH: '5f6e245c-83fc-421b-8d46-061ac773ae71', //Follow up session required?\n    RiiH9A53rvG: '6d3876be-0a27-466d-ad58-92edcc8c31fb', //Referral done\n    OZViJk8FPVd: 'c2664992-8a5a-4a6d-9238-5df591307d55', //Has the patient had thoughts of death or suicide?\n    qgfKPlIHjcD: 'd8c84af2-bd9b-4bf3-a815-81652cb0b0bc', //Patient experienced an act of aggression or violence - What type(s) of violence?\n    rSIazMFEBjD: '4dae5b12-070f-4153-b1ca-fbec906106e1', //Admission type\n    KSBMR1BDGwx: '1a8bf24f-4f36-4971-aad9-ae77f3525738', //Type of consultation\n    WDY6MkQWyHb: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Consultation done by\n    AuDPJg6gZE7: '82978311-bef9-46f9-9a9a-cc62254b00a6', //Location of intervention\n    KeyiEPc4pII: '82978311-bef9-46f9-9a9a-cc62254b00a6', //Type of intervention\n    qfYPXP76j8g: 'c3c86c1b-07be-4506-ab25-8f35f4389b19', //Patient referred by\n    PCGI7EnvCQS: '45b39cbf-0fb2-4682-8544-8aaf3e07a744', //Current symptoms or complaints 1\n    RnbiVrrSFdm: 'ee1b7973-e931-494e-a9cb-22b814b4d8ed', //Current symptoms or complaints 2\n    CUdI1BJ5W8G: '92a92f62-3ff6-4944-9ea9-a7af23949bad', //Current symptoms or complaints 3\n    YfcNA5bvkxT: '9a8204ca-d908-4157-9285-7c970dbb5287', //Main category of symptoms\n    vC3bg9NwJ78: '3edcfddb-7988-4ce5-97a0-d4c46b267a04', //Duration of the main symptom\n    RqsvaPH9vHt: '22809b19-54ca-4d88-8d26-9577637c184e', //Clinical diagnosis\n    qacGXlyyQOS: 'a1a75011-0fef-460a-b666-dda2d171f39b', //CGI-S score\n    S22iy8o0iLg: 'aae000c3-5242-4e3c-bd1f-7e922a6d3d34', //Patient experienced an act of aggression or violence - Time between violence event and consultation\n    v0qFX0qv1tX: 'd5e3d927-f7ce-4fdd-ac4e-6ad0b510b608', //Main past or precipitating events - 1\n    SsQqwDBGxjh: '54a9b20e-bce5-4d4a-8c9c-e0248a182586', //Main past or precipitating events - 2\n    FLIlRjAwn4G: 'e0d4e006-85b5-41cb-8a21-e013b1978b8b', //Main past or precipitating events - 3\n    JUabDHhT1wJ: 'c1a3ed2d-6d9a-453d-9d93-749164a76413', //Main category of precipitating event\n    DlqJSA5VApl: '8fb3bb7d-c935-4b57-8444-1b953470e109', //Type of referral\n    DMaLm9u4GCq: 'b87a93ff-a4a1-4601-b35d-1e42bfa7e194', //Total number of beneficiaries in family consultation\n    CLGnlnFqqnk: '0a0c70d2-2ba5-4cb3-941f-b4a9a4a7ec6d', //Location of intervention - If Health Facility, specify\n    f64XCwzJW02: '41e68dee-a2a3-4e6c-9d96-53def5caff52', //Location of intervention - If MSF Health Facility, specify\n    YeaUNruqmca: '08cd4b4a-4b0b-4391-987b-b5b3d770d30f', //Location of intervention - If Mobile Clinic, specify\n    KjgDauY9v4J: 'e08d532b-e56c-43dc-b831-af705654d2dc', //Location of intervention - If other, specify\n    pj5hIE6iyAR: 'e08d532b-e56c-43dc-b831-af705654d2dc', //Current symptoms or complaints - If other, specify\n    pj5hIE6iyAR: 'e08d532b-e56c-43dc-b831-af705654d2dc', //Current symptoms or complaints - If other, specify\n    W7cPAi8iXLZ: '819f79e7-b9af-4afd-85d4-2ab677223113', //Clinical diagnosis - If other, specify\n    MF3RML0HLbP: 'b2c5b6e0-66f0-4b9d-8576-b6f48e0a06df', //MHOS score\n    m8qis4iUOTo: '790b41ce-e1e7-11e8-b02f-0242ac130002', //Past / Precipitating Events - If other, specify\n    pN4iQH4AEzk: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Consultation done by //TODO: Return BOOLEAN\n    //qptKDiv9uPl: 'ec42d68d-3e23-43de-b8c5-a03bb538e7c7', //Sex //TODO: Remove TEA?\n    //tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ9 Score //TODO: ass logic\n  };\n\n  return state;\n});\n",
-          "adaptor": "@openfn/language-http@latest",
-          "project_credential_id": null
-        },
-        "Get-TEIs": {
-          "id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
-          "name": "Get TEIs",
-          "body": "const delay = ms => new Promise(resolve => setTimeout(resolve, ms));\n\neach(\n  'encounters[*]',\n  get(\n    'trackedEntityInstances',\n    {\n      ou: 'OPjuJMZFLop',\n      program: 'w9MSPn5oSqp',\n      filter: [`AYbfTPYMNJH:Eq:${$.data.patient.uuid}`],\n    },\n    {},\n    async state => {\n      const encounter = state.references.at(-1);\n      console.log(encounter.patient.uuid, 'Encounter patient uuid');\n      state.TEIs ??= {};\n      state.TEIs[encounter.patient.uuid] =\n        state.data.trackedEntityInstances[0].trackedEntityInstance;\n\n      await delay(2000);\n      return state;\n    }\n  )\n);\n",
-          "adaptor": "@openfn/language-dhis2@latest",
-          "project_credential_id": "8a5ead9b-5f9e-49b1-9e9a-9dc3c4ccf72d"
-        },
-        "Create-Events": {
-          "id": "932645d8-ddb8-4d00-841e-7fe7af214837",
-          "name": "Create Events",
-          "body": "// Prepare DHIS2 data model for create events\nfn(state => {\n  const { TEIs, mhpssMap } = state;\n  const optsMap = JSON.parse(state.optsMap);\n\n  const dataValuesMapping = data => {\n    return Object.keys(mhpssMap)\n      .map(k => {\n        let value;\n        const dataElement = k;\n        const conceptUuid = mhpssMap[k];\n        const answer = data.obs.find(o => o.concept.uuid === conceptUuid);\n\n        if (answer) {\n          if (typeof answer.value === 'string') {\n            value = answer.value;\n          }\n          if (typeof answer.value === 'object') {\n            value = optsMap.find(\n              o => o['value.uuid - External ID'] == answer?.value?.uuid\n            )?.['DHIS2 Option Code']; //Changed from 'DHIS2 Option UID'\n            if (\n              answer.value.uuid === '278401ee-3d6f-4c65-9455-f1c16d0a7a98' &&\n              conceptUuid === '722dd83a-c1cf-48ad-ac99-45ac131ccc96' &&\n              dataElement === 'pN4iQH4AEzk'\n            ) {\n              value = 'TRUE';\n            } else {\n              value = optsMap.find(\n                o => o['value.uuid - External ID'] == answer?.value?.uuid\n              )?.['DHIS2 Option Code']; //Changed from 'DHIS2 Option UID'\n            }\n          }\n        }\n        if (!answer) {\n          value = '';\n        }\n        return { dataElement, value };\n      })\n      .filter(d => d);\n  };\n\n  state.encountersMapping = state.encounters.map(data => {\n    const dataValues = dataValuesMapping(data);\n    const encounterDate = data.encounterDatetime.replace('+0000', '');\n\n    return {\n      program: 'w9MSPn5oSqp',\n      orgUnit: 'OPjuJMZFLop',\n      programStage: 'MdTtRixaC1B',\n      trackedEntityInstance: TEIs[data.patient.uuid],\n      eventDate: encounterDate,\n      dataValues,\n    };\n  });\n\n  console.log(\n    'dhis2 events to import:: ',\n    JSON.stringify(state.encountersMapping, null, 2)\n  );\n\n  return state;\n});\n\n// Create events fore each encounter\neach(\n  '$.encountersMapping[*]',\n  create(\n    'events',\n    state => {\n      // console.log(state.data);\n      return state.data;\n    },\n    {\n      params: {\n        dataElementIdScheme: 'UID',\n      },\n    }\n  )\n);\n\n// Clean up state\nfn(({ data, references, ...state }) => state);\n",
-          "adaptor": "@openfn/language-dhis2@latest",
-          "project_credential_id": "8a5ead9b-5f9e-49b1-9e9a-9dc3c4ccf72d"
-        }
-      },
-      "edges": {
-        "cron->Get-Patients": {
-          "enabled": true,
-          "id": "7d239f46-635e-4b7f-8706-6a3d08d473db",
-          "source_trigger_id": "51283b68-c07a-4d85-854c-c2e6e93af041",
-          "condition_type": "always",
-          "target_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca"
-        },
-        "Get-Patients->Upsert-TEIs": {
-          "enabled": true,
-          "id": "11de414f-193e-4a17-89c3-012465c7cce0",
-          "source_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
-          "condition_type": "on_job_success",
-          "target_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57"
-        },
-        "Upsert-TEIs->Get-Encounters": {
-          "enabled": true,
-          "id": "79ca3ec3-641f-4167-8fe3-a96c40cc9954",
-          "source_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
-          "condition_type": "on_job_success",
-          "target_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9"
-        },
-        "Get-Encounters->Get-Options-Map": {
-          "enabled": true,
-          "id": "e0c3565e-a875-429c-8ce3-138df39fdf4c",
-          "source_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9",
-          "condition_type": "on_job_success",
-          "target_job_id": "175ac575-ea3d-470e-8faf-61de514e222e"
-        },
-        "Get-Options-Map->Get-TEIs": {
-          "enabled": true,
-          "id": "eb6bf369-19b8-4608-86a7-95935831ee6e",
-          "source_job_id": "175ac575-ea3d-470e-8faf-61de514e222e",
-          "condition_type": "on_job_success",
-          "target_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3"
-        },
-        "Get-TEIs->Create-Events": {
-          "enabled": true,
-          "id": "32b04529-a796-461c-8a0a-a5e543ef535e",
-          "source_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
-          "condition_type": "on_job_success",
-          "target_job_id": "932645d8-ddb8-4d00-841e-7fe7af214837"
         }
       }
     }
