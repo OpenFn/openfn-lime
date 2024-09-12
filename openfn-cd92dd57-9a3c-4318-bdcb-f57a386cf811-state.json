@@ -4,7 +4,6 @@
   "description": null,
   "inserted_at": "2024-09-05T06:59:05Z",
   "updated_at": "2024-09-11T09:52:16Z",
-  "scheduled_deletion": null,
   "project_credentials": {
     "mtuchi@openfn.org-OpenMRS-Demo": {
       "id": "3141d874-5456-4168-9680-ce04efb1089c",
@@ -17,6 +16,7 @@
       "owner": "mtuchi@openfn.org"
     }
   },
+  "scheduled_deletion": null,
   "history_retention_period": null,
   "dataclip_retention_period": null,
   "retention_policy": "retain_all",
