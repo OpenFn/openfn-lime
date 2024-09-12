@@ -504,7 +504,7 @@ workflows:
       cron:
         type: cron
         cron_expression: '0 0 * * *'
-        enabled: true
+        enabled: false
     edges:
       cron->Get-Teis:
         source_trigger: cron
@@ -575,7 +575,7 @@ workflows:
       cron:
         type: cron
         cron_expression: '0 0 * * *'
-        enabled: true
+        enabled: false
     edges:
       cron->Get-Patients:
         source_trigger: cron
