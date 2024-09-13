@@ -56,5 +56,10 @@ fn(state => {
     //tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ9 Score //TODO: ass logic
   };
 
+  state.mhgapMap = {
+    f6FhkzfZ5j3: '4dae5b12-070f-4153-b1ca-fbec906106e1', //Admission type
+    R3g94vJ2yFR: '22809b19-54ca-4d88-8d26-9577637c184e', //Clinical diagnosis
+  };
+
   return state;
 });

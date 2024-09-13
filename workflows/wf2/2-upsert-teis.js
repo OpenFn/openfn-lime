@@ -1,11 +1,5 @@
 fn(state => {
-  const { nationalityMap, statusMap, placeOflivingMap } = state;
-  const genderOptions = {
-    M: 'male',
-    F: 'female',
-    U: 'unknown',
-    O: 'prefer_not_to_answer',
-  };
+  const { nationalityMap, statusMap, placeOflivingMap, genderOptions } = state;
 
   const DHIS2_PATIENT_NUMBER = '8d79403a-c2cc-11de-8d13-0010c6dffd0f'; //DHIS2 ID or DHIS2 Patient Number
   const OPENMRS_AUTO_ID = '05a29f94-c0ed-11e2-94be-8c13b969e334'; //MSF ID or OpenMRS Patient Number
@@ -141,17 +135,17 @@ fn(state => {
                 )?.value.uuid
               ], //input.attributeType = "3884dc76-c271-4bcb-8df8-81c6fb897f53"
           },
-          // {
-          //   attribute: 'v7k4OcXrWR8', //employment status
-          //   value:
-          //     statusMap[
-          //       patient.person.attributes.find(
-          //         a =>
-          //           a.attributeType.uuid ===
-          //           'dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e'
-          //       )?.value.uuid
-          //     ], //input.attributeType = "dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e"
-          // },
+          {
+            attribute: 'v7k4OcXrWR8', //employment status
+            value:
+              statusMap[
+                patient.person.attributes.find(
+                  a =>
+                    a.attributeType.uuid ===
+                    'dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e'
+                )?.value.uuid
+              ], //input.attributeType = "dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e"
+          },
           {
             attribute: 'SVoT2cVLd5O', //Number of children
             value: patient.person.attributes.find(
@@ -208,9 +202,46 @@ each(
 
 // Upsert TEIs to DHIS2
 each(
+  '$.patients[*]',
+  get(
+    'trackedEntityInstances',
+    {
+      ou: 'OPjuJMZFLop',
+      filter: [`AYbfTPYMNJH:Eq:${$.data.uuid}`],
+      program: 'w9MSPn5oSqp',
+    },
+    {},
+    async state => {
+      const patient = state.references.at(-1);
+      console.log(patient.uuid, 'patient uuid');
+      const { trackedEntityInstances } = state.data;
+      const isNewPatient = trackedEntityInstances.length === 0;
+
+      state.buildPatientsUpsert(patient, isNewPatient);
+      await delay(2000);
+      return state;
+    }
+  )
+);
+
+// Upsert TEIs to DHIS2
+each(
   'patientsUpsert[*]',
   upsert('trackedEntityInstances', $.data.query, $.data.data)
 );
 
-// Clean up state
-fn(({ data, ...state }) => state);
+fn(state => {
+  const {
+    data,
+    patients,
+    statusMap,
+    references,
+    patientsUpsert,
+    nationalityMap,
+    placeOflivingMap,
+    genderOptions,
+    response,
+    ...next
+  } = state;
+  return next;
+});

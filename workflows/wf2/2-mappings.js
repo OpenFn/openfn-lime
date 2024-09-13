@@ -264,7 +264,7 @@ fn(state => {
     'MSF-AAAAAA000000000000001823': 'not_applicable',
     '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': 'unknown',
     'MSF-AAAAAA000000000000001871': 'student',
-    '4a18a820-f3a1-4bb7-9138-558a9ecc81da': 'permanent_employee',
+    '4a18a820-f3a1-4bb7-9138-558a9ecc81da': 'fixed_employee',
     '2cb73bee-7f94-4695-89c7-c81187dbc90c': 'occasional_employee',
     'MSF-AAAAAA000000000000001870': 'unemployed',
     '9b14b4d4-b749-4acf-acfe-79c480f3c4b3': 'housewife',
@@ -277,5 +277,13 @@ fn(state => {
     'fc49acaa-ece2-4365-9dfb-70c2105de8b1': 'returnee',
     '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': 'unknown',
   };
+
+  state.genderOptions = {
+    M: 'male',
+    F: 'female',
+    U: 'unknown',
+    O: 'prefer_not_to_answer',
+  };
+
   return state;
 });

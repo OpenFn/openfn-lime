@@ -1,10 +1,10 @@
 // Prepare DHIS2 data model for create events
 fn(state => {
-  const { TEIs, mhpssMap } = state;
+  const { TEIs, mhpssMap, mhgapMap } = state;
   const optsMap = JSON.parse(state.optsMap);
 
-  const dataValuesMapping = data => {
-    return Object.keys(mhpssMap)
+  const dataValuesMapping = (data, formsMap) => {
+    return Object.keys(formsMap)
       .map(k => {
         let value;
         const dataElement = k;
@@ -41,17 +41,27 @@ fn(state => {
   };
 
   state.encountersMapping = state.encounters.map(data => {
-    const dataValues = dataValuesMapping(data);
-    const encounterDate = data.encounterDatetime.replace('+0000', '');
-
-    return {
+    const eventDate = data.encounterDatetime.replace('+0000', '');
+    const event = {
       program: 'w9MSPn5oSqp',
       orgUnit: 'OPjuJMZFLop',
-      programStage: 'MdTtRixaC1B',
       trackedEntityInstance: TEIs[data.patient.uuid],
-      eventDate: encounterDate,
-      dataValues,
+      eventDate,
     };
+    if (data.form.uuid === '6a3e1e0e-dd13-3465-b8f5-ee2d42691fe5') {
+      return {
+        ...event,
+        programStage: 'MdTtRixaC1B',
+        dataValues: dataValuesMapping(data, mhpssMap),
+      };
+    }
+    if (data.form.uuid === '82db23a1-4eb1-3f3c-bb65-b7ebfe95b19b') {
+      return {
+        ...event,
+        programStage: 'EZJ9FsNau7Q', //mhgap baseline*
+        dataValues: dataValuesMapping(data, mhgapMap),
+      };
+    }
   });
 
   console.log(

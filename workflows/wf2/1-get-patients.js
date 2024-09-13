@@ -42,6 +42,7 @@ fn(state => {
   console.log('Updating cursor; next sync start date:', state.lastRunDateTime);
 
   state.data = {};
+  state.response = {};
   state.references = [];
   return state;
 });

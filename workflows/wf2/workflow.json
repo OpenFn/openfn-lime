@@ -6,11 +6,11 @@
                 "adaptor": "openmrs",
                 "configuration": "../tmp/openmrs-creds.json",
                 "state": {
-                    "manualCursor": "2023-07-27T07:16:24.544Z"
+                    "manualCursor": "2024-09-01"
                 },
                 "expression": "1-get-patients.js",
                 "next": {
-                    "mappings": true
+                    "mappings": "!state.errors"
                 }
             },
             {
@@ -18,7 +18,7 @@
                 "adaptor": "common",
                 "expression": "2-mappings.js",
                 "next": {
-                    "upsert-teis": true
+                    "upsert-teis": "!state.errors"
                 }
             },
             {
@@ -27,7 +27,7 @@
                 "configuration": "../tmp/dhis2-creds.json",
                 "expression": "2-upsert-teis.js",
                 "next": {
-                    "get-encounters": true
+                    "get-encounters": "!state.errors"
                 }
             },
             {
