@@ -6,15 +6,27 @@
                 "adaptor": "dhis2",
                 "configuration": "../tmp/dhis2-creds.json",
                 "expression": "1-get-teis.js",
+                "state": {
+                    "manualCursor": "2019-06-12T17:00:00.00"
+                },
                 "next": {
-                    "create-patients": true
+                    "get-locations": "!state.errors"
+                }
+            },
+            {
+                "id": "get-locations",
+                "adaptor": "dhis2",
+                "configuration": "../tmp/dhis2-creds.json",
+                "expression": "2-get-locations.js",
+                "next": {
+                    "create-patients": "!state.errors"
                 }
             },
             {
                 "id": "create-patients",
                 "adaptor": "openmrs",
                 "configuration": "../tmp/openmrs-creds.json",
-                "expression": "2-create-patients.js",
+                "expression": "3-create-patients.js",
                 "next": {
                     "update-teis": true
                 }
@@ -22,8 +34,8 @@
             {
                 "id": "update-teis",
                 "adaptor": "openmrs",
-                "configuration": "tmp/openmrs-creds.json",
-                "expression": "3-update-teis.js"
+                "configuration": "../tmp/openmrs-creds.json",
+                "expression": "4-update-teis.js"
             }
         ]
     }
