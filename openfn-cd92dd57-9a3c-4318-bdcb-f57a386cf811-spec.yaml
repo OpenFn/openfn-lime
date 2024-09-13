@@ -53,7 +53,9 @@ workflows:
       Get-Teis->Get-Locations:
         source_job: Get-Teis
         target_job: Get-Locations
-        condition_type: on_job_success
+        condition_type: js_expression
+        condition_label: has-teis
+        condition_expression: && !state.errors state.trackedEntityInstances.length > 0
         enabled: true
       Get-Locations->Create-Patients:
         source_job: Get-Locations
@@ -136,7 +138,9 @@ workflows:
       Get-Encounters->Get-Options-Map:
         source_job: Get-Encounters
         target_job: Get-Options-Map
-        condition_type: on_job_success
+        condition_type: js_expression
+        condition_label: has-encounters
+        condition_expression: && !state.errors state.encounters.length > 0
         enabled: true
       Get-Options-Map->Get-TEIs:
         source_job: Get-Options-Map

@@ -1,7 +1,7 @@
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 each(
-  'encounters[*]',
+  '$.encounters[*]',
   get(
     'trackedEntityInstances',
     {
