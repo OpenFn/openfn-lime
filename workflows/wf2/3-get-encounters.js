@@ -1,7 +1,7 @@
 // Fetch encounters from the date of cursor
 // OpenMRS demo instance does not support querying ALL records (q=all)
 // getEncounters({ q: 'Patient', v: 'full', limit: 100 });
-getEncounters({ q: 'MHtwo', v: 'full' });
+getEncounters({ q: 'IQ', v: 'full' });
 
 // Update cursor and return encounters
 fn(state => {
@@ -29,7 +29,7 @@ fn(state => {
 
   console.log(
     '# of new encounters found in OMRS ::',
-    encountersFound.flat().length
+    encountersFound.length
   );
 
   console.log(

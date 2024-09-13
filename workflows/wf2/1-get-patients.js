@@ -13,7 +13,8 @@ fn(state => {
   return state;
 });
 
-searchPatient({ q: 'MHtwo', v: 'full', limit: '3' });
+searchPatient({ q: 'IQ', v: 'full', limit: '100' });
+//searchPatient({ q: 'MHtwo', v: 'full', limit: '3' });
 // searchPatient({ q: 'Patient', v: 'full', limit: '100' });
 //Query all patients (q=all) not supported on demo OpenMRS; needs to be configured
 //...so we query all Patients with name "Patient" instead
@@ -35,7 +36,8 @@ fn(state => {
         ? patient.auditInfo.dateCreated
         : patient.auditInfo.dateChanged) > state.cursor
   );
-  console.log('# of new patients to sync to dhis2 ::', state.patients.length);
+  console.log('# of patients to sync to dhis2 ::', state.patients.length);
+  console.log('uuids of patients to sync to dhis2 ::', state.patients.map(p => p.uuid));
   // console.log(JSON.stringify(patients, null, 2));
 
   state.lastRunDateTime = new Date().toISOString();
