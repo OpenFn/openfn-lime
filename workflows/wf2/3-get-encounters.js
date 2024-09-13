@@ -25,7 +25,7 @@ fn(state => {
     )
   );
 
-  state.encounters = encountersFound.map(encounters => encounters[0]);
+  state.encounters = encountersFound.map(encounters => encounters[0]).filter(e => e);
 
   console.log(
     '# of new encounters found in OMRS ::',

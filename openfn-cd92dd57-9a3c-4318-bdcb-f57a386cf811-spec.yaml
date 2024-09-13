@@ -142,14 +142,14 @@ workflows:
         condition_label: has-encounters
         condition_expression: && !state.errors state.encounters.length > 0
         enabled: true
-      Get-Options-Map->Get-TEIs:
-        source_job: Get-Options-Map
-        target_job: Get-TEIs
-        condition_type: on_job_success
-        enabled: true
       Get-TEIs->Create-Events:
         source_job: Get-TEIs
         target_job: Create-Events
+        condition_type: on_job_success
+        enabled: true
+      Get-Options-Map->Get-TEIs:
+        source_job: Get-Options-Map
+        target_job: Get-TEIs
         condition_type: on_job_success
         enabled: true
       Get-Patients->Mappings:
