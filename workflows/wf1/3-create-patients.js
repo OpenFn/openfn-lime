@@ -182,7 +182,7 @@ fn(state => {
 
 // Creating patients in openMRS
 each(
-  'patients[*]',
+  '$.patients[*]',
   create(
     'patient',
     state => {

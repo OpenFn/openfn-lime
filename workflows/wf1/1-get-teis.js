@@ -17,7 +17,7 @@ get(
   {},
   state => {
     const trackedEntityInstances = state.data.instances
-      .filter(tei => tei.lastUpdated >= state.cursor) //for testing
+      .filter(tei => tei.updatedAt >= state.cursor) //for testing
       //.filter(tei => tei.createdAt > state.cursor) //for prod
       //.slice(0, 1); //to limit 1 for testing
     const offset = 2; // GMT+2 (Geneva time)
