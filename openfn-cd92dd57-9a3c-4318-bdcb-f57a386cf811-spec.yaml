@@ -15,21 +15,21 @@ workflows:
         name: Get Teis
         adaptor: '@openfn/language-dhis2@latest'
         credential: mtuchi@openfn.org-MSF-DHIS2-UAT
-        body: 
+        body:
           path: workflows/wf1/1-get-teis.js
 
       Get-Locations:
         name: Get Locations
         adaptor: '@openfn/language-dhis2@latest'
         credential: mtuchi@openfn.org-MSF-DHIS2-UAT
-        body: 
+        body:
           path: workflows/wf1/2-get-locations.js
 
       Create-Patients:
         name: Create Patients
         adaptor: '@openfn/language-openmrs@latest'
         credential: mtuchi@openfn.org-OpenMRS-Demo
-        body: 
+        body:
           path: workflows/wf1/3-create-patients.js
 
       Update-Teis:
@@ -75,13 +75,6 @@ workflows:
         body:
           path: workflows/wf2/1-get-patients.js
 
-      Mappings:
-        name: Mappings
-        adaptor: '@openfn/language-common@latest'
-        credential: null
-        body:
-          path: workflows/wf2/2-mappings.js
-    
       Upsert-TEIs:
         name: Upsert TEIs
         adaptor: '@openfn/language-dhis2@latest'
@@ -117,6 +110,13 @@ workflows:
         body:
           path: workflows/wf2/6-create-events.js
 
+      Mappings:
+        name: Mappings
+        adaptor: '@openfn/language-common@latest'
+        credential: null
+        body:
+          path: workflows/wf2/2-mappings.js
+
     triggers:
       cron:
         type: cron
@@ -127,16 +127,6 @@ workflows:
         source_trigger: cron
         target_job: Get-Patients
         condition_type: always
-        enabled: true
-      Get-Patients->Mappings:
-        source_job: Get-Patients
-        target_job: Mappings
-        condition_type: on_job_success
-        enabled: true
-      Mappings->Upsert-TEIs:
-        source_job: Mappings
-        target_job: Upsert-TEIs
-        condition_type: on_job_success
         enabled: true
       Upsert-TEIs->Get-Encounters:
         source_job: Upsert-TEIs
@@ -156,5 +146,15 @@ workflows:
       Get-TEIs->Create-Events:
         source_job: Get-TEIs
         target_job: Create-Events
+        condition_type: on_job_success
+        enabled: true
+      Get-Patients->Mappings:
+        source_job: Get-Patients
+        target_job: Mappings
+        condition_type: on_job_success
+        enabled: true
+      Mappings->Upsert-TEIs:
+        source_job: Mappings
+        target_job: Upsert-TEIs
         condition_type: on_job_success
         enabled: true

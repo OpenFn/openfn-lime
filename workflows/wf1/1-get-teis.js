@@ -17,15 +17,18 @@ get(
   {},
   state => {
     const trackedEntityInstances = state.data.instances
-      .filter(tei => tei.createdAt > state.cursor)
-      .slice(0, 1);
+      .filter(tei => tei.lastUpdated >= state.cursor) //for testing
+      //.filter(tei => tei.createdAt > state.cursor) //for prod
+      //.slice(0, 1); //to limit 1 for testing
     const offset = 2; // GMT+2 (Geneva time)
     const currentDateTime = new Date();
     currentDateTime.setHours(currentDateTime.getHours() + offset);
 
     const lastRunDateTime = currentDateTime.toISOString().replace('Z', '');
-
-    console.log('# of TEIs extracted ::', trackedEntityInstances.length);
+    //console.log('TEI payload found before filter ::', JSON.stringify(state.data.instances, null, 2));
+    console.log('# of TEIs found before filter ::', state.data.instances.length);
+    //console.log('lastUpdated of TEI eWXRNHtmHB0 :: ', JSON.stringify(state.data.instances.filter(tei => tei.trackedEntity == 'eWXRNHtmHB0'), null, 2)); 
+    console.log('# of TEIs to migrate to OMRS ::', trackedEntityInstances.length);
     // console.log(
     //   'trackedEntityInstance IDs ::',
     //   trackedEntityInstances.map(tei => tei.trackedEntityInstance)
