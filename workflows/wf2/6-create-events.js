@@ -3,6 +3,22 @@ fn(state => {
   const { TEIs, mhpssMap, mhgapMap } = state;
   const optsMap = JSON.parse(state.optsMap);
 
+  function getRangePhq(input) {
+    if (input >= 0 && input <= 4) {
+      return '0_4';
+    } else if (input >= 5 && input <= 9) {
+      return '5_9';
+    } else if (input >= 10 && input <= 14) {
+      return '10_14';
+    } else if (input >= 15 && input <= 19) {
+      return '15_19';
+    } else if (input >= 20) {
+      return '>20';
+    } else {
+      return '';
+    }
+  }
+
   const dataValuesMapping = (data, formsMap) => {
     return Object.keys(formsMap)
       .map(k => {
@@ -12,14 +28,12 @@ fn(state => {
         const answer = data.obs.find(o => o.concept.uuid === conceptUuid);
 
         if (answer) {
-          if (typeof answer.value === 'string') {
-            value = answer.value;
-          }
           if (typeof answer.value === 'object') {
             value = optsMap.find(
               o => o['value.uuid - External ID'] == answer?.value?.uuid
             )?.['DHIS2 Option Code']; //Changed from 'DHIS2 Option UID'
             if (
+              //mapping: diagnosis done by psychologist
               answer.value.uuid === '278401ee-3d6f-4c65-9455-f1c16d0a7a98' &&
               conceptUuid === '722dd83a-c1cf-48ad-ac99-45ac131ccc96' &&
               dataElement === 'pN4iQH4AEzk'
@@ -30,10 +44,17 @@ fn(state => {
                 o => o['value.uuid - External ID'] == answer?.value?.uuid
               )?.['DHIS2 Option Code']; //Changed from 'DHIS2 Option UID'
             }
+          } else if (
+            typeof answer.value === 'number' &&
+            conceptUuid === '5f3d618e-5c89-43bd-8c79-07e4e98c2f23' &&
+            dataElement === 'tsFOVnlc6lz' //mapping: phq9 score
+          ) {
+            value = getRangePhq(answer.value);
+          } else if (!answer) {
+            value = '';
+          } else {
+            value = answer.value;
           }
-        }
-        if (!answer) {
-          value = '';
         }
         return { dataElement, value };
       })

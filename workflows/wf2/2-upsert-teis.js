@@ -36,7 +36,7 @@ fn(state => {
       {
         orgUnit: 'OPjuJMZFLop',
         program: 'w9MSPn5oSqp',
-        programStage: 'EZJ9FsNau7Q',
+        programStage: 'MdTtRixaC1B',
         enrollmentDate: dateCreated,
       },
     ];
@@ -62,10 +62,9 @@ fn(state => {
           },
           {
             attribute: 'P4wdYGkldeG', //DHIS2 ID ==> "Patient Number"
-            value: findIdentifierByUuid(
-              patient.identifiers,
-              DHIS2_PATIENT_NUMBER
-            ),
+            value:
+              findIdentifierByUuid(patient.identifiers, DHIS2_PATIENT_NUMBER) ||
+              findIdentifierByUuid(patient.identifiers, OPENMRS_AUTO_ID), //map OMRS ID if no DHIS2 id
           },
           {
             attribute: 'ZBoxuExmxcZ', //MSF ID ==> "OpenMRS Patient Number"
@@ -85,7 +84,7 @@ fn(state => {
           },
           {
             attribute: 'WDp4nVor9Z7',
-            value: patient.person.birthdate,
+            value: patient.person.birthdate.slice(0, 9),
           },
           {
             attribute: 'rBtrjV1Mqkz', //Place of living

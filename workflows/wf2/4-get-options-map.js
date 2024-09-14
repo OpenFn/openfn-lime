@@ -1,5 +1,5 @@
 get(
-  'https://gist.githubusercontent.com/aleksa-krolls/b22987f7569bc069e963973401832349/raw/066aae1199723144a1b5b7637a65d469a5b7ccd6/msf_mhBaseline_optionsMap.json'
+  'https://gist.githubusercontent.com/aleksa-krolls/2f309595110239cfcc8251017cf11592/raw/2854f388da1cdbd753eb30705609d6374a5af618/msf_wf2_optionsMap.json'
 ); //ak's gist
 
 fn(state => {
@@ -52,8 +52,8 @@ fn(state => {
     MF3RML0HLbP: 'b2c5b6e0-66f0-4b9d-8576-b6f48e0a06df', //MHOS score
     m8qis4iUOTo: '790b41ce-e1e7-11e8-b02f-0242ac130002', //Past / Precipitating Events - If other, specify
     pN4iQH4AEzk: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Consultation done by //TODO: Return BOOLEAN
+    tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ9 Score
     //qptKDiv9uPl: 'ec42d68d-3e23-43de-b8c5-a03bb538e7c7', //Sex //TODO: Remove TEA?
-    //tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ9 Score //TODO: ass logic
   };
 
   state.mhgapMap = {
