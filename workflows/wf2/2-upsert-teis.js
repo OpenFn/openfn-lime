@@ -84,7 +84,7 @@ fn(state => {
           },
           {
             attribute: 'WDp4nVor9Z7',
-            value: patient.person.birthdate.slice(0, ),
+            value: patient.person.birthdate.slice(0, 10),
           },
           {
             attribute: 'rBtrjV1Mqkz', //Place of living
