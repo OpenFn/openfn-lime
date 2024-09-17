@@ -55,7 +55,7 @@ workflows:
         target_job: Get-Locations
         condition_type: js_expression
         condition_label: has-teis
-        condition_expression: && !state.errors state.trackedEntityInstances.length > 0
+        condition_expression: state.trackedEntityInstances.length > 0
         enabled: true
       Get-Locations->Create-Patients:
         source_job: Get-Locations
@@ -79,14 +79,14 @@ workflows:
 
       Upsert-TEIs:
         name: Upsert TEIs
-        adaptor: '@openfn/language-dhis2@latest'
+        adaptor: '@openfn/language-dhis2@5.0.1'
         credential: mtuchi@openfn.org-MSF-DHIS2-UAT
         body:
           path: workflows/wf2/2-upsert-teis.js
 
       Get-Encounters:
         name: Get Encounters
-        adaptor: '@openfn/language-openmrs@latest'
+        adaptor: '@openfn/language-openmrs@4.0.0'
         credential: mtuchi@openfn.org-OpenMRS-Demo
         body:
           path: workflows/wf2/3-get-encounters.js
@@ -100,14 +100,14 @@ workflows:
 
       Get-TEIs:
         name: Get TEIs
-        adaptor: '@openfn/language-dhis2@latest'
+        adaptor: '@openfn/language-dhis2@5.0.1'
         credential: mtuchi@openfn.org-MSF-DHIS2-UAT
         body:
           path: workflows/wf2/5-get-teis.js
 
       Create-Events:
         name: Create Events
-        adaptor: '@openfn/language-dhis2@latest'
+        adaptor: '@openfn/language-dhis2@5.0.1'
         credential: mtuchi@openfn.org-MSF-DHIS2-UAT
         body:
           path: workflows/wf2/6-create-events.js
@@ -140,7 +140,7 @@ workflows:
         target_job: Get-Options-Map
         condition_type: js_expression
         condition_label: has-encounters
-        condition_expression: && !state.errors state.encounters.length > 0
+        condition_expression: state.encounters.length > 0
         enabled: true
       Get-TEIs->Create-Events:
         source_job: Get-TEIs

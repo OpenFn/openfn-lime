@@ -84,7 +84,7 @@ fn(state => {
           },
           {
             attribute: 'WDp4nVor9Z7',
-            value: patient.person.birthdate.slice(0, 9),
+            value: patient.person.birthdate.slice(0, ),
           },
           {
             attribute: 'rBtrjV1Mqkz', //Place of living
@@ -222,6 +222,8 @@ each(
     }
   )
 );
+
+//console.log('')
 
 // Upsert TEIs to DHIS2
 each(
