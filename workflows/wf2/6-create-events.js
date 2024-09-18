@@ -67,6 +67,7 @@ fn(state => {
       program: 'w9MSPn5oSqp',
       orgUnit: 'OPjuJMZFLop',
       trackedEntityInstance: TEIs[data.patient.uuid],
+      //enrollment: "existing_enrollment_id", //TODO to update existing enrollment
       eventDate,
     };
     if (data.form.uuid === '6a3e1e0e-dd13-3465-b8f5-ee2d42691fe5') {

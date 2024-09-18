@@ -8,6 +8,8 @@ each(
       ou: 'OPjuJMZFLop',
       program: 'w9MSPn5oSqp',
       filter: [`AYbfTPYMNJH:Eq:${$.data.patient.uuid}`],
+      //fields: '*,enrollments[*]' //is this right?
+      //TODO: Add parameter ?fields=*,enrollments[*]
     },
     {},
     async state => {
