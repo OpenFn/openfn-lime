@@ -203,9 +203,9 @@ each(
 each(
   '$.patients[*]',
   get(
-    'trackedEntityInstances',
+    'tracker/trackedEntities',
     {
-      ou: 'OPjuJMZFLop',
+      orgUnit: 'OPjuJMZFLop',
       filter: [`AYbfTPYMNJH:Eq:${$.data.uuid}`],
       program: 'w9MSPn5oSqp',
     },
@@ -213,8 +213,8 @@ each(
     async state => {
       const patient = state.references.at(-1);
       console.log(patient.uuid, 'patient uuid');
-      const { trackedEntityInstances } = state.data;
-      const isNewPatient = trackedEntityInstances.length === 0;
+      const { instances } = state.data;
+      const isNewPatient = instances.length === 0;
 
       state.buildPatientsUpsert(patient, isNewPatient);
       await delay(2000);
@@ -222,8 +222,6 @@ each(
     }
   )
 );
-
-//console.log('')
 
 // Upsert TEIs to DHIS2
 each(

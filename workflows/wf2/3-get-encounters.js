@@ -14,7 +14,7 @@ fn(state => {
   //   JSON.stringify(encountersFound, null, 2)
   // );
   state.formUuids = [
-    //'82db23a1-4eb1-3f3c-bb65-b7ebfe95b19b',
+    '82db23a1-4eb1-3f3c-bb65-b7ebfe95b19b',
     '6a3e1e0e-dd13-3465-b8f5-ee2d42691fe5',
   ];
 
@@ -25,7 +25,9 @@ fn(state => {
     )
   );
 
-  state.encounters = encountersFound.map(encounters => encounters[0]).filter(e => e);
+  state.encounters = encountersFound
+    .map(encounters => encounters[0])
+    .filter(e => e);
 
   console.log(
     '# of new encounters found in OMRS ::',

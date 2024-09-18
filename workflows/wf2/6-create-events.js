@@ -34,15 +34,26 @@ fn(state => {
             )?.['DHIS2 Option Code']; //Changed from 'DHIS2 Option UID'
             if (
               //mapping: diagnosis done by psychologist
-              answer.value.uuid === '278401ee-3d6f-4c65-9455-f1c16d0a7a98' &&
+
               conceptUuid === '722dd83a-c1cf-48ad-ac99-45ac131ccc96' &&
               dataElement === 'pN4iQH4AEzk'
             ) {
-              value = 'TRUE';
+              if (
+                answer.value.uuid === '278401ee-3d6f-4c65-9455-f1c16d0a7a98'
+              ) {
+                value = 'TRUE';
+              } else {
+                value = 'FALSE';
+              }
             } else {
               value = optsMap.find(
                 o => o['value.uuid - External ID'] == answer?.value?.uuid
               )?.['DHIS2 Option Code']; //Changed from 'DHIS2 Option UID'
+              console.log(answer.value.uuid, {
+                dataElement,
+                value,
+                conceptUuid,
+              });
             }
           } else if (
             typeof answer.value === 'number' &&
@@ -63,11 +74,13 @@ fn(state => {
 
   state.encountersMapping = state.encounters.map(data => {
     const eventDate = data.encounterDatetime.replace('+0000', '');
+    const { trackedEntityInstance, enrollment } = TEIs[data.patient.uuid];
+
     const event = {
       program: 'w9MSPn5oSqp',
       orgUnit: 'OPjuJMZFLop',
-      trackedEntityInstance: TEIs[data.patient.uuid],
-      //enrollment: "existing_enrollment_id", //TODO to update existing enrollment
+      trackedEntityInstance,
+      enrollment,
       eventDate,
     };
     if (data.form.uuid === '6a3e1e0e-dd13-3465-b8f5-ee2d42691fe5') {
@@ -112,4 +125,4 @@ each(
 );
 
 // Clean up state
-fn(({ data, references, ...state }) => state);
+// fn(({ data, references, ...state }) => state);
