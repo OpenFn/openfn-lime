@@ -16,7 +16,8 @@ cursor('today', {
   format: c => dateFns.format(new Date(c), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
 });
 
-searchPatient({ q: 'Katrina', v: 'full', limit: '100' });
+searchPatient({ q: 'IQ', v: 'full', limit: '100' });
+//searchPatient({ q: 'Katrina', v: 'full', limit: '100' });
 //Query all patients (q=all) not supported on demo OpenMRS; needs to be configured
 //...so we query all Patients with name "Patient" instead
 
