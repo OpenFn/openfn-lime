@@ -53,7 +53,7 @@
                 "configuration": "../tmp/dhis2-creds.json",
                 "expression": "5-get-teis.js",
                 "next": {
-                    "create-events": "!state.errors"
+                    "create-events": "!state.errors && state.encounters.length > 0"
                 }
             },
             {

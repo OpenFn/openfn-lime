@@ -18,20 +18,6 @@ fn(state => {
       return matchingIdentifier ? matchingIdentifier.identifier : undefined;
     }
 
-    const calculateDOB = age => {
-      const currentDate = new Date();
-      const currentYear = currentDate.getFullYear();
-      const birthYear = currentYear - age;
-
-      const birthday = new Date(
-        birthYear,
-        currentDate.getMonth(),
-        currentDate.getDay()
-      );
-
-      return birthday.toISOString().replace(/\.\d+Z$/, '+0000');
-    };
-
     const enrollments = [
       {
         orgUnit: 'OPjuJMZFLop',
@@ -98,31 +84,33 @@ fn(state => {
                   a =>
                     a.attributeType.uuid ===
                     '24d1fa23-9778-4a8e-9f7b-93f694fc25e2'
-                )?.value.uuid
+                )?.value?.uuid
               ], //input.attributeType = "24d1fa23-9778-4a8e-9f7b-93f694fc25e2"
           },
-          {
-            attribute: 'YUIQIA2ClN6', //current status
-            value:
-              statusMap[
-                patient.person.attributes.find(
-                  a =>
-                    a.attributeType.uuid ===
-                    'e0b6ed99-72c4-4847-a442-e9929eac4a0f'
-                )?.value.uuid
-              ], //input.attributeType = "e0b6ed99-72c4-4847-a442-e9929eac4a0f"
-          },
-          {
-            attribute: 'Qq6xQ2s6LO8', //legal status
-            value:
-              statusMap[
-                patient.person.attributes.find(
-                  a =>
-                    a.attributeType.uuid ===
-                    'a9b2c642-097f-43f8-b96b-4d2f50ffd9b1'
-                )?.value.uuid
-              ], //input.attributeType = "a9b2c642-097f-43f8-b96b-4d2f50ffd9b1"
-          },
+          // TODO:  YUIQIA2ClN6 has an error, Aleksa to ask the client,
+          // {
+          //   attribute: 'YUIQIA2ClN6', //current status
+          //   value:
+          //     statusMap[
+          //       patient.person.attributes.find(
+          //         a =>
+          //           a.attributeType.uuid ===
+          //           'e0b6ed99-72c4-4847-a442-e9929eac4a0f'
+          //       )?.value?.uuid
+          //     ], //input.attributeType = "e0b6ed99-72c4-4847-a442-e9929eac4a0f"
+          // },
+          // TODO: Qq6xQ2s6LO8 has an error, Aleksa to ask the client
+          // {
+          //   attribute: 'Qq6xQ2s6LO8', //legal status
+          //   value:
+          //     statusMap[
+          //       patient.person.attributes.find(
+          //         a =>
+          //           a.attributeType.uuid ===
+          //           'a9b2c642-097f-43f8-b96b-4d2f50ffd9b1'
+          //       )?.value?.uuid
+          //     ], //input.attributeType = "a9b2c642-097f-43f8-b96b-4d2f50ffd9b1"
+          // },
           {
             attribute: 'FpuGAOu6itZ', //marital status
             value:
@@ -131,7 +119,7 @@ fn(state => {
                   a =>
                     a.attributeType.uuid ===
                     '3884dc76-c271-4bcb-8df8-81c6fb897f53'
-                )?.value.uuid
+                )?.value?.uuid
               ], //input.attributeType = "3884dc76-c271-4bcb-8df8-81c6fb897f53"
           },
           {
@@ -142,7 +130,7 @@ fn(state => {
                   a =>
                     a.attributeType.uuid ===
                     'dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e'
-                )?.value.uuid
+                )?.value?.uuid
               ], //input.attributeType = "dd1f7f0f-ccea-4228-9aa8-a8c3b0ea4c3e"
           },
           {
@@ -165,12 +153,14 @@ fn(state => {
 
     return patientsUpsert.push(payload);
   };
+  // const patients = state.patients.slice(0, 1);
 
   return {
     ...state,
     genderOptions,
     patientsUpsert,
     buildPatientsUpsert,
+    references: [],
   };
 });
 
@@ -206,7 +196,7 @@ each(
     'tracker/trackedEntities',
     {
       orgUnit: 'OPjuJMZFLop',
-      filter: [`AYbfTPYMNJH:Eq:${$.data.uuid}`],
+      filter: [`AYbfTPYMNJH:Eq:${$.data?.uuid}`],
       program: 'w9MSPn5oSqp',
     },
     {},
