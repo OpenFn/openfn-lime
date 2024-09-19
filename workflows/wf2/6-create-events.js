@@ -18,8 +18,8 @@ const processObjectAnswer = (
   switch (true) {
     case isDiagnosisByPsychologist(conceptUuid, dataElement):
       return answerValue.uuid === '278401ee-3d6f-4c65-9455-f1c16d0a7a98'
-        ? 'TRUE'
-        : 'FALSE';
+        ? 'true'
+        : 'false';
 
     case matchingOption && Object.keys(matchingOption).length > 0:
       return matchingOption['DHIS2 Option Code'];

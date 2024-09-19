@@ -55,6 +55,7 @@ fn(state => {
     pN4iQH4AEzk: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Consultation done by //TODO: Return BOOLEAN
     tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ9 Score
     //qptKDiv9uPl: 'ec42d68d-3e23-43de-b8c5-a03bb538e7c7', //Sex //TODO: Remove TEA?
+    //sGEOde9q9p9: '0a0c70d2-2ba5-4cb3-941f-b4a9a4a7ec6d', //Location of intervention - If Health Facility, specify //should be?
   };
 
   state.mhgapMap = {
@@ -77,7 +78,7 @@ fn(state => {
     E7MVMTTdvPi: 'b87a93ff-a4a1-4601-b35d-1e42bfa7e194', //Total number of beneficiaries in family consultation
     aCTIvKSNndK: '722dd83a-c1cf-48ad-ac99-45ac131ccc96', //Consultation done by
     UlSJrSD78HS: '82978311-bef9-46f9-9a9a-cc62254b00a6', //Location of intervention
-    sGEOde9q9p9: '0a0c70d2-2ba5-4cb3-941f-b4a9a4a7ec6d', //Location of intervention - If Health Facility, specify
+    sGEOde9q9p9: '0a0c70d2-2ba5-4cb3-941f-b4a9a4a7ec6d', //Location of intervention - If Health Facility, specify //should be?
     LCdm2xe86ln: '41e68dee-a2a3-4e6c-9d96-53def5caff52', //Location of intervention - If MSF Health Facility, specify
     rGS6S4jyKu3: '08cd4b4a-4b0b-4391-987b-b5b3d770d30f', //Location of intervention - If Mobile Clinic, specify
     L6Jj7Tppr5q: 'e08d532b-e56c-43dc-b831-af705654d2dc', //Location of intervention - If other, specify

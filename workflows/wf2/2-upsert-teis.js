@@ -87,30 +87,29 @@ fn(state => {
                 )?.value?.uuid
               ], //input.attributeType = "24d1fa23-9778-4a8e-9f7b-93f694fc25e2"
           },
-          // TODO:  YUIQIA2ClN6 has an error, Aleksa to ask the client,
-          // {
-          //   attribute: 'YUIQIA2ClN6', //current status
-          //   value:
-          //     statusMap[
-          //       patient.person.attributes.find(
-          //         a =>
-          //           a.attributeType.uuid ===
-          //           'e0b6ed99-72c4-4847-a442-e9929eac4a0f'
-          //       )?.value?.uuid
-          //     ], //input.attributeType = "e0b6ed99-72c4-4847-a442-e9929eac4a0f"
-          // },
+          {
+            attribute: 'YUIQIA2ClN6', //current status
+            value:
+              statusMap[
+                patient.person.attributes.find(
+                  a =>
+                    a.attributeType.uuid ===
+                    'e0b6ed99-72c4-4847-a442-e9929eac4a0f'
+                )?.value?.uuid
+              ], //input.attributeType = "e0b6ed99-72c4-4847-a442-e9929eac4a0f"
+          },
           // TODO: Qq6xQ2s6LO8 has an error, Aleksa to ask the client
-          // {
-          //   attribute: 'Qq6xQ2s6LO8', //legal status
-          //   value:
-          //     statusMap[
-          //       patient.person.attributes.find(
-          //         a =>
-          //           a.attributeType.uuid ===
-          //           'a9b2c642-097f-43f8-b96b-4d2f50ffd9b1'
-          //       )?.value?.uuid
-          //     ], //input.attributeType = "a9b2c642-097f-43f8-b96b-4d2f50ffd9b1"
-          // },
+          {
+            attribute: 'Qq6xQ2s6LO8', //legal status
+            value:
+              statusMap[
+                patient.person.attributes.find(
+                  a =>
+                    a.attributeType.uuid ===
+                    'a9b2c642-097f-43f8-b96b-4d2f50ffd9b1'
+                )?.value?.uuid
+              ], //input.attributeType = "a9b2c642-097f-43f8-b96b-4d2f50ffd9b1"
+          },
           {
             attribute: 'FpuGAOu6itZ', //marital status
             value:

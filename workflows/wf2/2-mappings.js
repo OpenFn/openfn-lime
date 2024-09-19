@@ -252,6 +252,7 @@ fn(state => {
     'ce1b0d8d-0a2d-4f93-a6ed-64aca2fd0f45': 'zimbabwe',
   };
   state.statusMap = {
+    '18692c24-4d33-4cdc-a92c-bf4138da5d6d': 'unknown', //Inconnu
     'f921ffdd-72ca-4d58-a89b-1fa2e959d110': 'asylum_seeker',
     '2bacead2-f280-457c-9d28-e80e106f7d25': 'no_status',
     'MSF-AAAAAA000000000000001929': 'refugee',
@@ -273,7 +274,7 @@ fn(state => {
     '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': 'unknown',
     'MSF-AAAAAA000000000000001930': 'idp',
     '515c5abe-4172-4d0c-a991-0de2888228d7': 'internationally_displaced',
-    'bbdb287c-4ba1-4944-bd87-eb126c5f9d92': 'resident',
+    'bbdb287c-4ba1-4944-bd87-eb126c5f9d92': 'non_displaced',
     'fc49acaa-ece2-4365-9dfb-70c2105de8b1': 'returnee',
     '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': 'unknown',
   };

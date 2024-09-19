@@ -171,7 +171,7 @@ fn(state => {
     unknown: '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
     idp: 'MSF-AAAAAA000000000000001930',
     internationally_displaced: '515c5abe-4172-4d0c-a991-0de2888228d7',
-    resident: 'bbdb287c-4ba1-4944-bd87-eb126c5f9d92',
+    non_displaced: 'bbdb287c-4ba1-4944-bd87-eb126c5f9d92',
     returnee: 'fc49acaa-ece2-4365-9dfb-70c2105de8b1',
   };
   return state;
