@@ -270,7 +270,7 @@ fn(state => {
     'MSF-AAAAAA000000000000001870': 'unemployed',
     '9b14b4d4-b749-4acf-acfe-79c480f3c4b3': 'housewife',
     'MSF-AAAAAA000000000000001823': 'not_applicable',
-    'MSF-AAAAAA000000000000001329': 'other',
+    'MSF-AAAAAA000000000000001329': 'unknown',
     '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': 'unknown',
     'MSF-AAAAAA000000000000001930': 'idp',
     '515c5abe-4172-4d0c-a991-0de2888228d7': 'internationally_displaced',
