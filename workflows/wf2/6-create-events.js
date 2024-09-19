@@ -142,22 +142,22 @@ fn(
   }) => state
 );
 
-// Create events fore each encounter
-// each(
-//   '$.encountersMapping[*]',
-//   create(
-//     'events',
-//     state => {
-//       // console.log(state.data);
-//       return state.data;
-//     },
-//     {
-//       params: {
-//         dataElementIdScheme: 'UID',
-//       },
-//     }
-//   )
-// );
+//Create events for each encounter
+each(
+  '$.encountersMapping[*]',
+  create(
+    'events',
+    state => {
+      // console.log(state.data);
+      return state.data;
+    },
+    {
+      params: {
+        dataElementIdScheme: 'UID',
+      },
+    }
+  )
+);
 
 // Clean up state
 // fn(({ data, references, ...state }) => state);

@@ -65,7 +65,7 @@ fn(state => {
     VnXwFYqHNqM: '15748787-7372-4022-b5d4-81ff8d6887ca', //Older adult
     xRuC0NQRqZk: '99a8b512-17f9-4a5d-9fd4-80c27500995b', //Patient already on psychotropic / psychiatric medication (not prescribed by MSF)?
     DCEJHFQvPWa: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ-9 score
-    CcA8pc2YqWz: 'd9454e9c-6e3c-45ab-8a9a-834a9353ae11', //Session number
+    //CcA8pc2YqWz: 'd9454e9c-6e3c-45ab-8a9a-834a9353ae11', //Session number
     TZGKlSVIsN8: '5f6e245c-83fc-421b-8d46-061ac773ae71', //Follow-up required
   };
 
@@ -85,13 +85,13 @@ fn(state => {
     AZUFlZzPN6V: '278d3d1e-c02a-4db1-8ab3-8db3b82eb9b5', //Patient rescheduled
     HNZHetAtowR: 'd34d5e93-03d6-494e-8f4c-2d7221227162', //Reason for missed appointment
     t4HoHWCYdvm: '790b41ce-e1e7-11e8-b02f-0242ac130002', //Reason for missed appointment - If other, specify
-    MF3RML0HLbP: 'b2c5b6e0-66f0-4b9d-8576-b6f48e0a06df', //MHOS score
-    tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ-9 score
+    //MF3RML0HLbP: 'b2c5b6e0-66f0-4b9d-8576-b6f48e0a06df', //MHOS score
+    //tsFOVnlc6lz: '5f3d618e-5c89-43bd-8c79-07e4e98c2f23', //PHQ-9 score
     C5XtlggtVmd: 'a1a75011-0fef-460a-b666-dda2d171f39b', //CGI-S score
     yTFUtaFJ1QU: 'f94de17e-9771-4711-aabb-c5bb0c022be2', //CGI-I score
     F6q03Gan7Ro: '22809b19-54ca-4d88-8d26-9577637c184e', //Clinical diagnosis
     OeA71vAyGZV: '819f79e7-b9af-4afd-85d4-2ab677223113', //Clinical diagnosis - If other, specify
-    OZViJk8FPVd: 'c2664992-8a5a-4a6d-9238-5df591307d55', //Has the patient had thoughts of death or suicide?
+    //OZViJk8FPVd: 'c2664992-8a5a-4a6d-9238-5df591307d55', //Has the patient had thoughts of death or suicide?
     piKsOVnFIXO: 'a6c5188c-29f0-4d3d-8cf5-7852998df86f', //Has the patient attempted suicide or tried to kill themselves?
     llBTRwwM94C: 'abede172-ba87-4ebe-8054-3afadb181ea3', //Is the patient currently at risk of hurting himself/herself or attempting suicide?
     j8IYwKvxK4q: 'ccc4f06c-b76a-440d-9b7e-c48ba2c4a0ab', //Is the patient currently at risk of hurting others?
