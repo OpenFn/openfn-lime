@@ -48,7 +48,7 @@ workflows:
           fn((state) => {
             const isValidValue = value => value !== "" && value !== "NA";
             const optsMap = state.data.filter(o =>
-              isValidValue(o["External ID"]) || isValidValue(o["DHIS2 DE full name"])
+              isValidValue(o["External ID"]) && isValidValue(o["DHIS2 DE full name"])
             )
               .map((o) => {
                 return {
