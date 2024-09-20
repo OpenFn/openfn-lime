@@ -222,11 +222,11 @@
         }
       }
     },
-    "auto-gen-optsmap": {
+    "wf-3-generate-optsmap": {
       "id": "29376a74-d299-4066-9e78-271ca1777734",
-      "name": "auto-gen-optsmap",
-      "inserted_at": "2024-09-20T07:06:55.970405Z",
-      "lock_version": 13,
+      "name": "wf-3-generate-optsmap",
+      "inserted_at": "2024-09-20T10:03:42.512308Z",
+      "lock_version": 25,
       "triggers": {
         "webhook": {
           "enabled": true,
@@ -245,7 +245,7 @@
         "Key-Value-Pair": {
           "id": "ba19bc93-8f07-480f-80df-ee3f0b0d27e0",
           "name": "Key Value Pair",
-          "body": "fn((state) => {\n  const [keys, ...rows] = state.data.values;\n  state.data = rows.map((item) => {\n    const obj = item.reduce((acc, value, idx) => {\n      acc[keys[idx]] = value;\n      return acc;\n    }, {});\n\n    return obj;\n  });\n\n  return state;\n});\n\nfn((state) => {\n  const optsMap = state.data.map((o) => {\n    return {\n      \"value.display - Answers\": o[\"Answers\"],\n      \"value.uuid - External ID\": o[\"External ID\"],\n      \"DHIS2 DE full name\": o[\"DHIS2 DE full name\"],\n      \"DHIS2 DE UID\": o[\"DHIS2 DE UID\"],\n      \"OptionSet name\": o[\"OptionSet name\"],\n      \"DHIS2 Option Set UID\": o[\"DHIS2 Option Set name\"],\n      \"DHIS2 Option name\": o[\"DHIS2 Option name\"],\n      \"DHIS2 Option UID\": o[\"DHIS2 Option UID\"],\n      \"DHIS2 Option Code\": o[\"DHIS2 Option code\"],\n    };\n  });\n\n  return { optsMap };\n});\n",
+          "body": "fn((state) => {\n  const [keys, ...rows] = state.data.values;\n  state.data = rows.map((item) => {\n    const obj = item.reduce((acc, value, idx) => {\n      acc[keys[idx]] = value;\n      return acc;\n    }, {});\n\n    return obj;\n  });\n\n  return state;\n});\n\nfn((state) => {\n  const isValidValue = value => value !== \"\" && value !== \"NA\";\n  const optsMap = state.data.filter(o =>\n    isValidValue(o[\"External ID\"]) || isValidValue(o[\"DHIS2 DE full name\"])\n  )\n    .map((o) => {\n      return {\n        \"value.display - Answers\": o[\"Answers\"],\n        \"value.uuid - External ID\": o[\"External ID\"],\n        \"DHIS2 DE full name\": o[\"DHIS2 DE full name\"],\n        \"DHIS2 DE UID\": o[\"DHIS2 DE UID\"],\n        \"OptionSet name\": o[\"OptionSet name\"],\n        \"DHIS2 Option Set UID\": o[\"DHIS2 Option Set name\"],\n        \"DHIS2 Option name\": o[\"DHIS2 Option name\"],\n        \"DHIS2 Option UID\": o[\"DHIS2 Option UID\"],\n        \"DHIS2 Option Code\": o[\"DHIS2 Option code\"],\n      };\n    })\n\n  return { optsMap };\n});\n",
           "adaptor": "@openfn/language-common@latest",
           "project_credential_id": null
         }

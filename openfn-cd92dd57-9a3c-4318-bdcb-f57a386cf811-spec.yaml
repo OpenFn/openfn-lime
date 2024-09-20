@@ -11,8 +11,8 @@ credentials:
     name: googlesheets (mtuchi@openfn.org)-2
     owner: mtuchi@openfn.org
 workflows:
-  auto-gen-optsmap:
-    name: auto-gen-optsmap
+  wf-3-generate-optsmap:
+    name: wf-3-generate-optsmap
     jobs:
       Fetch-OptionSets-Metadata:
         name: Fetch OptionSets Metadata
@@ -46,19 +46,23 @@ workflows:
           });
 
           fn((state) => {
-            const optsMap = state.data.map((o) => {
-              return {
-                "value.display - Answers": o["Answers"],
-                "value.uuid - External ID": o["External ID"],
-                "DHIS2 DE full name": o["DHIS2 DE full name"],
-                "DHIS2 DE UID": o["DHIS2 DE UID"],
-                "OptionSet name": o["OptionSet name"],
-                "DHIS2 Option Set UID": o["DHIS2 Option Set name"],
-                "DHIS2 Option name": o["DHIS2 Option name"],
-                "DHIS2 Option UID": o["DHIS2 Option UID"],
-                "DHIS2 Option Code": o["DHIS2 Option code"],
-              };
-            });
+            const isValidValue = value => value !== "" && value !== "NA";
+            const optsMap = state.data.filter(o =>
+              isValidValue(o["External ID"]) || isValidValue(o["DHIS2 DE full name"])
+            )
+              .map((o) => {
+                return {
+                  "value.display - Answers": o["Answers"],
+                  "value.uuid - External ID": o["External ID"],
+                  "DHIS2 DE full name": o["DHIS2 DE full name"],
+                  "DHIS2 DE UID": o["DHIS2 DE UID"],
+                  "OptionSet name": o["OptionSet name"],
+                  "DHIS2 Option Set UID": o["DHIS2 Option Set name"],
+                  "DHIS2 Option name": o["DHIS2 Option name"],
+                  "DHIS2 Option UID": o["DHIS2 Option UID"],
+                  "DHIS2 Option Code": o["DHIS2 Option code"],
+                };
+              })
 
             return { optsMap };
           });
