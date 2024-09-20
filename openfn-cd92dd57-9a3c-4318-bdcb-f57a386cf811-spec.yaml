@@ -7,7 +7,77 @@ credentials:
   mtuchi@openfn.org-OpenMRS-Demo:
     name: OpenMRS Demo
     owner: mtuchi@openfn.org
+  mtuchi@openfn.org-googlesheets-(mtuchi@openfn.org)-2:
+    name: googlesheets (mtuchi@openfn.org)-2
+    owner: mtuchi@openfn.org
 workflows:
+  auto-gen-optsmap:
+    name: auto-gen-optsmap
+    jobs:
+      Fetch-OptionSets-Metadata:
+        name: Fetch OptionSets Metadata
+        adaptor: '@openfn/language-googlesheets@latest'
+        credential: mtuchi@openfn.org-googlesheets-(mtuchi@openfn.org)-2
+        body: |
+          
+          // Check out the Job Writing Guide for help getting started:
+          // https://docs.openfn.org/documentation/jobs/job-writing-guide
+          // https://docs.google.com/spreadsheets/d/1ofcPq3ypPKMLSFi7_v77N_nNr7-2WqupEPPTVJboYns/edit?gid=485975775#gid=485975775
+
+          getValues('1ofcPq3ypPKMLSFi7_v77N_nNr7-2WqupEPPTVJboYns', 'LIME EMR - Iraq Metadata - Release 1(OptionSets)!A:BT')
+
+      Key-Value-Pair:
+        name: Key Value Pair
+        adaptor: '@openfn/language-common@latest'
+        credential: null
+        body: |
+          fn((state) => {
+            const [keys, ...rows] = state.data.values;
+            state.data = rows.map((item) => {
+              const obj = item.reduce((acc, value, idx) => {
+                acc[keys[idx]] = value;
+                return acc;
+              }, {});
+
+              return obj;
+            });
+
+            return state;
+          });
+
+          fn((state) => {
+            const optsMap = state.data.map((o) => {
+              return {
+                "value.display - Answers": o["Answers"],
+                "value.uuid - External ID": o["External ID"],
+                "DHIS2 DE full name": o["DHIS2 DE full name"],
+                "DHIS2 DE UID": o["DHIS2 DE UID"],
+                "OptionSet name": o["OptionSet name"],
+                "DHIS2 Option Set UID": o["DHIS2 Option Set name"],
+                "DHIS2 Option name": o["DHIS2 Option name"],
+                "DHIS2 Option UID": o["DHIS2 Option UID"],
+                "DHIS2 Option Code": o["DHIS2 Option code"],
+              };
+            });
+
+            return { optsMap };
+          });
+
+    triggers:
+      webhook:
+        type: webhook
+        enabled: true
+    edges:
+      webhook->Fetch-OptionSets-Metadata:
+        source_trigger: webhook
+        target_job: Fetch-OptionSets-Metadata
+        condition_type: always
+        enabled: true
+      Fetch-OptionSets-Metadata->Key-Value-Pair:
+        source_job: Fetch-OptionSets-Metadata
+        target_job: Key-Value-Pair
+        condition_type: on_job_success
+        enabled: true
   wf1-dhis2-omrs-migration:
     name: wf1-dhis2-omrs-migration
     jobs:
