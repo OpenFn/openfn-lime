@@ -7,8 +7,8 @@ credentials:
   mtuchi@openfn.org-OpenMRS-Demo:
     name: OpenMRS Demo
     owner: mtuchi@openfn.org
-  mtuchi@openfn.org-googlesheets-(mtuchi@openfn.org)-2:
-    name: googlesheets (mtuchi@openfn.org)-2
+  "mtuchi@openfn.org-googlesheets-(mtuchi@openfn.org)-2":
+    name: 'googlesheets (mtuchi@openfn.org)-2'
     owner: mtuchi@openfn.org
 workflows:
   wf-3-generate-optsmap:
@@ -17,7 +17,7 @@ workflows:
       Fetch-OptionSets-Metadata:
         name: Fetch OptionSets Metadata
         adaptor: '@openfn/language-googlesheets@latest'
-        credential: mtuchi@openfn.org-googlesheets-(mtuchi@openfn.org)-2
+        credential: 'mtuchi@openfn.org-googlesheets-(mtuchi@openfn.org)-2'
         body: |
           
           // Check out the Job Writing Guide for help getting started:
@@ -70,7 +70,7 @@ workflows:
     triggers:
       webhook:
         type: webhook
-        enabled: true
+        enabled: false
     edges:
       webhook->Fetch-OptionSets-Metadata:
         source_trigger: webhook
@@ -108,7 +108,7 @@ workflows:
 
       Update-Teis:
         name: Update Teis
-        adaptor: '@openfn/language-dhis2@latest'
+        adaptor: '@openfn/language-dhis2@5.0.1'
         credential: mtuchi@openfn.org-MSF-DHIS2-UAT
         body:
           path: workflows/wf1/4-update-teis.js
@@ -216,23 +216,23 @@ workflows:
         condition_label: has-encounters
         condition_expression: state.encounters.length > 0
         enabled: true
-      Get-TEIs->Create-Events:
-        source_job: Get-TEIs
-        target_job: Create-Events
-        condition_type: on_job_success
-        enabled: true
       Get-Options-Map->Get-TEIs:
         source_job: Get-Options-Map
         target_job: Get-TEIs
         condition_type: on_job_success
         enabled: true
-      Get-Patients->Mappings:
-        source_job: Get-Patients
-        target_job: Mappings
+      Get-TEIs->Create-Events:
+        source_job: Get-TEIs
+        target_job: Create-Events
         condition_type: on_job_success
         enabled: true
       Mappings->Upsert-TEIs:
         source_job: Mappings
         target_job: Upsert-TEIs
+        condition_type: on_job_success
+        enabled: true
+      Get-Patients->Mappings:
+        source_job: Get-Patients
+        target_job: Mappings
         condition_type: on_job_success
         enabled: true

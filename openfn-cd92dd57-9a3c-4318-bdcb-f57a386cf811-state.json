@@ -25,67 +25,21 @@
   "history_retention_period": null,
   "dataclip_retention_period": null,
   "retention_policy": "retain_all",
+  "requires_mfa": false,
   "workflows": {
     "wf2-omrs-dhis2": {
       "id": "0f8ec062-1a2d-4f13-a8c5-b8298004512c",
       "name": "wf2-omrs-dhis2",
-      "edges": {
-        "cron->Get-Patients": {
-          "enabled": true,
-          "id": "7d239f46-635e-4b7f-8706-6a3d08d473db",
-          "source_trigger_id": "51283b68-c07a-4d85-854c-c2e6e93af041",
-          "condition_type": "always",
-          "target_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca"
-        },
-        "Upsert-TEIs->Get-Encounters": {
-          "enabled": true,
-          "id": "79ca3ec3-641f-4167-8fe3-a96c40cc9954",
-          "source_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
-          "condition_type": "on_job_success",
-          "target_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9"
-        },
-        "Get-Encounters->Get-Options-Map": {
-          "enabled": true,
-          "id": "e0c3565e-a875-429c-8ce3-138df39fdf4c",
-          "source_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9",
-          "condition_type": "js_expression",
-          "condition_expression": "state.encounters.length > 0",
-          "condition_label": "has-encounters",
-          "target_job_id": "175ac575-ea3d-470e-8faf-61de514e222e"
-        },
-        "Get-Options-Map->Get-TEIs": {
-          "enabled": true,
-          "id": "eb6bf369-19b8-4608-86a7-95935831ee6e",
-          "source_job_id": "175ac575-ea3d-470e-8faf-61de514e222e",
-          "condition_type": "on_job_success",
-          "condition_expression": "!state.errors && state.encounters.length > 0",
-          "target_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3"
-        },
-        "Get-TEIs->Create-Events": {
-          "enabled": true,
-          "id": "32b04529-a796-461c-8a0a-a5e543ef535e",
-          "source_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
-          "condition_type": "on_job_success",
-          "target_job_id": "932645d8-ddb8-4d00-841e-7fe7af214837"
-        },
-        "Mappings->Upsert-TEIs": {
-          "enabled": true,
-          "id": "5619b87c-685d-45b7-b2b6-ef598018d360",
-          "source_job_id": "79b58ab5-cb0a-44a5-b230-776b4016464a",
-          "condition_type": "on_job_success",
-          "target_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57"
-        },
-        "Get-Patients->Mappings": {
-          "enabled": true,
-          "id": "65613153-275c-4897-a6ad-256ad818358c",
-          "source_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
-          "condition_type": "on_job_success",
-          "target_job_id": "79b58ab5-cb0a-44a5-b230-776b4016464a"
+      "inserted_at": "2024-09-22T18:01:28.077727Z",
+      "lock_version": 153,
+      "triggers": {
+        "cron": {
+          "enabled": false,
+          "id": "51283b68-c07a-4d85-854c-c2e6e93af041",
+          "type": "cron",
+          "cron_expression": "0 0 * * *"
         }
       },
-      "concurrency": null,
-      "inserted_at": "2024-09-06T11:58:48Z",
-      "updated_at": "2024-09-22T18:01:28Z",
       "jobs": {
         "Get-Patients": {
           "id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
@@ -137,56 +91,74 @@
           "project_credential_id": null
         }
       },
-      "deleted_at": null,
-      "lock_version": 153,
-      "triggers": {
-        "cron": {
-          "enabled": false,
-          "id": "51283b68-c07a-4d85-854c-c2e6e93af041",
-          "type": "cron",
-          "cron_expression": "0 0 * * *"
+      "edges": {
+        "cron->Get-Patients": {
+          "enabled": true,
+          "id": "7d239f46-635e-4b7f-8706-6a3d08d473db",
+          "source_trigger_id": "51283b68-c07a-4d85-854c-c2e6e93af041",
+          "condition_type": "always",
+          "target_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca"
+        },
+        "Upsert-TEIs->Get-Encounters": {
+          "enabled": true,
+          "id": "79ca3ec3-641f-4167-8fe3-a96c40cc9954",
+          "source_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
+          "condition_type": "on_job_success",
+          "target_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9"
+        },
+        "Get-Encounters->Get-Options-Map": {
+          "enabled": true,
+          "id": "e0c3565e-a875-429c-8ce3-138df39fdf4c",
+          "source_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9",
+          "condition_expression": "state.encounters.length > 0",
+          "condition_type": "js_expression",
+          "condition_label": "has-encounters",
+          "target_job_id": "175ac575-ea3d-470e-8faf-61de514e222e"
+        },
+        "Get-Options-Map->Get-TEIs": {
+          "enabled": true,
+          "id": "eb6bf369-19b8-4608-86a7-95935831ee6e",
+          "source_job_id": "175ac575-ea3d-470e-8faf-61de514e222e",
+          "condition_expression": "!state.errors && state.encounters.length > 0",
+          "condition_type": "on_job_success",
+          "target_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3"
+        },
+        "Get-TEIs->Create-Events": {
+          "enabled": true,
+          "id": "32b04529-a796-461c-8a0a-a5e543ef535e",
+          "source_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
+          "condition_type": "on_job_success",
+          "target_job_id": "932645d8-ddb8-4d00-841e-7fe7af214837"
+        },
+        "Mappings->Upsert-TEIs": {
+          "enabled": true,
+          "id": "5619b87c-685d-45b7-b2b6-ef598018d360",
+          "source_job_id": "79b58ab5-cb0a-44a5-b230-776b4016464a",
+          "condition_type": "on_job_success",
+          "target_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57"
+        },
+        "Get-Patients->Mappings": {
+          "enabled": true,
+          "id": "65613153-275c-4897-a6ad-256ad818358c",
+          "source_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
+          "condition_type": "on_job_success",
+          "target_job_id": "79b58ab5-cb0a-44a5-b230-776b4016464a"
         }
       }
     },
     "wf1-dhis2-omrs-migration": {
       "id": "94e04fb5-d5ae-45ad-be31-98b902f36861",
       "name": "wf1-dhis2-omrs-migration",
-      "edges": {
-        "cron->Get-Teis": {
-          "enabled": true,
-          "id": "f54f198a-5fa1-4ee0-803f-35316e32ab92",
-          "source_trigger_id": "0e7d525f-c24a-4969-8131-397cc94a6065",
-          "condition_type": "always",
-          "target_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5"
-        },
-        "Get-Teis->Get-Locations": {
-          "enabled": true,
-          "id": "dd4d3b24-f3c2-4162-895e-970aea5a50dc",
-          "source_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5",
-          "condition_type": "js_expression",
-          "condition_expression": "state.trackedEntityInstances.length > 0",
-          "condition_label": "has-teis",
-          "target_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07"
-        },
-        "Get-Locations->Create-Patients": {
-          "enabled": true,
-          "id": "e80f8963-3c31-48cc-8df4-6b6dd89fd616",
-          "source_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07",
-          "condition_type": "on_job_success",
-          "condition_expression": "!state.errors && state.trackedEntityInstances.length > 0",
-          "target_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc"
-        },
-        "Create-Patients->Update-Teis": {
-          "enabled": true,
-          "id": "eb140757-c73f-4f9f-83d6-0ac0c76cf4da",
-          "source_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc",
-          "condition_type": "on_job_success",
-          "target_job_id": "eed2a687-7ef3-4a38-819e-d50319874d03"
+      "inserted_at": "2024-09-25T07:56:14.841577Z",
+      "lock_version": 40,
+      "triggers": {
+        "cron": {
+          "enabled": false,
+          "id": "0e7d525f-c24a-4969-8131-397cc94a6065",
+          "type": "cron",
+          "cron_expression": "0 0 * * *"
         }
       },
-      "concurrency": null,
-      "inserted_at": "2024-09-10T16:34:04Z",
-      "updated_at": "2024-09-19T10:03:43Z",
       "jobs": {
         "Get-Teis": {
           "id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5",
@@ -213,43 +185,56 @@
           "id": "eed2a687-7ef3-4a38-819e-d50319874d03",
           "name": "Update Teis",
           "body": "fn(state => {\n  if (state.newPatientUuid.length === 0) {\n    console.log('No data fetched in step prior to sync.');\n  }\n\n  console.log(\n    'newPatientUuid ::',\n    JSON.stringify(state.newPatientUuid, null, 2)\n  );\n  return state;\n});\n\n// Update TEI on DHIS2\neach(\n  'newPatientUuid[*]',\n  upsert(\n    'trackedEntityInstances',\n    state => ({\n      ou: 'OPjuJMZFLop',\n      program: 'w9MSPn5oSqp',\n      filter: [`P4wdYGkldeG:Eq:${state.data.patient_number}`],\n    }),\n    {\n      orgUnit: 'OPjuJMZFLop',\n      program: 'w9MSPn5oSqp',\n      trackedEntityType: 'cHlzCA2MuEF',\n      attributes: [\n        { attribute: 'P4wdYGkldeG', value: `${$.data.patient_number}` }, //DHIS2 patient number to use as lookup key\n        { attribute: 'AYbfTPYMNJH', value: `${$.data.patient.uuid}` }, //OMRS patient uuid\n        {\n          attribute: 'ZBoxuExmxcZ',\n          value: `${$.data.patient.identifier[0].identifier}`,\n        }, //id generated in wf1-2 e.g., \"IQ146-24-000-027\"\n      ],\n    }\n  )\n);\n",
-          "adaptor": "@openfn/language-dhis2@latest",
+          "adaptor": "@openfn/language-dhis2@5.0.1",
           "project_credential_id": "8a5ead9b-5f9e-49b1-9e9a-9dc3c4ccf72d"
         }
       },
-      "deleted_at": null,
-      "lock_version": 39,
-      "triggers": {
-        "cron": {
-          "enabled": false,
-          "id": "0e7d525f-c24a-4969-8131-397cc94a6065",
-          "type": "cron",
-          "cron_expression": "0 0 * * *"
+      "edges": {
+        "cron->Get-Teis": {
+          "enabled": true,
+          "id": "f54f198a-5fa1-4ee0-803f-35316e32ab92",
+          "source_trigger_id": "0e7d525f-c24a-4969-8131-397cc94a6065",
+          "condition_type": "always",
+          "target_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5"
+        },
+        "Get-Teis->Get-Locations": {
+          "enabled": true,
+          "id": "dd4d3b24-f3c2-4162-895e-970aea5a50dc",
+          "source_job_id": "be724c80-92c8-4fa9-8c3a-d28c5a298fd5",
+          "condition_expression": "state.trackedEntityInstances.length > 0",
+          "condition_type": "js_expression",
+          "condition_label": "has-teis",
+          "target_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07"
+        },
+        "Get-Locations->Create-Patients": {
+          "enabled": true,
+          "id": "e80f8963-3c31-48cc-8df4-6b6dd89fd616",
+          "source_job_id": "2c1dc59e-c8c0-409d-813f-d0eb3f812a07",
+          "condition_expression": "!state.errors && state.trackedEntityInstances.length > 0",
+          "condition_type": "on_job_success",
+          "target_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc"
+        },
+        "Create-Patients->Update-Teis": {
+          "enabled": true,
+          "id": "eb140757-c73f-4f9f-83d6-0ac0c76cf4da",
+          "source_job_id": "fd21a322-aca4-404f-8b5c-93f5f23336fc",
+          "condition_type": "on_job_success",
+          "target_job_id": "eed2a687-7ef3-4a38-819e-d50319874d03"
         }
       }
     },
     "wf-3-generate-optsmap": {
       "id": "29376a74-d299-4066-9e78-271ca1777734",
       "name": "wf-3-generate-optsmap",
-      "edges": {
-        "webhook->Fetch-OptionSets-Metadata": {
-          "enabled": true,
-          "id": "0bbc2e2f-b56f-463e-85f6-fefb2c15bfe3",
-          "source_trigger_id": "f970fb25-0dd8-4a90-80ef-aa95b11d6277",
-          "condition_type": "always",
-          "target_job_id": "ad22c664-8138-4536-8e57-7c5d90139c62"
-        },
-        "Fetch-OptionSets-Metadata->Key-Value-Pair": {
-          "enabled": true,
-          "id": "1a95d2d5-7d2f-4608-80cc-ec0df2a0ffd7",
-          "source_job_id": "ad22c664-8138-4536-8e57-7c5d90139c62",
-          "condition_type": "on_job_success",
-          "target_job_id": "ba19bc93-8f07-480f-80df-ee3f0b0d27e0"
+      "inserted_at": "2024-09-25T10:58:00.992755Z",
+      "lock_version": 28,
+      "triggers": {
+        "webhook": {
+          "enabled": false,
+          "id": "f970fb25-0dd8-4a90-80ef-aa95b11d6277",
+          "type": "webhook"
         }
       },
-      "concurrency": null,
-      "inserted_at": "2024-09-20T06:13:22Z",
-      "updated_at": "2024-09-22T18:01:28Z",
       "jobs": {
         "Fetch-OptionSets-Metadata": {
           "id": "ad22c664-8138-4536-8e57-7c5d90139c62",
@@ -266,16 +251,22 @@
           "project_credential_id": null
         }
       },
-      "deleted_at": null,
-      "lock_version": 27,
-      "triggers": {
-        "webhook": {
+      "edges": {
+        "webhook->Fetch-OptionSets-Metadata": {
           "enabled": true,
-          "id": "f970fb25-0dd8-4a90-80ef-aa95b11d6277",
-          "type": "webhook"
+          "id": "0bbc2e2f-b56f-463e-85f6-fefb2c15bfe3",
+          "source_trigger_id": "f970fb25-0dd8-4a90-80ef-aa95b11d6277",
+          "condition_type": "always",
+          "target_job_id": "ad22c664-8138-4536-8e57-7c5d90139c62"
+        },
+        "Fetch-OptionSets-Metadata->Key-Value-Pair": {
+          "enabled": true,
+          "id": "1a95d2d5-7d2f-4608-80cc-ec0df2a0ffd7",
+          "source_job_id": "ad22c664-8138-4536-8e57-7c5d90139c62",
+          "condition_type": "on_job_success",
+          "target_job_id": "ba19bc93-8f07-480f-80df-ee3f0b0d27e0"
         }
       }
     }
-  },
-  "requires_mfa": false
+  }
 }
