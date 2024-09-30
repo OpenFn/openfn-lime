@@ -3,7 +3,7 @@
   "name": "msf-lime-iraq",
   "description": null,
   "inserted_at": "2024-09-05T06:59:05Z",
-  "updated_at": "2024-09-30T06:38:38Z",
+  "updated_at": "2024-09-30T08:22:58Z",
   "scheduled_deletion": null,
   "project_credentials": {
     "mtuchi@openfn.org-OpenMRS-Demo": {
@@ -41,7 +41,9 @@
           "enabled": true,
           "id": "79ca3ec3-641f-4167-8fe3-a96c40cc9954",
           "source_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57",
-          "condition_type": "on_job_success",
+          "condition_expression": "state.patientUuids.length > 0 && !state.errors",
+          "condition_type": "js_expression",
+          "condition_label": "has-patient-uuids",
           "target_job_id": "8fb577e5-d068-4d47-8172-81f08153ced9"
         },
         "Get-Encounters->Get-Options-Map": {
@@ -53,6 +55,13 @@
           "condition_label": "has-encounters",
           "target_job_id": "175ac575-ea3d-470e-8faf-61de514e222e"
         },
+        "Get-TEIs->Create-Events": {
+          "enabled": true,
+          "id": "32b04529-a796-461c-8a0a-a5e543ef535e",
+          "source_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
+          "condition_type": "on_job_success",
+          "target_job_id": "932645d8-ddb8-4d00-841e-7fe7af214837"
+        },
         "Get-Options-Map->Get-TEIs": {
           "enabled": true,
           "id": "eb6bf369-19b8-4608-86a7-95935831ee6e",
@@ -61,12 +70,14 @@
           "condition_type": "on_job_success",
           "target_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3"
         },
-        "Get-TEIs->Create-Events": {
+        "Get-Patients->Mappings": {
           "enabled": true,
-          "id": "32b04529-a796-461c-8a0a-a5e543ef535e",
-          "source_job_id": "99e52cef-d4f2-4c5e-8718-e240bb3deab3",
-          "condition_type": "on_job_success",
-          "target_job_id": "932645d8-ddb8-4d00-841e-7fe7af214837"
+          "id": "65613153-275c-4897-a6ad-256ad818358c",
+          "source_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
+          "condition_expression": "state.patients.length > 0 && !state.errors",
+          "condition_type": "js_expression",
+          "condition_label": "has-patients",
+          "target_job_id": "79b58ab5-cb0a-44a5-b230-776b4016464a"
         },
         "Mappings->Upsert-TEIs": {
           "enabled": true,
@@ -74,18 +85,11 @@
           "source_job_id": "79b58ab5-cb0a-44a5-b230-776b4016464a",
           "condition_type": "on_job_success",
           "target_job_id": "6973c510-b36d-4c42-82f5-b26d8cd36a57"
-        },
-        "Get-Patients->Mappings": {
-          "enabled": true,
-          "id": "65613153-275c-4897-a6ad-256ad818358c",
-          "source_job_id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
-          "condition_type": "on_job_success",
-          "target_job_id": "79b58ab5-cb0a-44a5-b230-776b4016464a"
         }
       },
       "concurrency": null,
       "inserted_at": "2024-09-06T11:58:48Z",
-      "updated_at": "2024-09-30T06:38:38Z",
+      "updated_at": "2024-09-30T08:22:58Z",
       "jobs": {
         "Get-Patients": {
           "id": "ab326112-9cdd-4449-8611-b5abc659d4ca",
@@ -138,7 +142,7 @@
         }
       },
       "deleted_at": null,
-      "lock_version": 162,
+      "lock_version": 163,
       "triggers": {
         "cron": {
           "enabled": false,
