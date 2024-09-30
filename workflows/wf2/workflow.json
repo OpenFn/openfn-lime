@@ -6,7 +6,7 @@
                 "adaptor": "openmrs",
                 "configuration": "../tmp/openmrs-creds.json",
                 "state": {
-                    "lastRunDateTime": "2024-09-16T00:00:00.000Z"
+                    "lastRunDateTime": "2024-09-30T12:00:00.000Z"
                 },
                 "expression": "1-get-patients.js",
                 "next": {
@@ -27,7 +27,7 @@
                 "configuration": "../tmp/dhis2-creds.json",
                 "expression": "2-upsert-teis.js",
                 "next": {
-                    "get-encounters": "!state.errors"
+                    "get-encounters": "!state.errors && state.patientUuids.length > 0"
                 }
             },
             {

@@ -207,7 +207,9 @@ workflows:
       Upsert-TEIs->Get-Encounters:
         source_job: Upsert-TEIs
         target_job: Get-Encounters
-        condition_type: on_job_success
+        condition_type: js_expression
+        condition_label: has-patient-uuids
+        condition_expression: state.patientUuids.length > 0 && !state.errors
         enabled: true
       Get-Encounters->Get-Options-Map:
         source_job: Get-Encounters
@@ -234,5 +236,7 @@ workflows:
       Get-Patients->Mappings:
         source_job: Get-Patients
         target_job: Mappings
-        condition_type: on_job_success
+        condition_type: js_expression
+        condition_label: has-patients
+        condition_expression: state.patients.length > 0 && !state.errors
         enabled: true
