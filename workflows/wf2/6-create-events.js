@@ -96,15 +96,17 @@ fn(state => {
 
   state.formMaps = {
     '82db23a1-4eb1-3f3c-bb65-b7ebfe95b19b': {
-      //mhgap baseline*
+      //formName: mhgap baseline*
       programStage: 'EZJ9FsNau7Q',
       dataValueMap: mhgapMap,
     },
     '6a3e1e0e-dd13-3465-b8f5-ee2d42691fe5': {
+      //formName: mhpss baseline
       programStage: 'MdTtRixaC1B',
       dataValueMap: mhpssMap,
     },
     'be8c12f9-e6fd-369a-9bc7-46a191866f15': {
+      //formName: mhpss followup
       programStage: 'eUCtSH80vMe',
       dataValueMap: mhpssFollowup,
     },
