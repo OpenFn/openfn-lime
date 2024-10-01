@@ -92,7 +92,8 @@ const dataValuesMapping = (data, dataValueMap, optsMap) => {
 };
 
 fn(state => {
-  const { mhpssFollowup, mhpssMap, mhgapMap } = state;
+  const { mhpssMap, mhpssFollowup, mhpssClosure, mhgapMap, mhgapFollowup } =
+    state;
 
   state.formMaps = {
     '82db23a1-4eb1-3f3c-bb65-b7ebfe95b19b': {
@@ -109,6 +110,16 @@ fn(state => {
       //formName: mhpss followup
       programStage: 'eUCtSH80vMe',
       dataValueMap: mhpssFollowup,
+    },
+    '48577ac5-d9c0-3000-9bac-075409b38336': {
+      //formName: mhgap followup
+      programStage: 'hjHwYnSfJnX',
+      dataValueMap: mhgapFollowup,
+    },
+    'ee6b1b06-3163-334a-8538-be69250af727': {
+      //formName: mhpss closure
+      programStage: 'xrCTheIzyDV',
+      dataValueMap: mhpssClosure,
     },
   };
   return state;
