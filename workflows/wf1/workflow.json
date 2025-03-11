@@ -15,8 +15,14 @@
                 "configuration": "../tmp/dhis2-creds.json",
                 "expression": "2-get-teis-and-locations.js",
                 "next": {
+                    "alert-admin": "state.duplicatePatients.length > 0 && !state.errors",
                     "create-patients": "state.uniqueTeis.length > 0 && !state.errors"
                 }
+            },
+            {
+                "id": "alert-admin",
+                "adaptor": "common",
+                "expression": "3-alert-admin.js"
             },
             {
                 "id": "create-patients",

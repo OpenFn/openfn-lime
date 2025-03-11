@@ -64,6 +64,13 @@ workflows:
         credential: michael.bontyes@geneva.msf.org-openmrs
         body:
           path: workflows/wf1/3-create-patients.js
+      
+      Alert-Admin:
+        name: Alert Admin
+        adaptor: '@openfn/language-common@latest'
+        credential: null
+        body:
+          path: workflows/wf1/3-alert-admin.js
 
       Update-Teis:
         name: Update Teis
@@ -95,6 +102,15 @@ workflows:
         condition_label: has-teis
         condition_expression: |
           state.uniqueTeis.length > 0 && !state.errors
+
+        enabled: true
+      Get-Teis-and-Locations->Alert-Admin:
+        source_job: Get-Teis-and-Locations
+        target_job: Alert-Admin
+        condition_type: js_expression
+        condition_label: has-duplicate-patients
+        condition_expression: |
+          state.duplicatePatients.length > 0 && !state.errors
 
         enabled: true
       Create-Patients->Update-Teis:
