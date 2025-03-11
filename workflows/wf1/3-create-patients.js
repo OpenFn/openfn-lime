@@ -1,31 +1,30 @@
 //Define gender options and prepare newPatientUuid and identifiers
 fn(state => {
-  const { teis } = state;
-  if (teis.length > 0)
-    console.log('# of TEIs to send to OpenMRS: ', teis.length);
-  if (teis.length === 0) console.log('No data fetched in step prior to sync.');
+  const { uniqueTeis } = state;
+  if (uniqueTeis.length > 0)
+    console.log('# of TEIs to send to OpenMRS: ', uniqueTeis.length);
+  if (uniqueTeis.length === 0)
+    console.log('No data fetched in step prior to sync.');
 
   return state;
 });
 
 //First we generate a unique OpenMRS ID for each patient
 each(
-  $.teis,
+  $.uniqueTeis,
   post(
-    'idgen/identifiersource/8549f706-7e85-4c1d-9424-217d50a2988b/identifier',
-    {},
-    state => {
-      state.identifiers ??= [];
-      state.identifiers.push(state.data.identifier);
-      return state;
-    }
-  )
+    'idgen/identifiersource/8549f706-7e85-4c1d-9424-217d50a2988b/identifier'
+  ).then(state => {
+    state.identifiers ??= [];
+    state.identifiers.push(state.data.identifier);
+    return state;
+  })
 );
 
-// Then we map teis to openMRS data model
+// Then we map uniqueTeis to openMRS data model
 fn(state => {
   const {
-    teis,
+    uniqueTeis,
     nationalityMap,
     genderOptions,
     identifiers,
@@ -38,9 +37,8 @@ fn(state => {
     return result ? result.value : undefined;
   };
 
-
   const calculateDOB = age => {
-    if (!age) return age
+    if (!age) return age;
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const birthYear = currentYear - age;
@@ -54,8 +52,9 @@ fn(state => {
     return birthday.toISOString().replace(/\.\d+Z$/, '+0000');
   };
 
-  state.patients = teis.map((d, i) => {
-    const patientNumber = getValueForCode(d.attributes, 'patient_number') || d.trackedEntity; // Add random number for testing + Math.random()
+  state.patients = uniqueTeis.map((d, i) => {
+    const patientNumber =
+      getValueForCode(d.attributes, 'patient_number') || d.trackedEntity; // Add random number for testing + Math.random()
 
     const lonlat = d.attributes.find(a => a.attribute === 'rBtrjV1Mqkz')?.value;
     const location = lonlat
@@ -89,7 +88,8 @@ fn(state => {
             value,
           };
         }
-      }).filter(Boolean);
+      })
+      .filter(Boolean);
 
     return {
       patientNumber,
@@ -98,9 +98,9 @@ fn(state => {
         gender: genderOptions[getValueForCode(d.attributes, 'sex')] ?? 'U',
         birthdate:
           d.attributes.find(a => a.attribute === 'WDp4nVor9Z7')?.value ??
-            calculateDOB(getValueForCode(d.attributes, 'age')),
-            // d.attributes.find(a => a.attribute === 'WDp4nVor9Z7')?.value ?
-            // calculateDOB(getValueForCode(d.attributes, 'age')) : '1900-01-01',
+          calculateDOB(getValueForCode(d.attributes, 'age')),
+        // d.attributes.find(a => a.attribute === 'WDp4nVor9Z7')?.value ?
+        // calculateDOB(getValueForCode(d.attributes, 'age')) : '1900-01-01',
         birthdateEstimated: d.attributes.find(
           a => a.attribute === 'WDp4nVor9Z7'
         )
@@ -163,10 +163,14 @@ each(
     },
     state => {
       state.newPatientUuid ??= [];
-     //console.log('state.references ::', state.references)
+      //console.log('state.references ::', state.references)
       state.newPatientUuid.push({
         patient_number: state.references.at(-1)?.patientNumber,
-        omrs_patient_number: state.references.at(-1)?.identifiers.find(i => i.identifierType=`${state.openmrsAutoId}`),
+        omrs_patient_number: state.references
+          .at(-1)
+          ?.identifiers.find(
+            i => (i.identifierType = `${state.openmrsAutoId}`)
+          ),
         uuid: state.data.uuid,
       });
       return state;
