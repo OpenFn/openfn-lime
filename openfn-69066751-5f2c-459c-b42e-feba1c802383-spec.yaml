@@ -94,7 +94,7 @@ workflows:
         condition_type: js_expression
         condition_label: has-teis
         condition_expression: |
-          state.teis.length > 0 && !state.errors
+          state.uniqueTeis.length > 0 && !state.errors
 
         enabled: true
       Create-Patients->Update-Teis:

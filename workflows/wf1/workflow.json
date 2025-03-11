@@ -5,9 +5,6 @@
                 "id": "fetch-metadata",
                 "adaptor": "http",
                 "expression": "1-fetch-metadata.js",
-                "state": {
-                    "manualCursor": "2024-06-04"
-                },
                 "next": {
                     "get-teis": "!state.errors"
                 }
@@ -18,7 +15,7 @@
                 "configuration": "../tmp/dhis2-creds.json",
                 "expression": "2-get-teis-and-locations.js",
                 "next": {
-                    "create-patients": "!state.errors"
+                    "create-patients": "state.uniqueTeis.length > 0 && !state.errors"
                 }
             },
             {
@@ -27,7 +24,7 @@
                 "configuration": "../tmp/openmrs-creds.json",
                 "expression": "3-create-patients.js",
                 "next": {
-                    "update-teis": true
+                    "update-teis": "!state.errors"
                 }
             },
             {
